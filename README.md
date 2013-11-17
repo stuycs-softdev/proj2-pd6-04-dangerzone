@@ -1,9 +1,7 @@
-proj2-pd6-04-dangerzone
-=======================
+OmniThinker
+===========
 
 *Project:* BUILD WEBSITE COMBINING IDEAS ON TOPIC SELECTED.
-
-*OmniThinker:* 
 
 Our project features an interactive but clean writing and brainstorming tool that allows users to
 insert a genre and then start typing. As the user starts typing, suggestions pop up on a right hand
