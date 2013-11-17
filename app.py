@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request, render_template
 
-from omnithinker import server
+from omnithinker.server import Server
 
 app = Flask(__name__)
 
@@ -21,5 +21,9 @@ def test():
     return render_template("ben-socket-test.html")
 
 if __name__ == "__main__":
-    server.start(host="0.0.0.0", port=5001)
-    app.run(host="0.0.0.0", port=5000)
+    server = Server(host="0.0.0.0", port=5001)
+    try:
+        server.start()
+        app.run(host="0.0.0.0", port=5000)
+    finally:
+        server.stop()
