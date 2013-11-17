@@ -1,9 +1,9 @@
 body {
     background-image:url('http://www.ommwriter.com/images/bg4.jpg');
-    background-size: 1950px 950px; 
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;  
+    background-position: center;
 }
 
 .hero {
@@ -17,7 +17,7 @@ body {
     }
     .hero h1 {
         font-size: 4em;
-        font-weight: 300;    
+        font-weight: 300;
         margin: 0;
         padding: 0;
         color: #01A9DB;
@@ -50,13 +50,13 @@ body {
 p1 {
     font-family: "serif", Palatino, serif;
     font-style: oblique;
-    font-size: 125%; 
+    font-size: 125%;
 }
 
 p2 {
     font-family: "serif", Palatino, serif;
     font-style: italic;
-    font-size: 125%; 
+    font-size: 125%;
     text-align:justify;
 }
 
@@ -65,7 +65,7 @@ p2 {
 }
 
 .pure-button {
-    color: white; 
+    color: white;
     background: rgb(66, 184, 221);
 }
 
