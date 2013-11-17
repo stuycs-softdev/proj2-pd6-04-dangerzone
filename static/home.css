@@ -4,7 +4,6 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    font-family: "omnes-pro", sans-serif;
 }
 
 .hero {
@@ -40,6 +39,7 @@ body {
     margin-bottom: 50px;
     line-height: 1.6em;
     text-align:justify;
+    font-family: "omnes-pro", sans-serif;
 }
 
 .content-subhead {
@@ -49,15 +49,19 @@ body {
 }
 
 p1 {
+    font-family: "omnes-pro", sans-serif;
     font-size: 125%;
+    font-style: oblique; 
 }
 
 p2 {
+    font-family: "omnes-pro", sans-serif;
     font-size: 125%;
     text-align:justify;
 }
 
 .pure-button {
+    font-family: "omnes-pro", sans-serif;
     color: white;
     background: rgb(66, 184, 221);
 }
