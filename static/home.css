@@ -1,3 +1,7 @@
+html {
+    font-family: "omnes-pro", sans-serif;
+}
+
 body {
     background-image:url('http://www.ommwriter.com/images/bg4.jpg');
     background-size: cover;
@@ -48,20 +52,12 @@ body {
 }
 
 p1 {
-    font-family: "serif", Palatino, serif;
-    font-style: oblique;
     font-size: 125%;
 }
 
 p2 {
-    font-family: "serif", Palatino, serif;
-    font-style: italic;
     font-size: 125%;
     text-align:justify;
-}
-
-.pure-form {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .pure-button {
