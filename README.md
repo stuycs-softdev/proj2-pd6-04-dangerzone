@@ -1,15 +1,24 @@
 proj2-pd6-04-dangerzone
 =======================
 
+<<<<<<< HEAD
 Project: BUILD WEBSITE POOLING TOGETHER IDEAS ON TOPIC SELECTED.
 
 OmniThinker: 
 Our project features an interactive writing tool that allows users type and read pointers/ideas on
 on what they write. As the user starts typing, suggestions pop up on a right hand toolbar of the window.
+=======
+*Project:* BUILD WEBSITE COMBINING IDEAS ON TOPIC SELECTED.
+
+*OmniThinker:* 
+
+Our project features an interactive but clean writing and brainstorming tool that allows users to insert a genre and then
+start typing. As the user starts typing, suggestions pop up on a right hand toolbar of the window.
+>>>>>>> ab88116e95f1be8e117253864d03625d3fa088e4
 The genre chosen will have various points relating to it pop up on the toolbar, which the user can
 click on to expand or contract (+ and -).
 
-On expanding, the user decides whether the information is relevant or irrelevant to the topic at hand.
+On expanding, the user decides whether the information is relevant to the topic at hand. 
 As the user writes and uses the suggestions from the toolbar, more options pop up on the toolbar, offering 
 more advice and possible points to hit on in the course of writing. The information presented in the toolbar 
 features common sources from Google, Wikipedia and DuckDuckGo's API. By maintaining a socket connection between
@@ -32,12 +41,13 @@ As the user selects and uses the information in a topic, other ideas pop onto th
 Cool Feature: If time permits, we are thinking of connecting keystrokes to musical notes, such that one can use 
 OmniThinker with Jazzical, Piano, or other instrumental notes accompanying the creative thinking. 
 
-Role Division:
+*Role Division:*
 
-Aaron Coppa: DuckDuckGo API 
-Edric Huang: FrontEnd Web Design
-Ben Kurtovic: Wikipedia API
-Jing Lin: Google API
++ Aaron Coppa: DuckDuckGo API 
++ Edric Huang: FrontEnd Web Design
++ Ben Kurtovic: Wikipedia API
++ Jing Lin: Google API
+
 
 Data
 ----
