@@ -1,20 +1,14 @@
 proj2-pd6-04-dangerzone
 =======================
 
-<<<<<<< HEAD
-Project: BUILD WEBSITE POOLING TOGETHER IDEAS ON TOPIC SELECTED.
-
-OmniThinker: 
-Our project features an interactive writing tool that allows users type and read pointers/ideas on
-on what they write. As the user starts typing, suggestions pop up on a right hand toolbar of the window.
-=======
 *Project:* BUILD WEBSITE COMBINING IDEAS ON TOPIC SELECTED.
 
 *OmniThinker:* 
 
-Our project features an interactive but clean writing and brainstorming tool that allows users to insert a genre and then
-start typing. As the user starts typing, suggestions pop up on a right hand toolbar of the window.
->>>>>>> ab88116e95f1be8e117253864d03625d3fa088e4
+Our project features an interactive but clean writing and brainstorming tool that allows users to
+insert a genre and then start typing. As the user starts typing, suggestions pop up on a right hand
+toolbar of the window.
+
 The genre chosen will have various points relating to it pop up on the toolbar, which the user can
 click on to expand or contract (+ and -).
 
