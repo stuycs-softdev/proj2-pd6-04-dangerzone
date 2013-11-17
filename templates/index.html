@@ -8,6 +8,7 @@
 
   <link rel="stylesheet" href="/static/home.css">
   <link rel="stylesheet" href="/static/pure-min.css">
+  <link rel="stylesheet" href="/static/modal.css">
 
 </head>
 
@@ -17,11 +18,38 @@
 
     <ul>
       <li><a href="">Home</a></li>
-      <li><a href="/login">Login</a></li>
+      <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
       <li><a href="/register">Register</a></li>
     </ul>
   </div>
+
+  <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h1 id="myModalLabel"> Login </h1> 
+    </div>
+    <div class="modal-body"> 
+      <p>
+	Welcome back to OmniThinker! <br> Enter your username and password below to login.
+      </p>
+
+      <form class="pure-form pure-form-stacked">
+	<label for="username"> Username </label>
+	<input id="username" type="text" placeholder="Username"> 
+
+	<label for="password"> Password </label>
+	<input id="password" type="password" placeholder="Password"> 
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="pure-button pure-button-primary"> Login </button>
+      <button class="pure-button pure-button-secondary"> Register </button>
+      <button class="pure-button" data-dismiss="modal" aria-hidden="true"> Close </button>
+    </div>
+  </div>
   
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
   <div class="hero">
     <div class = "hero-titles">
       <h1> OmniThinker </h1>
