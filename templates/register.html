@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta charset="utf-8">
+
+  <title> OmniThinker </title>
+
+  <link rel="stylesheet" href="../static/home.css">
+  <link rel="stylesheet" href="../static/pure-min.css">
+  <link rel="stylesheet" href="../static/modal.css">
+
+</head>
+
+<body>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <a href="" class="pure-menu-heading">OmniThinker</a>
+
+    <ul>
+      <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
+      <li><a href="/write">Write Anonymously</a></li>
+    </ul>
+  </div>
+
+  <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h1 id="myModalLabel"> Login </h1> 
+    </div>
+    <div class="modal-body"> 
+      <p>
+	Welcome back to OmniThinker! <br> Enter your username and password below to login.
+      </p>
+
+      <form class="pure-form pure-form-stacked">
+	<label for="username"> Username </label>
+	<input id="username" type="text" placeholder="Username"> 
+
+	<label for="password"> Password </label>
+	<input id="password" type="password" placeholder="Password"> 
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="pure-button pure-button-primary"> Login </button>
+      <button class="pure-button" data-dismiss="modal" aria-hidden="true"> Return </button>
+    </div>
+  </div>
+  
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+  
+  <div class="hero">
+    <div class = "hero-titles">
+      <h1> Register </h1>
+      <h2> Join the OmniThinking Community. </h2>
+    </div>
+  </div>
+  
+  <div class="pure-g-r">
+    <div class="pure-u-1-5">
+    </div>
+    <div class="pure-u-2-5">
+      <form class="pure-form pure-form-aligned"> 
+	<fieldset>
+	  <div class="pure-control-group">
+	    <label for="username"> Username </label>
+	    <input id="username" type="text" placeholder="Username">
+	  </div>
+	  <div class="pure-control-group">
+	    <label for "e-mail"> E-mail Address </label>
+	    <input id="e-mail" type="text" placeholder="Password">
+	  </div> 
+	  <div class="pure-control-group">
+	    <label for "password"> Password </label>
+	    <input id="password" type="password" placeholder="Password">
+	  </div> 
+	  <div class="pure-control-group">
+	    <label for "securityq"> Security Question </label> 
+	    <select id="securityq">
+	      <option> </option>
+	      <option> blahblahblah? </option>
+	      <option> blahblahblahblah? </option>
+	      <option> blahblahblahblahblah> </option>
+	    </select>
+	  </div>
+	  <div class="pure-control-group">
+	    <label for "securitya"> Security Answer </label>
+	    <input id="securitya" type="text" placeholder="Answer the Question">
+	  </div>
+	  <div class="pure-controls">
+	    <button type="submit" href="" class="pure-button pure-button-primary"> Register </button> 
+	  </div>
+	</fieldset>
+      </form> 
+    </div>
+    <div class="pure-u-2-5">
+      <!-- fake testimonies or something -->
+      <h2> I will style this part later and may create a diff css for this page. </h2>
+      blahblahblahblahblahblahblahblahblahblah
+      blahblahblahblahblahblahblahblahblahblah
+      blahblahblahblahblahblahblahblahblahblah
+      blahblahblahblahblahblahblahblahblahblah
+    </div>
+  </div>
+  
+</body>
+</html>
