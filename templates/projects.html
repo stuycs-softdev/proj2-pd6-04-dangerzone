@@ -1,0 +1,75 @@
+<!doctype html> 
+
+<head>
+
+  <meta charset="utf-8">
+  <title> Projects Page </title>
+
+  <link rel="stylesheet" href="../static/sidebar.css">
+  <link rel="stylesheet" href="../static/pure-min.css">
+  <link rel="stylesheet" href="../static/modal.css">
+
+</head>
+
+<body>
+  
+  <div class="pure-g-r" id="layout">
+    
+    <div class="sidebar pure-u">
+      <header class="header">
+	<hgroup>
+	  <h1 class="sidebar-title"> OmniThinker </h1>
+	  <h2 class="sidebar-tagline"> Your Thoughts </h2>
+	</hgroup>
+
+	<nav class="nav">
+	  <ul class="nav-list">
+	    <li class="nav-item">
+	      <a class="pure-button" href="/write"> New Project </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="pure-button" href="#logoutModal" data-toggle="modal"> Logout </a> 
+	    </li>
+	  </ul>
+	</nav>
+      </header>
+    </div>
+    
+    <div id="logoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header" letter-spacing="2px">
+	<h1 id="myModalLabel"> Logout </h1> 
+      </div>
+      <div class="modal-body" letter-spacing="2px"> 
+	<p>
+	  Are you sure you would like to logout? 
+	</p>
+      </div>
+      <div class="modal-footer">
+	<button class="pure-button pure-button-primary" href=""> Yes </button>
+	<button class="pure-button" data-dismiss="modal" aria-hidden="true"> No </button>
+      </div>
+    </div>
+    
+    <script src="../static/jquery-1.9.1.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+    
+    <div class="hero">
+      <div class = "hero-titles">
+	<h1> {{Username}}'s Projects </h1>
+      </div>
+    </div>
+    
+    <div class="pure-u-1" align="center">
+      <form class="pure-form">
+	<input type="text" class="pure-input-2-3" placeholder="Search for a project...">
+	<button type="submit" class="pure-button"> Search </button>
+      </form>
+      <div class="content" align="left">
+	
+      </div>
+    </div>
+  </div>
+  
+</body>
+
+</html>
