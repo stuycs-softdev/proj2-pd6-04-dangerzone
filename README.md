@@ -56,3 +56,5 @@ Data
 - http://en.wikipedia.org/w/api.php (Wiki)
 - https://duckduckgo.com/api (DuckDuckGo)
 - https://code.google.com/apis/console/?pli=1 (Google)
+(MAYBE extra feature)
+-https://www.programmableweb.com/api/easybib
