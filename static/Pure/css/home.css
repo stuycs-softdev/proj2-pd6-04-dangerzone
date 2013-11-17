@@ -1,0 +1,75 @@
+body {
+    background-image:url('http://www.ommwriter.com/images/bg4.jpg');
+    background-size: 1950px 950px; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;  
+}
+
+.hero {
+    text-align: center;
+    margin: 6em auto 3em;
+    border-bottom: 2px solid #eee;
+}
+    .hero-titles {
+        font-family: "omnes-pro", sans-serif;
+        padding: 0 2em;
+    }
+    .hero h1 {
+        font-size: 4em;
+        font-weight: 300;    
+        margin: 0;
+        padding: 0;
+        color: #01A9DB;
+    }
+    .hero h2 {
+        font-size: 100;
+        font-weight: 200;
+        color: #848484;
+        padding: 0;
+        margin-top: 0;
+        margin: 0.02em 0 0.8em;
+
+    }
+
+.content {
+    margin: 0 auto;
+    padding: 0 2em;
+    max-width: 800px;
+    margin-bottom: 50px;
+    line-height: 1.6em;
+    text-align:justify;
+}
+
+.content-subhead {
+    margin: 50px 0 20px 0;
+    font-weight: 300;
+    color: #888;
+}
+
+p1 {
+    font-family: "serif", Palatino, serif;
+    font-style: oblique;
+    font-size: 125%; 
+}
+
+p2 {
+    font-family: "serif", Palatino, serif;
+    font-style: italic;
+    font-size: 125%; 
+    text-align:justify;
+}
+
+.pure-form {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.pure-button {
+    color: white; 
+    background: rgb(66, 184, 221);
+}
+
+.pure-button:hover {
+    background: #2E9AFE;
+}
+
