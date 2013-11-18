@@ -1,9 +1,13 @@
 from flask import Flask
 from flask import request, render_template
+from flask_sockets import Sockets
 
-from omnithinker.server import Server
+from omnithinker import neuter_monkey
+from omnithinker.connection import Connection
 
 app = Flask(__name__)
+sockets = Sockets(app)
+neuter_monkey()
 
 # Home page
 @app.route("/")
@@ -20,10 +24,11 @@ def write():
 def test():
     return render_template("ben-socket-test.html")
 
-if __name__ == "__main__":
-    server = Server(host="0.0.0.0", port=5001)
+@sockets.route("/socket")
+def websocket(socket):
+    conn = Connection(socket)
+    conn.setup()
     try:
-        server.start()
-        app.run(host="0.0.0.0", port=5000)
+        conn.handle()
     finally:
-        server.stop()
+        conn.finish()

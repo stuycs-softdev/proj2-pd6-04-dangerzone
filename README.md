@@ -49,6 +49,21 @@ instrumental notes accompanying the creative thinking.
 + Ben Kurtovic: Wikipedia API
 + Jing Lin: Google API
 
+Installing
+----------
+
+    pip install virtualenv
+    virtualenv env
+    source env/bin/activate
+    pip install cython git+git://github.com/surfly/gevent.git@1.0rc3#egg=gevent flask Flask-Sockets gunicorn
+
+Running
+-------
+
+    source env/bin/activate
+    gunicorn -w 4 -k flask_sockets.worker app:app
+
+Now go to [http://localhost:8000](http://localhost:8000).
 
 Data
 ----

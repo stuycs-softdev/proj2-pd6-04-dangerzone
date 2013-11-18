@@ -1,19 +1,15 @@
 from datetime import datetime
-from SocketServer import BaseRequestHandler, TCPServer, ThreadingMixIn
-from threading import Thread
 
 from .document import Document
 from .protocol import *
 
 __all__ = ["Server"]
 
-class ThreadedTCPServer(ThreadingMixIn, TCPServer):
-    """Implements a TCP server that creates threads to handle connections."""
-    pass
-
-
-class RequestHandler(BaseRequestHandler):
+class Connection(object):
     """Handles an open connection between the server and the JS client."""
+
+    def __init__(self, socket):
+        self.socket = socket
 
     def _debug(self, event, data):
         """Send a debug message to the terminal."""
@@ -29,7 +25,7 @@ class RequestHandler(BaseRequestHandler):
         """Send data to the client."""
         data = (verb + " " + payload) if payload else verb
         self._debug("SEND", data)
-        self.request.sendall(data + "\n")
+        self.socket.send(data + "\n")
 
     def _handle_state_waiting(self, verb, chunk):
         """Handle input from the client when in the "waiting" state."""
@@ -71,8 +67,7 @@ class RequestHandler(BaseRequestHandler):
 
     def setup(self):
         """Set up the connection."""
-        self._client = "{0}:{1}".format(self.client_address[0],
-                                        self.client_address[1])
+        self._client = id(self.socket)
         self._status = STATE_WAITING
         self._document = None
         self._debug("INFO", "Connection opened.")
@@ -81,36 +76,17 @@ class RequestHandler(BaseRequestHandler):
         """Handle the main server/client connection loop."""
         pending = ""
         while self._status != STATE_CLOSING:
-            data = self.request.recv(1024)
+            data = self.socket.receive()
             if not data:
                 break
             chunks = data.split("\n")
             pending += chunks.pop()
             for chunk in chunks:
-                if chunk:
-                    self._handle_chunk(chunk)
+                if chunk.strip():
+                    self._handle_chunk(chunk.strip())
 
     def finish(self):
         """Close the connection and save all data."""
         if self._document:
             self._document.save()
         self._debug("INFO", "Connection closed.")
-
-
-class Server(object):
-    """Manages the OmniThinker Python<->JS server."""
-    SCHEME = "omnithinker"
-
-    def __init__(self, host, port):
-        self._host, self._port = host, port
-        self._server = ThreadedTCPServer((host, port), RequestHandler)
-
-    def start(self):
-        msg_template = " * Running on {0}://{1}:{2}/"
-        print msg_template.format(self.SCHEME, self._host, self._port)
-        thread = Thread(target=self._server.serve_forever)
-        thread.daemon = True
-        thread.start()
-
-    def stop(self):
-        self._server.shutdown()
