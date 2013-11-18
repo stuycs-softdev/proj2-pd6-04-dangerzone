@@ -10,7 +10,7 @@ class Connection(object):
 
     def __init__(self, socket):
         self._socket = socket
-        self._client = id(self._socket)
+        self._client = "%04d" % (id(self._socket) % 10000)
         self._state = STATE_WAITING
         self._document = None
 
