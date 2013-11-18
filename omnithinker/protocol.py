@@ -15,5 +15,5 @@ SVERB_BYE = "GOODBYE"
 SVERB_INVALID = "INVALID"
 
 # Human-readable server replies
-REPLY_INVALID = "Bad request."
+REPLY_INVALID = "Bad transmission."
 REPLY_CLOSING = "Cannot receive data when connection is closing."

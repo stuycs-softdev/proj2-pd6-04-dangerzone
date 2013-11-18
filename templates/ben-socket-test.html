@@ -1,58 +1,57 @@
 <html>
     <head>
-        <title>Socket Test</title>
+        <title>Ben's Socket Test</title>
         <script language="javascript" type="text/javascript">
-            var wsUri = "ws://localhost:8000/socket";
+            var URL = "ws://localhost:8000/socket";
             var output;
 
+            function write(message) {
+                var p = document.createElement("p");
+                p.innerHTML = message;
+                output.appendChild(p);
+            }
+
             function init() {
+                var socket = new WebSocket(URL);
                 output = document.getElementById("output");
-                testWebSocket();
-            }
 
-            function testWebSocket() {
-                websocket = new WebSocket(wsUri);
-                websocket.onopen = function(evt) { onOpen(evt) };
-                websocket.onclose = function(evt) { onClose(evt) };
-                websocket.onmessage = function(evt) { onMessage(evt) };
-                websocket.onerror = function(evt) { onError(evt) };
-            }
+                function send(message) {
+                    write("SENT: " + message);
+                    socket.send(message);
+                }
 
-            function onOpen(evt) {
-                writeToScreen("CONNECTED");
-                doSend("WebSocket rocks");
-            }
+                socket.onopen = function(event) {
+                    write("CONNECTED");
+                    send("HELLO");
+                };
 
-            function onClose(evt) {
-                writeToScreen("DISCONNECTED");
-            }
+                socket.onclose = function(evt) {
+                    write("DISCONNECTED");
+                };
 
-            function onMessage(evt) {
-                writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-                websocket.close();
+                socket.onmessage = function(evt) {
+                    write('<span style="color: blue;">RECEIVED: ' + evt.data + "</span>");
+                    if (evt.data == "READY") {
+                        send('UPDATE {"title": "Foo"}');
+                    }
+                    else if (evt.data == "OK") {
+                        send("BYE")
+                    }
+                    else if (evt.data == "GOODBYE") {
+                        socket.close();
+                    }
+                };
 
-            }
-            function onError(evt) {
-                writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-            }
-
-            function doSend(message) {
-                writeToScreen("SENT: " + message);
-                websocket.send(message);
-            }
-
-            function writeToScreen(message) {
-                var pre = document.createElement("p");
-                pre.style.wordWrap = "break-word";
-                pre.innerHTML = message;
-                output.appendChild(pre);
+                socket.onerror = function(evt) {
+                    write('<span style="color: red;">ERROR:</span> ' + evt.data);
+                };
             }
 
             window.addEventListener("load", init, false);
         </script>
     </head>
-    <body>
-        <h2>WebSocket Test</h2>
-        <div id="output"></div>
+    <body style="max-width: 1000px; margin: 1em auto 0 auto;">
+        <h2>Ben's Socket Test</h2>
+        <div id="output" style="font-family: monospace; background-color:#FAFAFA;"></div>
     </body>
 </html>

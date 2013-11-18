@@ -27,7 +27,6 @@ def test():
 @sockets.route("/socket")
 def websocket(socket):
     conn = Connection(socket)
-    conn.setup()
     try:
         conn.handle()
     finally:
