@@ -54,27 +54,24 @@ class Connection(object):
             self._state = STATE_CLOSING
             self._send(SVERB_INVALID, REPLY_INVALID)
 
-    def _handle_state_closing(self, verb, data):
-        """Handle input from the client when in the "closing" state."""
-        # Dumb client talking while we're closing the connection?
-        self._send(SVERB_INVALID, REPLY_CLOSING)
-
     def handle(self):
         """Handle the main server/client connection loop."""
         while self._state != STATE_CLOSING:
             data = self._socket.receive()
-            if not data:
+            if data is None:
                 self._state = STATE_CLOSING
                 break
             data = data.strip()
             self._log("RECV", data)
+            if not data:
+                self._state = STATE_CLOSING
+                self._send(SVERB_INVALID, REPLY_INVALID)
+                break
             verb = data.split()[0]
             if self._state == STATE_WAITING:
                 self._handle_state_waiting(verb, data)
             elif self._state == STATE_READY:
                 self._handle_state_ready(verb, data)
-            elif self._state == STATE_CLOSING:
-                self._handle_state_closing(verb, data)
 
     def finish(self):
         """Close the connection and save all data."""

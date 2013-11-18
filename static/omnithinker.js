@@ -24,6 +24,7 @@ function init() {
 
     socket.onclose = function(evt) {
         display('<span style="color: brown;">DISCONNECTED</span>');
+        $("#options").hide();
     };
 
     socket.onmessage = function(evt) {
@@ -51,7 +52,6 @@ function init() {
 
     $("#disconnect").click(function() {
         send("BYE");
-        $("#options").hide();
     });
 }
 
