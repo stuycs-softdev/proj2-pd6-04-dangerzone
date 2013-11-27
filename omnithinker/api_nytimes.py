@@ -18,10 +18,10 @@ def FindArticles(Topic):
     reponse = urlopen(url)
     Json_Data = json.loads(response.read())
 
-    NYT_Filter = dict('Title':, 'Text':, 'URL', 'Topics':)
+    NYT_Filter = {'Title' : ' ', 'Text' : ' ', 'URL' : ' ', 'Topics' : ' '}
     for x in docs:
-    NYT_Filter['Title'] = NYT_Filter['Title'] + ' ' + Json_Data['docs']['headline'][0]
-    NYT_Filter['Text'] = Json_Data['docs']['lead_paragraph']
+        NYT_Filter['Title'] = NYT_Filter['Title'] + ' ' + Json_Data['docs']['headline'][0]
+        NYT_Filter['Text'] = Json_Data['docs']['lead_paragraph']
     return Json_Data
 
 if __name__ == '__main__':
