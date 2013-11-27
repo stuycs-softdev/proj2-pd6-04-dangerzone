@@ -37,6 +37,15 @@ def createDefaultBox(topic):
     #Try to get links
     #Best option is nytimes
     link1 = nyt.getArticle() #Returns tuple headline, link
-    if not link:
-        link =
+    link2 = duckduckgo.getLink()
+    #Let's see if we can get an image link
+    imgLink = duckduckgo.getImage()
+
+def createPersonBox(name):
+    #We're going to use wiki here
+    wiki = wikipedia()
+    bday = wiki.getBday()
+    dday = wiki.getDday()
+    #Maybe profession?
+    #Place of birth / categories
 
