@@ -25,7 +25,7 @@ def FindArticles(Topic):
 
     for x in Json_Data["response"]["docs"]:
         URL.append(x["web_url"])
-        TITLE.append(x["headline"]["print_headline"])
+        TITLE.append(x["headline"]["main"])
         SNIPPET.append(x["snippet"])
 
     print(URL)
