@@ -21,7 +21,6 @@ def getCategory(topic):
 def createDefaultBox(topic):
     #try to get definition
     box = {}
-    box['Title'] = topic
 
     #Init the different api objects
     duck = duckduckgo()
@@ -36,16 +35,40 @@ def createDefaultBox(topic):
     
     #Try to get links
     #Best option is nytimes
-    link1 = nyt.getArticle() #Returns tuple headline, link
-    link2 = duckduckgo.getLink()
+    linkNY = nyt.getArticle() #Returns tuple headline, link
+    linkDDG = duckduckgo.getLink()
     #Let's see if we can get an image link
     imgLink = duckduckgo.getImage()
+
+    box = {}
+    box['Keyword'] = topic
+    if linkNY != "":
+        box['NyLink'] = linkNY 
+    if linkDDG != "":
+        box['DuckLink'] = linkDDG
+
+    if imgLink != "":
+        box['Image'] = imgLink
 
 def createPersonBox(name):
     #We're going to use wiki here
     wiki = wikipedia()
     bday = wiki.getBday()
-    dday = wiki.getDday()
+    dday = wiki.getDday() #Return Alive maybe?
     #Maybe profession?
+    profession = wiki.getProfession()
     #Place of birth / categories
+    imgLink = duck.getImage()
+    
+
+    box = {}
+    box['Keyword'] = topic
+    if bday != "":
+        box['Bday'] = bday
+    if dday != "":
+        box['Dday'] = dday
+    if profession != "":
+        box['Profession'] = profession
+    if imgLink != "":
+        box['Image'] = imgLink
 
