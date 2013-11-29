@@ -20,16 +20,21 @@ def FindArticles(Topic):
 
     URL = list()
     TITLE = list()
-    Snippet = list()
+    SNIPPET = list()
     Counter = 0
-    # for x in Json_Data["response"]["Docs"]:
-    #     if x == "web_url":
-    #         Counter = Counter + 1
-    #         URL.append(Json_Data["response"]["Docs"][x])
-    #         print("Hello!")
 
+    for x in Json_Data["response"]["docs"]:
+        URL.append(x["web_url"])
+        TITLE.append(x["headline"]["print_headline"])
+        SNIPPET.append(x["snippet"])
 
-    return Json_Data
+    print(URL)
+    print(TITLE)
+    print(SNIPPET)
+    Data = zip(URL, TITLE, SNIPPET)
+    print("Testing")
+    print(Data)
+    return Data
 
 if __name__ == '__main__':
     FindArticles("Obama")
