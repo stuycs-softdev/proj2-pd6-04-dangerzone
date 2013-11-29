@@ -27,6 +27,7 @@ def createDefaultBox(topic):
     duck = duckduckgo()
     wiki = wikipedia()
     nyt = nytimes()
+    hsw = howstuffworks()
     #Try to get definition
     definition = duck.getDefinition()
     if definition == "":
@@ -36,11 +37,22 @@ def createDefaultBox(topic):
     
     #Try to get links
     #Best option is nytimes
-    link1 = nyt.getArticle() #Returns tuple headline, link
     link2 = duckduckgo.getLink()
     #Let's see if we can get an image link
+    hswlinks = {}
+    hswlinks['Blurbs']   
+    hswlinks['Links']   
+    for 0 in range(4):
+        hswlinks['Links'][i] = hsw.getArticle()
+        hswlinks['Blurbs'][i] = hsw.getBlurb()
+    box['Links'] = []
+    box['Links'][0] = hswlinks
+    link1 = nyt.getArticle() #Returns tuple headline, link
+    if link1 != "":
+        box['Links'][1] = link1()
     imgLink = duckduckgo.getImage()
-
+    if imgLink != "":
+        box['Image'] = imgLink
 def createPersonBox(name):
     #We're going to use wiki here
     wiki = wikipedia()
