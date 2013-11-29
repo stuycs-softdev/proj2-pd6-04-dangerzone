@@ -36,9 +36,3 @@ class howstuffworks():
                 pass
         return ""
 
-hsw = howstuffworks("ship rudder")
-
-for i in range(8):
-    print hsw.getArticle()
-    print hsw.getBlurb()
-
