@@ -15,26 +15,31 @@ class nytimes():
         response = urlopen(url)
         self.Json_Data = json.loads(response.read())
 
-    def FindArticles(self):
         URL = list()
         TITLE = list()
         SNIPPET = list()
         Counter = 0
 
         for x in self.Json_Data["response"]["docs"]:
+            #print x
             URL.append(x["web_url"])
             TITLE.append(x["headline"]["main"])
             SNIPPET.append(x["snippet"])
 
         #print(URL)
-        print(TITLE)
+        #print(TITLE)
         #print(SNIPPET)
-        Data = zip(URL, TITLE, SNIPPET)
+        self.Data = zip(URL, TITLE, SNIPPET)
+        self.counter = 0
         #print(Data)
-        return Data
+        
+    def getArt(self):
+        try:
+            self.counter += 1
+            return self.Data[self.counter - 1]
+        except:
+            return list()
 
 if __name__ == '__main__':
     #FindArticles("Obama")
     nyt = nytimes("Obama")
-    nyt.FindArticles()
-
