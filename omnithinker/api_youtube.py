@@ -50,26 +50,51 @@ def youtube_search(mid, options):
     maxResults=options.maxResults
   ).execute()
 
+  Videos = list()
+  Channels = list()
+  Playlists = list()
+
   for search_result in search_response.get("items", []):
     if search_result["id"]["kind"] == "youtube#video":
-      print "%s (%s)" % (search_result["snippet"]["title"],
+      print "%s (http://www.youtube.com/watch?v=%s)" % (search_result["snippet"]["title"],
         search_result["id"]["videoId"])
+      Videos.append("%s (http://www.youtube.com/watch?v=%s)" % (search_result["snippet"]["title"],
+        search_result["id"]["videoId"]))
     elif search_result["id"]["kind"] == "youtube#channel":
-      print "%s (%s)" % (search_result["snippet"]["title"],
+      print "%s (http://www.youtube.com/channel/%s)" % (search_result["snippet"]["title"],
         search_result["id"]["channelId"])
+      Channels.append("%s (http://www.youtube.com/channel/%s)" % (search_result["snippet"]["title"],
+        search_result["id"]["channelId"]))
     elif search_result["id"]["kind"] == "youtube#playlist":
-      print "%s (%s)" % (search_result["snippet"]["title"],
+      print "%s (http://www.youtube.com/playlist?list=%s)" % (search_result["snippet"]["title"],
         search_result["id"]["playlistId"])
+      Playlists.append("%s (http://www.youtube.com/playlist?list=%s)" % (search_result["snippet"]["title"],
+        search_result["id"]["playlistId"]))
+
+  print("Testing")
+  if len(Videos) > 0 :
+    print("Printing out Videos")
+    print Videos
+    return Videos
+  elif len(Channels) > 0 : 
+    print("Printing out Channels")
+    print Channels
+    return Channels
+  else:
+    print("Printing out Playlists")
+    print Playlists
+    return Playlists
+
 
 
 if __name__ == "__main__":
   parser = OptionParser()
   parser.add_option("--query", dest="query", help="Freebase search term",
-    default="Google")
+    default="Goo Goo Dolls")
   parser.add_option("--max-results", dest="maxResults",
     help="Max YouTube results", default=25)
   parser.add_option("--type", dest="type",
-    help="YouTube result type: video, playlist, or channel", default="channel")
+    help="YouTube result type: video, playlist, or channel", default="video")
   (options, args) = parser.parse_args()
 
   mid = get_topic_id(options)
