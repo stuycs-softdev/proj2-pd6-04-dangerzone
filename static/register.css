@@ -6,6 +6,10 @@ body {
     background-position: center;
 }
 
+.omnithinker-menu {
+    text-align: center;
+}
+
 .hero {
     text-align: center;
     margin: 6em auto 3em;
@@ -33,7 +37,7 @@ body {
     }
 
 .content {
-    margin: 0px 200px; 
+    margin: 0px 200px;
     padding: 0 2em;
     max-width: 1600px;
     margin-bottom: 20px;
@@ -47,8 +51,8 @@ body {
     font-family: "omnes-pro", sans-serif;
     font-weight: 300;
     color: #888;
-    font-size: 150%; 
-    text-align: center; 
+    font-size: 150%;
+    text-align: center;
 }
 
 
@@ -57,13 +61,13 @@ body {
     font-family: "omnes-pro", sans-serif;
     font-weight: 300;
     color: #888;
-    font-size: 150%; 
+    font-size: 150%;
 }
 
 p1 {
     font-family: "omnes-pro", sans-serif;
     font-size: 100%;
-    font-style: oblique; 
+    font-style: oblique;
 }
 
 p2 {
@@ -83,5 +87,5 @@ p2 {
 }
 
 .pure-form {
-    text-align: -webkit-left; 
+    text-align: -webkit-left;
 }
