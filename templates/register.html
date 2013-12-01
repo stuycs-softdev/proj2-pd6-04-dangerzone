@@ -18,25 +18,9 @@
     </ul>
   </div>
 
-  <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <h1 id="myModalLabel"> Login </h1>
-    </div>
-    <div class="modal-body">
-      <p>
-	Welcome back to OmniThinker! <br> Enter your username and password below to login.
-      </p>
+  {% include "support/loginModal.html" %}
 
-      <form class="pure-form pure-form-stacked">
-	<input id="username" type="text" placeholder="Username">
-	<input id="password" type="password" placeholder="Password">
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button class="pure-button pure-button-primary"> Login </button>
-      <button class="pure-button" data-dismiss="modal" aria-hidden="true"> Close </button>
-    </div>
-  </div>
+
   <div class="hero">
     <div class = "hero-titles">
       <h1> Register </h1>
