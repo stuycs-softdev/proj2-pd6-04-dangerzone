@@ -19,7 +19,6 @@ class nytimes():
         TITLE = list()
         SNIPPET = list()
         Counter = 0
-
         for x in self.Json_Data["response"]["docs"]:
             #print x
             URL.append(x["web_url"])
