@@ -1,82 +1,75 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title> OmniThinker - Register </title>
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/static/register.css">
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-  <link rel="stylesheet" href="/static/modal.css">
-</head>
-<body>
-  <div class="pure-menu pure-menu-open pure-menu-horizontal omnithinker-menu">
-    <a href="/" class="pure-menu-heading">OmniThinker</a>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>OmniThinker - Register</title>
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/register.css">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+        <link rel="stylesheet" href="/static/modal.css">
+    </head>
+    <body>
+        <div class="pure-menu pure-menu-open pure-menu-horizontal omnithinker-menu">
+            <a href="/" class="pure-menu-heading">OmniThinker</a>
+            <ul>
+                <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
+                <li><a href="/write">Write Anonymously</a></li>
+            </ul>
+        </div>
 
-    <ul>
-      <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
-      <li><a href="/write">Write Anonymously</a></li>
-    </ul>
-  </div>
+        {% include "support/loginModal.html" %}
 
-  {% include "support/loginModal.html" %}
+        <div class="hero">
+            <div class="hero-titles">
+                <h1>Register</h1>
+                <h2>Join the OmniThinking community.</h2>
+            </div>
+        </div>
 
-
-  <div class="hero">
-    <div class = "hero-titles">
-      <h1> Register </h1>
-      <h2> Join the OmniThinking Community. </h2>
-    </div>
-  </div>
-  <br><br><br><br>
-  <div class="pure-g-r">
-    <div class="pure-u-1-5"> </div>
-    <div class="pure-u-2-5">
-      <div class="content-subhead2"> Create your profile and get started right away</div>
-      <form class="pure-form pure-form-aligned">
-	<fieldset>
-	  <div class="pure-control-group">
-	    <label for="username"> Username </label>
-	    <input id="username" class="pure-input-1-2" type="text">
-	  </div>
-	  <div class="pure-control-group">
-	    <label for "e-mail"> E-mail Address </label>
-	    <input id="e-mail" class="pure-input-1-2" type="text">
-	  </div>
-	  <div class="pure-control-group">
-	    <label for "password"> Password </label>
-	    <input id="password" class="pure-input-1-2" type="password">
-	  </div>
-	  <div class="pure-control-group">
-	    <label for "securityq"> Security Question </label>
-	    <select id="securityq" class="pure-input-1-2">
-	      <option> </option>
-	      <option> What's your favorite color? </option>
-	      <option> What's your favorite web app? </option>
-	      <option> Who's your favorite SoftDev teacher? </option>
-	    </select>
-	  </div>
-	  <div class="pure-control-group">
-	    <label for "securitya"> Security Answer </label>
-	    <input id="securitya" class="pure-input-1-2" type="text" placeholder="Answer the Question Above">
-	  </div>
-	  <div class="pure-controls">
-	    <button type="submit" href="" class="pure-button pure-button-primary"> Register </button>
-	  </div>
-	</fieldset>
-      </form>
-    </div>
-    <div class="pure-u-1-5">
-      <div class="content-subhead2"> Testimonials </div>
-      <!-- fake testimonials or something -->
-      <p1>
-	"OmniThinker is all about simplicity and efficiency. I've never seen anything of its kind before! I don't ever have to worry about a severe case of writer's block again, because everything's right there for me." <br> —Jing Lin
-
-	<br><br><br>
-
-	"Who would've thought that I could be so productive with OmniThinker? I can write my essays in no time now! It's amazing!" <br> —Aaron Coppa
-      </p1>
-    </div>
-  </div>
-
-</body>
+        <div class="pure-g-r">
+            <div class="pure-u-1-5"></div>
+            <div class="pure-u-2-5">
+                <div class="content-subhead2">Create your profile and get started right away</div>
+                <form class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <label for="username">Username</label>
+                            <input id="username" class="pure-input-1-2" type="text">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for "e-mail">Email Address</label>
+                            <input id="e-mail" class="pure-input-1-2" type="text">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for "password">Password</label>
+                            <input id="password" class="pure-input-1-2" type="password">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for "securityq">Security Question</label>
+                            <select id="securityq" class="pure-input-1-2">
+                                <option value="none"></option>
+                                <option value="color">What's your favorite color?</option>
+                                <option value="app">What's your favorite web app?</option>
+                                <option value="teacher">Who's your favorite SoftDev teacher?</option>
+                            </select>
+                        </div>
+                        <div class="pure-control-group">
+                            <label for "securitya">Security Answer</label>
+                            <input id="securitya" class="pure-input-1-2" type="text" placeholder="Answer the Question Above">
+                        </div>
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary">Register</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="pure-u-1-5">
+                <div class="content-subhead2">Testimonials</div>
+                <p class="p1">"OmniThinker is all about simplicity and efficiency. I've never seen anything of its kind before! I don't ever have to worry about a severe case of writer's block again, because everything's right there for me."<br>&mdash;Jing Lin
+                </p>
+                <p class="p1">"Who would've thought that I could be so productive with OmniThinker? I can write my essays in no time now! It's amazing!"<br>&mdash;Aaron Coppa</p>
+            </div>
+        </div>
+    </body>
 </html>
