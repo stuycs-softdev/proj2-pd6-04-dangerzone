@@ -14,6 +14,11 @@ neuter_monkey()
 def home():
     return render_template("index.html")
 
+# Register page
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
 # Write document page
 @app.route("/write")
 def write():
@@ -31,3 +36,6 @@ def websocket(socket):
         conn.handle()
     finally:
         conn.finish()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
