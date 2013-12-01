@@ -39,6 +39,15 @@ class Nytimes():
         except:
             return list()
 
+    def ReturnRelatedTopics(self):
+        RELTOPICS = list()
+        for y in self.Json_Data["response"]["docs"]:
+            for x in y:
+                if x == "keywords":
+                    for a in y[x]:
+                        RELTOPICS.append(a["value"])
+        return RELTOPICS
 if __name__ == '__main__':
     #FindArticles("Obama")
-    nyt = nytimes("Obama")
+    nyt = Nytimes("Barrack Obama")
+    print nyt.ReturnRelatedTopics()
