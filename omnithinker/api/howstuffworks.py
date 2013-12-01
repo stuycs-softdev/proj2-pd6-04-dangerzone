@@ -1,7 +1,7 @@
 import urllib2
 from bs4 import BeautifulSoup
 
-class howstuffworks():
+class Howstuffworks():
     def __init__(self, topic):
         link="http://www.howstuffworks.com/search.php?terms="
         words = topic.split(' ')
@@ -36,3 +36,6 @@ class howstuffworks():
                 pass
         return ""
 
+if __name__ == "__main__":
+    h = Howstuffworks("Obama")
+    print h.getArticle()
