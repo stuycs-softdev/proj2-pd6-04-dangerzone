@@ -1,0 +1,175 @@
+#layout {
+    padding-left: 25%; /* "left col (nav + list)" width */
+    position: relative;
+}
+
+body {
+    background-image:url('http://www.ommwriter.com/images/bg2.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: "omnes-pro", sans-serif; 
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    margin-left: -25%;
+    background: #0099CC;
+    color: #fff;
+}
+
+.header {
+    margin: 50% 2em 0;
+    text-align: right;
+}
+
+.sidebar-title,
+.sidebar-tagline {
+    margin: 0;
+}
+.sidebar-title {
+    text-transform: uppercase;
+}
+.sidebar-tagline {
+    font-weight: 300;
+    color: #99CCFF;
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-item {    
+    display: list-item;
+    *display: inline;
+    zoom: 1;
+}
+.nav-item a {
+    background: transparent;
+    border: 3px solid #00CCCC;
+    color: #fff;
+    margin-top: 1em;
+}
+.nav-item a:hover,
+.nav-item a:focus {
+    border: 3px solid rgb(142, 142, 214);
+    color: rgb(142, 142, 214);
+    text-decoration: none;
+}
+
+/* header or title area */
+.hero {
+    text-align: center;
+    margin: 6em auto 3em;
+    border-bottom: 2px solid #eee;
+}
+    .hero-titles {
+        font-family: "omnes-pro", sans-serif;
+        padding: 0 2em;
+    }
+    .hero h1 {
+	letter-spacing: 3px;
+        font-size: 4em;
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+        color: #01A9DB;
+    }
+
+.content {
+    padding: 2em 3em 0;
+}
+
+.toolbar {
+    padding: 2em; 
+    margin: 0 2em 0 0; 
+    display: block; 
+    height: 500px; 
+    text-align: center; 
+    border: 1px solid #999999;
+    border-radius: 22px;
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(242,245,246,1)), color-stop(37%,rgba(227,234,237,1)), color-stop(100%,rgba(200,215,220,1)));
+}
+
+.box {
+    display: box; 
+    margin: 1em;
+    width: auto; 
+    height: auto; 
+    text-align: justify; 
+    padding: 1em; 
+    background-color: white;
+    border-radius: 10px; 
+}
+/*
+.minimized {
+    display: box; 
+    margin: 1em;
+    width: auto; 
+    height: auto; 
+    text-align: justify; 
+    padding: 1em; 
+    background-color: white; 
+}
+
+.expanded {
+    display: box; 
+    margin: 1em;
+    width: auto; 
+    height: auto; 
+    text-align: justify; 
+    padding: 1em; 
+    background-color: white; 
+}
+*/
+.keyword {
+    font-family: "omnes-pro", sans-serif; 
+    font-weight: bold; 
+    font-size: 100%; 
+    margin: 0;     
+}
+
+.content {
+    font-family: "omnes-pro", sans-serif;
+    font-size: 100%; 
+    text-align: justify; 
+}
+
+/* for close, minimize, expand */
+.btn {
+    float:right; 
+    font-size:16px;
+    font-family:Arial;
+    font-weight:normal;
+    -moz-border-radius:42px;
+    -webkit-border-radius:42px;
+    border-radius:42px;
+    border:1px solid #dcdcdc;
+    padding:10px 14px;
+    text-decoration:none;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(105%, #ededed), color-stop(0%, #dfdfdf) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+    background-color:#ededed;
+    color:#777777;
+    display:inline-block;
+    text-shadow:1px 1px 0px #ffffff;
+    -webkit-box-shadow:inset 1px 1px 0px 0px #ffffff;
+    -moz-box-shadow:inset 1px 1px 0px 0px #ffffff;
+    box-shadow:inset 1px 1px 0px 0px #ffffff;
+}
+
+.close-btn:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(105%, #dfdfdf), color-stop(0%, #ededed) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color:#dfdfdf;
+}
+
+.close-btn:active {
+    position:relative;
+    top:1px;
+}

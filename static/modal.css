@@ -66,6 +66,16 @@
 .modal-header {
   padding: 9px 15px;
   border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.h1 {
+    text-align: center; 
+}
+
+.p {
+    font-family: "omnes-pro", sans-serif; 
+    font-size: 100%
 }
 
 .modal-header .close {
@@ -82,6 +92,7 @@
   max-height: 400px;
   padding: 15px;
   overflow-y: auto;
+  text-align: -webkit-center; 
 }
 
 .modal-form {

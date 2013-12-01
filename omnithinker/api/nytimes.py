@@ -3,7 +3,7 @@
 import json
 from urllib import urlopen
 
-class nytimes():
+class Nytimes():
     def __init__(self, Topic):
         NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
         API_KEY = "5772CD9A42F195C96DA0E930A7182688:14:68439177"
@@ -15,26 +15,39 @@ class nytimes():
         response = urlopen(url)
         self.Json_Data = json.loads(response.read())
 
-    def FindArticles(self):
         URL = list()
         TITLE = list()
         SNIPPET = list()
         Counter = 0
-
         for x in self.Json_Data["response"]["docs"]:
+            #print x
             URL.append(x["web_url"])
             TITLE.append(x["headline"]["main"])
             SNIPPET.append(x["snippet"])
 
         #print(URL)
-        print(TITLE)
+        #print(TITLE)
         #print(SNIPPET)
-        Data = zip(URL, TITLE, SNIPPET)
+        self.Data = zip(URL, TITLE, SNIPPET)
+        self.counter = 0
         #print(Data)
-        return Data
+        
+    def getArticle(self):
+        try:
+            self.counter += 1
+            return self.Data[self.counter - 1]
+        except:
+            return list()
 
+    def ReturnRelatedTopics(self):
+        RELTOPICS = list()
+        for y in self.Json_Data["response"]["docs"]:
+            for x in y:
+                if x == "keywords":
+                    for a in y[x]:
+                        RELTOPICS.append(a["value"])
+        return RELTOPICS
 if __name__ == '__main__':
     #FindArticles("Obama")
-    nyt = nytimes("Obama")
-    nyt.FindArticles()
-
+    nyt = Nytimes("Barrack Obama")
+    print nyt.ReturnRelatedTopics()

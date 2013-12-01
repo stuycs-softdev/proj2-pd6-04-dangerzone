@@ -1,5 +1,5 @@
 body {
-    background-image:url('http://www.ommwriter.com/images/bg4.jpg');
+    background-image:url('http://www.ommwriter.com/images/bg1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -42,11 +42,22 @@ body {
     font-family: "omnes-pro", sans-serif;
 }
 
-.content-subhead {
-    margin: 50px 0 20px 0;
+.content-subhead1 {
+    margin: 10px 0 20px 0;
     font-family: "omnes-pro", sans-serif;
     font-weight: 300;
     color: #888;
+    font-size: 150%; 
+    text-align: center; 
+}
+
+
+.content-subhead2 {
+    margin: 10px 20px 20px 0;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300;
+    color: #888;
+    font-size: 150%; 
 }
 
 p1 {
@@ -61,34 +72,10 @@ p2 {
     text-align:justify;
 }
 
-.pure-g-r marketing-ribbon {
-    border-bottom: 2px solid #eee;
-    padding: 1em 0;
-    font-family: "omnes-pro", sans-serif; 
-}
-
-    .marketing-ribbon .content {
-        margin-bottom: 0;
-    }
-    .marketing-ribbon h3 {
-        font-size: 1.47em;
-        font-weight: normal;
-	color: #ACACFA; 
-    }
-    .marketing-ribbon p {
-        font-size: 100%;
-        line-height: 1.6em;
-    }
-
-.box {
-    margin: 10px;
-    text-align: justify; 
-}
-
 .pure-button {
     font-family: "omnes-pro", sans-serif;
     color: white;
-    background: rgb(66, 184, 221);
+    background: #0099FF;
 }
 
 .pure-button:hover {
@@ -96,11 +83,5 @@ p2 {
 }
 
 .pure-form {
-    text-align: -webkit-center; 
-}
-
-.img {
-    text-align: -webkit-center; 
-    opacity:0.4;
-    filter:alpha(opacity=40);
+    text-align: -webkit-left; 
 }
