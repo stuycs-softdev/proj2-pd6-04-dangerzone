@@ -13,7 +13,8 @@ class Document(object):
 
     def save(self):
         """Saves the document to the database."""
-        pass
+        print "Saving document {0} with content {1}".format(repr(self.title),
+                                                            repr(self.text))
 
     def render_txt(self):
         """Renders the document into a .txt file."""
