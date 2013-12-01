@@ -5,19 +5,12 @@
         <title>OmniThinker - Register</title>
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="/static/register.css">
+        <link rel="stylesheet" href="/static/common.css">
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
         <link rel="stylesheet" href="/static/modal.css">
     </head>
     <body>
-        <div class="pure-menu pure-menu-open pure-menu-horizontal omnithinker-menu">
-            <a href="/" class="pure-menu-heading">OmniThinker</a>
-            <ul>
-                <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
-                <li><a href="/write">Write Anonymously</a></li>
-            </ul>
-        </div>
-
+        {% include "support/menu.html" %}
         {% include "support/loginModal.html" %}
 
         <div class="hero">
@@ -65,7 +58,7 @@
                 </form>
             </div>
             <div class="pure-u-1-5">
-                <div class="content-subhead2">Testimonials</div>
+                <div class="content-subhead3">Testimonials</div>
                 <p class="p1">"OmniThinker is all about simplicity and efficiency. I've never seen anything of its kind before! I don't ever have to worry about a severe case of writer's block again, because everything's right there for me."<br>&mdash;Jing Lin
                 </p>
                 <p class="p1">"Who would've thought that I could be so productive with OmniThinker? I can write my essays in no time now! It's amazing!"<br>&mdash;Aaron Coppa</p>
