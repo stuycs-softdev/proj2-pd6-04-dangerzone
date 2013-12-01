@@ -3,7 +3,7 @@
 import json
 from urllib import urlopen
 
-class nytimes():
+class Nytimes():
     def __init__(self, Topic):
         NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
         API_KEY = "5772CD9A42F195C96DA0E930A7182688:14:68439177"
@@ -19,7 +19,6 @@ class nytimes():
         TITLE = list()
         SNIPPET = list()
         Counter = 0
-
         for x in self.Json_Data["response"]["docs"]:
             #print x
             URL.append(x["web_url"])
@@ -33,7 +32,7 @@ class nytimes():
         self.counter = 0
         #print(Data)
         
-    def getArt(self):
+    def getArticle(self):
         try:
             self.counter += 1
             return self.Data[self.counter - 1]
