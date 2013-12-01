@@ -73,9 +73,10 @@ p2 {
     .marketing-ribbon h3 {
         font-size: 1.47em;
         font-weight: normal;
+	color: #ACACFA; 
     }
     .marketing-ribbon p {
-        font-size: 1.125em;
+        font-size: 100%;
         line-height: 1.6em;
     }
 
