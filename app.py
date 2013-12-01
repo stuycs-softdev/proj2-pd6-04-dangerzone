@@ -15,12 +15,12 @@ def home():
     return render_template("index.html")
 
 # Register page
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     return render_template("register.html")
 
 # Write document page
-@app.route("/write")
+@app.route("/write", methods=["GET", "POST"])
 def write():
     return render_template("write.html")
 

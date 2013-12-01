@@ -26,9 +26,9 @@
             <p class="p1">“The power to concentrate was the most important thing. Living without this power would be like opening one’s eyes without seeing anything.” <br>&mdash; <u>The Elephant Vanishes</u> by Haruki Murakami</p>
             <p class="p2">Too often in today's world are we distracted from our creativity and productivity by all the white noise around us. To counter this, we've provided you with an isolated and clean space for brainstorming and writing. OmniThinker couples a simple text editor with a toolbar scanning the web for suggestions as you type, opening new pathways to take your original ideas and words.</p>
             <p class="p2">Enter the topic or genre of your writing assignment below and we'll start you off right away.</p>
-            <form class="pure-form">
-                <input class="pure-input-2-3" type="text" placeholder="What are you thinking or writing about?">
-                <a class="pure-button" type="submit" href="/write">Let's Start</a>
+            <form class="pure-form" action="/write" method="post">
+                <input class="pure-input-2-3" type="text" name="topic" placeholder="What are you thinking or writing about?">
+                <button class="pure-button" type="submit">Let's Start</a>
             </form>
         </div>
 

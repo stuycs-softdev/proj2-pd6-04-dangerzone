@@ -25,23 +25,27 @@
                 <div class="pure-u-2-3">
                     <div class="box">
                         <div class="subhead subhead2">Create your profile and get started right away</div>
-                        <form class="pure-form pure-form-aligned">
+                        <form class="pure-form pure-form-aligned" action="/register" method="post">
                             <fieldset>
                                 <div class="pure-control-group">
                                     <label for="username">Username</label>
-                                    <input id="username" class="pure-input-1-2" type="text">
+                                    <input name="username" class="pure-input-1-2" type="text">
                                 </div>
                                 <div class="pure-control-group">
-                                    <label for="e-mail">Email Address</label>
-                                    <input id="e-mail" class="pure-input-1-2" type="text">
+                                    <label for="email">Email Address</label>
+                                    <input name="email" class="pure-input-1-2" type="text">
                                 </div>
                                 <div class="pure-control-group">
                                     <label for="password">Password</label>
-                                    <input id="password" class="pure-input-1-2" type="password">
+                                    <input name="password" class="pure-input-1-2" type="password">
+                                </div>
+                                <div class="pure-control-group">
+                                    <label for="confirm">Confirm Password</label>
+                                    <input name="confirm" class="pure-input-1-2" type="password">
                                 </div>
                                 <div class="pure-control-group">
                                     <label for="securityq">Security Question</label>
-                                    <select id="securityq" class="pure-input-1-2">
+                                    <select name="securityq" class="pure-input-1-2">
                                         <option value="none"></option>
                                         <option value="color">What's your favorite color?</option>
                                         <option value="app">What's your favorite web app?</option>
@@ -50,10 +54,10 @@
                                 </div>
                                 <div class="pure-control-group">
                                     <label for="securitya">Security Answer</label>
-                                    <input id="securitya" class="pure-input-1-2" type="text" placeholder="Answer the Question Above">
+                                    <input name="securitya" class="pure-input-1-2" type="text" placeholder="Answer the Question Above">
                                 </div>
                                 <div class="pure-controls">
-                                    <button type="submit" class="pure-button pure-button-primary">Register</button>
+                                    <button class="pure-button pure-button-primary" type="submit">Register</button>
                                 </div>
                             </fieldset>
                         </form>
