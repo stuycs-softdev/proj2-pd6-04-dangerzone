@@ -5,14 +5,14 @@ var socket;
 var timeout_id = 0;
 var last_text_hash = "";
 
-function display(message) {
+function display(prefix, message) {
     var p = document.createElement("p");
-    p.innerHTML = message;
+    p.innerHTML = prefix + $("<div/>").text(message).html();
     output.appendChild(p);
 }
 
 function send(message) {
-    display('<span style="color: green;">SENT:</span> ' + message);
+    display('<span style="color: green;">SENT:</span> ', message);
     socket.send(message);
 }
 
@@ -26,30 +26,30 @@ function gen_hash(s) {
     return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
 }
 
-function init() {
+$(document).ready(function() {
     output = document.getElementById("output");
     textbox = document.getElementById("textbox");
     socket = new WebSocket(URL);
 
     socket.onopen = function(event) {
-        display('<span style="color: brown;">CONNECTED</span>');
+        display('<span style="color: brown;">CONNECTED</span>', '');
         send("HELLO");
     };
 
     socket.onclose = function(evt) {
-        display('<span style="color: brown;">DISCONNECTED</span>');
+        display('<span style="color: brown;">DISCONNECTED</span>', '');
         $("#options").hide();
     };
 
     socket.onmessage = function(evt) {
-        display('<span style="color: red;">RECEIVED:</span> ' + evt.data);
+        display('<span style="color: red;">RECEIVED:</span> ', evt.data);
         if (evt.data == "GOODBYE") {
             socket.close();
         }
     };
 
     socket.onerror = function(evt) {
-        display('<span style="color: brown;">ERROR:</span> ' + evt.data);
+        display('<span style="color: brown;">ERROR:</span> ', evt.data);
     };
 
     $("#send").click(function() {
@@ -76,6 +76,19 @@ function init() {
             timeout_id = window.setTimeout(update_server, 500);
         }
     });
-}
 
-window.addEventListener("load", init, false);
+    $("#highlight").click(function() {
+        var sel = window.getSelection();
+        var keywords = sel.toString(), offset = sel.anchorOffset;
+        if (sel.type == "Caret") {
+            // god damnit aaron
+        }
+        else if (sel.type == "Range") {
+            $("#textbox").html(
+                $("#textbox").html().substring(0, offset) +
+                $("#textbox").html().substring(offset).replace(keywords, '<span style="background-color: yellow;">' + keywords + '</span>')
+            );
+        }
+        send("UPDATE " + JSON.stringify({"keywords": keywords}));
+    });
+});
