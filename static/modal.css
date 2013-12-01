@@ -73,6 +73,11 @@
     text-align: center; 
 }
 
+.p {
+    font-family: "omnes-pro", sans-serif; 
+    font-size: 100%
+}
+
 .modal-header .close {
   margin-top: 2px;
 }

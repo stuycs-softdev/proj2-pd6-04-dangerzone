@@ -3,6 +3,14 @@
     position: relative;
 }
 
+body {
+    background-image:url('http://www.ommwriter.com/images/bg3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -72,6 +80,11 @@
         color: #01A9DB;
     }
 
+.p {
+    font-family: "omnes-pro", sans-serif; 
+    font-size: 100%
+}
+
 .content {
     padding: 2em 3em 0;
 }
@@ -83,9 +96,23 @@
     font-size: 2em;
     color: #222;
     margin-bottom: 0.2em;
+    font-family: "omnes-pro", sans-serif; 
 }
 .post-description {
-    font-family: Georgia, "Cambria", serif;
+    font-family: "omnes-pro", sans-serif;
     color: #444;
     line-height: 1.8em;
+    text-align: justify; 
+}
+
+.footer {
+    text-align: center;
+    padding: 1em 0;
+}
+.footer a {
+    font-size: 80%;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background: none;
 }
