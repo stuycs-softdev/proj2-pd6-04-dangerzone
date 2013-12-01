@@ -6,10 +6,8 @@
     height: 300px;
 }
 
-/* We cheat and use an underline as a highlighter. */
-.frameBody u {
+.keyword {
     background-color: yellow;
-    text-decoration: none;
 }
 
 .frameBody {

@@ -78,6 +78,7 @@ jQuery.fn.rte = function(css_url, media_url) {
             $("#toolbar-"+iframe.title).remove();
             $(iframe).before(toolbar(iframe));
             textarea.remove();
+            iframe.contentWindow.document.execCommand("styleWithCSS", false, false);
         });
     }
 
@@ -92,7 +93,7 @@ jQuery.fn.rte = function(css_url, media_url) {
                 <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>\
             </p></div></div>");
         $('.highlight', tb).click(function() {
-            formatText(iframe, 'underline');
+            formatText(iframe, 'insertHTML', "<span class='keyword'>" + iframe.contentWindow.document.getSelection() + "</span>");
             on_type($('body', iframeDoc));
             return false;
         });
