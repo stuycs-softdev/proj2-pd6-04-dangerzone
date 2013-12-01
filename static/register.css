@@ -1,0 +1,87 @@
+body {
+    background-image:url('http://www.ommwriter.com/images/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.hero {
+    text-align: center;
+    margin: 6em auto 3em;
+    border-bottom: 2px solid #eee;
+}
+    .hero-titles {
+        font-family: "omnes-pro", sans-serif;
+        padding: 0 2em;
+    }
+    .hero h1 {
+        font-size: 4em;
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+        color: #01A9DB;
+    }
+    .hero h2 {
+        font-size: 100;
+        font-weight: 200;
+        color: #848484;
+        padding: 0;
+        margin-top: 0;
+        margin: 0.02em 0 0.8em;
+
+    }
+
+.content {
+    margin: 0px 200px; 
+    padding: 0 2em;
+    max-width: 1600px;
+    margin-bottom: 20px;
+    line-height: 1.6em;
+    text-align: justify;
+    font-family: "omnes-pro", sans-serif;
+}
+
+.content-subhead1 {
+    margin: 10px 0 20px 0;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300;
+    color: #888;
+    font-size: 150%; 
+    text-align: center; 
+}
+
+
+.content-subhead2 {
+    margin: 10px 20px 20px 0;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300;
+    color: #888;
+    font-size: 150%; 
+}
+
+p1 {
+    font-family: "omnes-pro", sans-serif;
+    font-size: 100%;
+    font-style: oblique; 
+}
+
+p2 {
+    font-family: "omnes-pro", sans-serif;
+    font-size: 100%;
+    text-align:justify;
+}
+
+.pure-button {
+    font-family: "omnes-pro", sans-serif;
+    color: white;
+    background: #0099FF;
+}
+
+.pure-button:hover {
+    background: #2E9AFE;
+}
+
+.pure-form {
+    text-align: -webkit-left; 
+}
