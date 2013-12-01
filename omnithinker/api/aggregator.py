@@ -1,4 +1,7 @@
 #Aggregates all api calls and returns json object with the most relevant things
+URL = 0
+HEADLINE = 1
+BLURB = 2
 
 #This creates one box
 def createBox(topic):
@@ -19,6 +22,7 @@ def getCategory(topic):
         return "default"
 
 def createDefaultBox(topic):
+
     #try to get definition
     box = {}
 
@@ -32,38 +36,47 @@ def createDefaultBox(topic):
     if definition == "":
         definition = wiki.getDefinition()
     if definition != "":
-        box['definition'] = definition
-    
+        box['definition'] = definition 
+
     #Try to get links
     #Best option is nytimes
     linkNY = nyt.getArticle() #Returns tuple headline, link
     linkDDG = duckduckgo.getLink()
     #Let's see if we can get an image link
-    hswlinks = {}
-    hswlinks['Blurbs']   
-    hswlinks['Links']   
+    articles = {}
+    articles['Blurbs'] = []
+    articles['Links'] = []
+    i = 0
     for 0 in range(4):
-        hswlinks['Links'][i] = hsw.getArticle()
-        hswlinks['Blurbs'][i] = hsw.getBlurb()
-    box['Links'] = []
-    box['Links'][0] = hswlinks
-    link1 = nyt.getArticle() #Returns tuple headline, link
-    if link1 != "":
-        box['Links'][1] = link1
-    imgLink = duckduckgo.getImage()
-
-    if imgLink != "":
-        box['Image'] = imgLink
+        articles['Links'][i] = hsw.getArticle()
+        articles['Blurbs'][i] = hsw.getBlurb()
+        i += 1
+    for 0 in range(4):
+        temp = nyt.getArticle()
+        articles['Links'][i] = temp[URL]
+        articles['Blurbs'][i] = temp[BLURB]
+        articles['Headline'][i] = temp[HEADLINE]
+        i += 1
+    
+    images = []
+    j = 0
+    for i in range(3):
+        imgLink = goog.getImage()
+        if imgLink != "":
+            box['Image'][i] = imgLink
+        else:
+            break
+        j += 1
+    
+    videos = []
+    k = 0
+    for i in range(4):
 
     box = {}
     box['Keyword'] = topic
-    if linkNY != "":
-        box['NyLink'] = linkNY 
-    if linkDDG != "":
-        box['DuckLink'] = linkDDG
-    if imgLink != "":
-        box['Image'] = imgLink
-
+    box['Articles'] = articles
+    box['Images'] = images
+    box['Videos'] = videos
 def createPersonBox(name):
     #We're going to use wiki here
     wiki = wikipedia()
