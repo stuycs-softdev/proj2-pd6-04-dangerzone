@@ -1,6 +1,5 @@
 var URL = "ws://localhost:8000/socket";
 var output;
-var textbox;
 var socket;
 var timeout_id = 0;
 var last_text_hash = "";
@@ -16,8 +15,17 @@ function send(message) {
     socket.send(message);
 }
 
-function update_server() {
-    var data = {"text": textbox.innerHTML};
+function get_keywords(obj) {
+    var keywords = [];
+    obj.children("u").each(function() {
+        keywords.push($(this).text());
+    });
+    return keywords;
+}
+
+function update_server(obj) {
+    keywords = get_keywords(obj);
+    var data = {"text": obj.html(), "keywords": keywords};
     send("UPDATE " + JSON.stringify(data));
 }
 
@@ -26,9 +34,17 @@ function gen_hash(s) {
     return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
 }
 
+function on_type(obj) {
+    var this_hash = gen_hash(obj.html());
+    if (this_hash != last_text_hash) {
+        last_text_hash = this_hash;
+        window.clearTimeout(timeout_id);
+        timeout_id = window.setTimeout(update_server, 500, obj);
+    }
+}
+
 $(document).ready(function() {
     output = document.getElementById("output");
-    textbox = document.getElementById("textbox");
     socket = new WebSocket(URL);
 
     socket.onopen = function(event) {
@@ -68,27 +84,5 @@ $(document).ready(function() {
         send("BYE");
     });
 
-    $("#textbox").keyup(function(e) {
-        var this_hash = gen_hash(textbox.innerHTML);
-        if (this_hash != last_text_hash) {
-            last_text_hash = this_hash;
-            window.clearTimeout(timeout_id);
-            timeout_id = window.setTimeout(update_server, 500);
-        }
-    });
-
-    $("#highlight").click(function() {
-        var sel = window.getSelection();
-        var keywords = sel.toString(), offset = sel.anchorOffset;
-        if (sel.type == "Caret") {
-            // god damnit aaron
-        }
-        else if (sel.type == "Range") {
-            $("#textbox").html(
-                $("#textbox").html().substring(0, offset) +
-                $("#textbox").html().substring(offset).replace(keywords, '<span style="background-color: yellow;">' + keywords + '</span>')
-            );
-        }
-        send("UPDATE " + JSON.stringify({"keywords": keywords}));
-    });
+    $("#textbox").rte("/static/textbox.css", "/static/img/");
 });

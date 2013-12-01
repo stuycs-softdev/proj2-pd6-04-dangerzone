@@ -59,6 +59,8 @@ class Connection(object):
                 self._document.title = data["title"]
             if "text" in data:
                 self._document.text = data["text"]
+            # if "keywords" in data:
+            #     self._document.keywords = data["keywords"]
             self._send(SVERB_OK)
         elif verb == CVERB_CLOSE:
             self._state = STATE_CLOSING
