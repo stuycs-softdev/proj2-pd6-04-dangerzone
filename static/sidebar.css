@@ -3,13 +3,21 @@
     position: relative;
 }
 
+body {
+    background-image:url('http://www.ommwriter.com/images/bg3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
     width: 20%;
     margin-left: -25%;
-    background: #045FB4;
+    background: #0099CC;
     color: #fff;
 }
 
@@ -27,7 +35,7 @@
 }
 .sidebar-tagline {
     font-weight: 300;
-    color: #BCA9F5;
+    color: #99CCFF;
 }
 
 .nav-list {
@@ -42,7 +50,7 @@
 }
 .nav-item a {
     background: transparent;
-    border: 3px solid #F8E0EC;
+    border: 3px solid #00CCCC;
     color: #fff;
     margin-top: 1em;
 }
@@ -72,14 +80,9 @@
         color: #01A9DB;
     }
 
-.content-subhead {
-    text-transform: uppercase;
-    color: #aaa;
-    border-bottom: 1px solid #eee;
-    padding: 0.4em 0;
-    font-size: 80%;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+.p {
+    font-family: "omnes-pro", sans-serif; 
+    font-size: 100%
 }
 
 .content {
@@ -93,9 +96,23 @@
     font-size: 2em;
     color: #222;
     margin-bottom: 0.2em;
+    font-family: "omnes-pro", sans-serif; 
 }
 .post-description {
-    font-family: Georgia, "Cambria", serif;
+    font-family: "omnes-pro", sans-serif;
     color: #444;
     line-height: 1.8em;
+    text-align: justify; 
+}
+
+.footer {
+    text-align: center;
+    padding: 1em 0;
+}
+.footer a {
+    font-size: 80%;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background: none;
 }

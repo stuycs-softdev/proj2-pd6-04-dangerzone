@@ -36,16 +36,16 @@
     </div>
     
     <div id="logoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header" letter-spacing="2px">
+      <div class="modal-header">
 	<h1 id="myModalLabel"> Logout </h1> 
       </div>
-      <div class="modal-body" letter-spacing="2px"> 
+      <div class="modal-body"> 
 	<p>
 	  Are you sure you would like to logout? 
 	</p>
       </div>
       <div class="modal-footer">
-	<button class="pure-button pure-button-primary" href=""> Yes </button>
+	<button class="pure-button pure-button-primary" href="/index"> Yes </button>
 	<button class="pure-button" data-dismiss="modal" aria-hidden="true"> No </button>
       </div>
     </div>
@@ -65,8 +65,32 @@
 	<button type="submit" class="pure-button"> Search </button>
       </form>
       <div class="content" align="left">
+	<!-- Using javascript or in the python, create an "if...else" statement for # of projects connected to a particular user's name? Then if it's none, type out something like "You have no projects. Start a new one now!" Otherwise, display the projects. -->
 	
+	<div class="posts"> 
+	  <section class="post"> 
+	    <header class="post-header"> 
+	      <a href="/something" class="post-title"> {{Project1.title}} </a>
+	    </header>
+	    <div class="post-description"> 
+	      <p>
+		{{Project1.description}} As a not quite positive example, MIT Technology Review may show us how to gain little attention. Look at its Facebook Page, we can see a lot of big T’s, certainly the logo of the magazine. It’s quite obvious that the stories are shared as links and the logo is automatically extracted by Facebook. As such, these stories have failed to have an interesting or simply relevant visual companion. The repeated T’s may also have turned the fans blind toward this symbol. The sad situation is that, even though the Review generates a lot of thrilling stories, its Facebook presence is far from compelling — you may have noticed the small numbers of shares and likes in Figure 3.
+	      </p>
+	    </div>
+	  </section>
+	</div>
       </div>
+      <footer class="footer">
+	<ul class="pure-paginator">
+	  <li><a class="pure-button prev" href="#">&#171;</a></li>
+	  <li><a class="pure-button pure-button-active" href="#">1</a></li>
+	  <li><a class="pure-button" href="#">2</a></li>
+	  <li><a class="pure-button" href="#">3</a></li>
+	  <li><a class="pure-button" href="#">4</a></li>
+	  <li><a class="pure-button" href="#">5</a></li>
+	  <li><a class="pure-button next" href="#">&#187;</a></li>
+	</ul>
+      </footer>
     </div>
   </div>
   
