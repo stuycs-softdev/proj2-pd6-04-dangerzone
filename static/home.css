@@ -8,7 +8,7 @@ body {
 
 .hero {
     text-align: center;
-    margin: 6em auto 3em;
+    margin: 2em auto 3em;
     border-bottom: 2px solid #eee;
 }
     .hero-titles {
@@ -33,7 +33,7 @@ body {
     }
 
 .content {
-    margin: 0px 200px; 
+    margin: 0px 200px;
     padding: 0 2em;
     max-width: 1600px;
     margin-bottom: 20px;
@@ -52,7 +52,7 @@ body {
 p1 {
     font-family: "omnes-pro", sans-serif;
     font-size: 100%;
-    font-style: oblique; 
+    font-style: oblique;
 }
 
 p2 {
@@ -64,7 +64,7 @@ p2 {
 .pure-g-r marketing-ribbon {
     border-bottom: 2px solid #eee;
     padding: 1em 0;
-    font-family: "omnes-pro", sans-serif; 
+    font-family: "omnes-pro", sans-serif;
 }
 
     .marketing-ribbon .content {
@@ -73,7 +73,7 @@ p2 {
     .marketing-ribbon h3 {
         font-size: 1.47em;
         font-weight: normal;
-	color: #ACACFA; 
+	color: #ACACFA;
     }
     .marketing-ribbon p {
         font-size: 100%;
@@ -82,7 +82,7 @@ p2 {
 
 .box {
     margin: 10px;
-    text-align: justify; 
+    text-align: justify;
 }
 
 .pure-button {
@@ -96,11 +96,11 @@ p2 {
 }
 
 .pure-form {
-    text-align: -webkit-center; 
+    text-align: -webkit-center;
 }
 
 .img {
-    text-align: -webkit-center; 
+    text-align: -webkit-center;
     opacity:0.4;
     filter:alpha(opacity=40);
 }
