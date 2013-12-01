@@ -17,7 +17,7 @@ function send(message) {
 
 function get_keywords(obj) {
     var keywords = [];
-    obj.children("u").each(function() {
+    obj.find("u").each(function() {
         keywords.push($(this).text());
     });
     return keywords;
