@@ -121,7 +121,7 @@ p.p2 {
     background: #2E9AFE;
 }
 
-.img {
-    text-align: center;
-    opacity: 0.4;
+img.logo {
+    width: 125px;
+    opacity: 0.75;
 }
