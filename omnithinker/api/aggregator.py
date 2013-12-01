@@ -2,8 +2,12 @@
 from howstuffworks import Howstuffworks
 from duckduckgo import Duckduckgo 
 from nytimes import Nytimes 
+from youtube import Youtube
 
+#Lets create a multitude of boxes
 
+#  def makeBoxes(topic, depth):
+       
 
 #This creates one box
 class Aggregator():
@@ -12,6 +16,7 @@ class Aggregator():
         self.hsw = Howstuffworks(topic)
         self.nyt = Nytimes(topic)
         #self.wiki = wikipedia()
+        self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
 
     def getCategory(self):
@@ -47,7 +52,7 @@ class Aggregator():
 
         box['HSWArticles'] = self.getHSWArticles()
         box['NyTimesArticles'] = self.getNYArticles()
-        #box['Videos'] = getYoutubeVideos()
+        box['Videos'] = self.getYoutubeVideos()
         #box['Images'] = getImages()
         box['Keyword'] = topic
         return box
@@ -108,7 +113,7 @@ class Aggregator():
         videos['Title'] = [0]*4
         videos['Link'] = [0]*4
         for i in range(4):
-            temp = self.utube.getVideo()
+            temp = self.youtube.getVideo()
             videos['Title'][i] = temp[0]
             videos['Link'][i] = temp[1]
         return videos
@@ -140,3 +145,5 @@ if __name__ == "__main__":
     print box['HSWArticles']
     print "Printing nytimes articles"
     print box['NyTimesArticles']
+    print "Printing videos..."
+    print box['Videos']
