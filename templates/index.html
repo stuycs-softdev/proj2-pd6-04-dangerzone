@@ -6,9 +6,9 @@
 
   <title> OmniThinker </title>
 
-  <link rel="stylesheet" href="../static/home.css">
-  <link rel="stylesheet" href="../static/pure-min.css">
-  <link rel="stylesheet" href="../static/modal.css">
+  <link rel="stylesheet" href="/static/home.css">
+  <link rel="stylesheet" href="/static/pure-min.css">
+  <link rel="stylesheet" href="/static/modal.css">
 
 </head>
 
@@ -17,7 +17,6 @@
     <a href="" class="pure-menu-heading">OmniThinker</a>
 
     <ul>
-      <li><a href="">Home</a></li>
       <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
       <li><a href="/register">Register</a></li>
     </ul>
@@ -33,16 +32,13 @@
       </p>
 
       <form class="pure-form pure-form-stacked">
-	<label for="username"> Username </label>
 	<input id="username" type="text" placeholder="Username"> 
-
-	<label for="password"> Password </label>
 	<input id="password" type="password" placeholder="Password"> 
       </form>
     </div>
     <div class="modal-footer">
       <button class="pure-button pure-button-primary"> Login </button>
-      <button class="pure-button pure-button-secondary"> Register </button>
+      <button class="pure-button pure-button-secondary" href="/register"> Register </button>
       <button class="pure-button" data-dismiss="modal" aria-hidden="true"> Close </button>
     </div>
   </div>
@@ -52,6 +48,7 @@
 
   <div class="hero">
     <div class = "hero-titles">
+      <!--<img src="/templates/thinker_logo.jpg" alt="thinker logo" width="122.2" height="153.4"> </img>  -->
       <h1> OmniThinker </h1>
       <h2> An interactive way to write or brainstorm for your next writing assignment. </h2>
     </div>

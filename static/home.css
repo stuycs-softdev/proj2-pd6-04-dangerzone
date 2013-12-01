@@ -95,3 +95,12 @@ p2 {
     background: #2E9AFE;
 }
 
+.pure-form {
+    text-align: -webkit-center; 
+}
+
+.img {
+    text-align: -webkit-center; 
+    opacity:0.4;
+    filter:alpha(opacity=40);
+}
