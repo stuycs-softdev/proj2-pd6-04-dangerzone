@@ -306,11 +306,26 @@ div.writer-box-right {
     padding-left: 1em;
 }
 
+div.writer-box-inner {
+    margin: 1em 0;
+    border: 1px solid #CCC;
+}
+
 #textbox {
-    background-color: #DDD;
+    background-color: white;
     width: 100%;
+    min-height: 500px;
+    margin-bottom: -4px;  /* offset some funky thing */
+}
+
+#omnitoolbar {
+    background-color: #DDD;
     margin-top: 1em;
-    height: 300px;
+}
+
+.title-box {
+    font-size: 1.5em;
+    margin-top: 1em;
 }
 
 .keyword {
@@ -320,12 +335,12 @@ div.writer-box-right {
 .frameBody {
     font-family: serif;
     font-size: 18px;
-    margin: 1em;
+    margin: 1.5em;
 }
 
 .rte-toolbar {
-    overflow: hidden;
-    background-color: #CCC;
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #CCC;
     padding: 1em;
 }
 

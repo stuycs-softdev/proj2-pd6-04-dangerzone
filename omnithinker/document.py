@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from flask import Markup
 
 __all__ = ["Document"]
@@ -13,7 +14,13 @@ class Document(object):
 
     @property
     def keywords(self):
-        pass ######################################################################################################################
+        if not self.text:
+            return []
+        keywords = []
+        soup = BeautifulSoup(self.text)
+        for tag in soup.find_all("span", {"class": "keyword"}):
+            keywords.append(tag.get_text())
+        return keywords
 
     @property
     def summary(self):

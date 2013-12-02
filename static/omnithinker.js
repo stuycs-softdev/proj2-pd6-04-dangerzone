@@ -3,6 +3,7 @@ var output;
 var socket;
 var timeout_id = 0;
 var last_text_hash = "";
+var docid;
 
 function display(prefix, message) {
     var p = document.createElement("p");
@@ -50,6 +51,7 @@ $(document).ready(function() {
 
     socket.onopen = function(event) {
         display('<span style="color: brown;">CONNECTED</span>', '');
+        send("HELLO " + docid);
     };
 
     socket.onclose = function(evt) {
@@ -84,5 +86,5 @@ $(document).ready(function() {
         send("BYE");
     });
 
-    $("#textbox").rte("/static/textbox.css", "/static/img/");
+    $("#textbox").rte("/static/common.css", "/static/img/");
 });
