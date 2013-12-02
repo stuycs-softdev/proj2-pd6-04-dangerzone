@@ -320,7 +320,7 @@ div.writer-box-inner {
 
 #title {
     font-size: 90%;
-    color: #848484;
+    color: #555;
     vertical-align: top;
 }
 
@@ -351,6 +351,7 @@ div.writer-box-inner {
 
 .tb-button {
     color: #000;
+    background-color: #EEE;
     text-decoration: none;
     font-size: 14px;
     border: 1px solid #AAA;
@@ -359,4 +360,8 @@ div.writer-box-inner {
 
 .tb-button:hover {
     color: #555;
+}
+
+.header-link {
+    text-decoration: none;
 }

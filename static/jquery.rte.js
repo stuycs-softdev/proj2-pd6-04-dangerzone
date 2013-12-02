@@ -79,6 +79,7 @@ jQuery.fn.rte = function(css_url, media_url) {
             $(iframe).before(toolbar(iframe));
             textarea.remove();
             iframe.contentWindow.document.execCommand("styleWithCSS", false, false);
+            textbox_obj = $('body', $(iframe.contentWindow.document));
         });
     }
 
@@ -118,8 +119,8 @@ jQuery.fn.rte = function(css_url, media_url) {
         var iframeDoc = $(iframe.contentWindow.document);
 
         iframeDoc.keyup(function() {
+            on_type();
             var body = $('body', iframeDoc);
-            on_type(body);
             if(body.scrollTop()>0)
                 iframe.height = Math.min(350, parseInt(iframe.height)+body.scrollTop());
             return true;
