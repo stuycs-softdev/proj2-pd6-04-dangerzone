@@ -8,6 +8,7 @@ var textbox;
 
 var timeout_id = 0;
 var last_text_hash = "";
+var box_id = 0;
 
 function get_keywords() {
     var keywords = [];
@@ -39,7 +40,7 @@ function on_type() {
 }
 
 function process_update(payload) {
-    console.log(payload);
+    box_id++;
     topic = payload["Keyword"];
     data = "<ul>"
     google = payload["GoogleArticles"];
@@ -63,7 +64,11 @@ function process_update(payload) {
         }
     }
     data += "</ul>"
-    omnitoolbar.append('<div class="topic"><div class="topic-title">' + topic + '</div><div class="topic-body">' + data + "</div></div>");
+    box = '<div class="topic" id="topic-box-' + box_id + '">';
+    box += '<div class="topic-title">' + topic + ' <a href="#" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
+    box += '<div class="topic-body">' + data + "</div></div>";
+    omnitoolbar.append(box);
+    $("#topic-box-remove-" + box_id).click(function(b_id) { return function() { $("#topic-box-" + b_id).remove(); } }(box_id));
 }
 
 $(document).ready(function() {
