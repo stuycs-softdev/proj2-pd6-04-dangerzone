@@ -79,7 +79,7 @@ jQuery.fn.rte = function(css_url, media_url) {
             $(iframe).before(toolbar(iframe));
             textarea.remove();
             iframe.contentWindow.document.execCommand("styleWithCSS", false, false);
-            textbox_obj = $('body', $(iframe.contentWindow.document));
+            textbox = $('body', $(iframe.contentWindow.document));
         });
     }
 
