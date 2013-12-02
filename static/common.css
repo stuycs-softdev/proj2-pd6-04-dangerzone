@@ -9,15 +9,15 @@ body {
 }
 
 body.home {
-    background-image: url('http://www.ommwriter.com/images/bg4.jpg');
+    background-image: url('/static/backgrounds/home.jpg');
 }
 
 body.register {
-    background-image: url('http://www.ommwriter.com/images/bg1.jpg');
+    background-image: url('/static/backgrounds/register.jpg');
 }
 
 body.projects {
-    background-image: url('http://www.ommwriter.com/images/bg3.jpg');
+    background-image: url('/static/backgrounds/projects.jpg');
 }
 
 img.logo {
