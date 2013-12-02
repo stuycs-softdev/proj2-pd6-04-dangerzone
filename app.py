@@ -89,7 +89,7 @@ def projects():
 
 # Write document page
 @app.route("/write", methods=["GET", "POST"])
-@app.route("/write/{docid}")
+@app.route("/write/<docid>")
 def write(docid=None):
     username = session.get("username")
     if docid is not None:

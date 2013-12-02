@@ -40,7 +40,7 @@ img.logo {
 }
 
 .projects-hero {
-    margin-top: 6em;
+    margin: 6em auto 3em auto;
 }
 
 .hero-titles {
@@ -76,10 +76,6 @@ img.logo {
 
 .register-content {
     max-width: 1000px;
-}
-
-.projects-content {
-    padding: 2em 3em 0;
 }
 
 .subhead {
@@ -173,20 +169,16 @@ p.p3 {
 
 /* Sidebar */
 
-#layout {
-    padding-left: 25%; /* "left col (nav + list)" width */
-    position: relative;
-}
-
 .sidebar {
     position: fixed;
+    left: 0;
     top: 0;
     bottom: 0;
     width: 20%;
     min-width: 275px;
-    margin-left: -25%;
     background: #0099CC;
     color: #fff;
+    margin-right: 100%;
 }
 
 .header {
@@ -235,7 +227,12 @@ p.p3 {
 /* Projects */
 
 .post {
-    padding-bottom: 2em;
+    margin-bottom: 2em;
+    padding: 1.5em 0 1.5em 5em;
+    background-color: rgba(238, 238, 238, 0.35);
+    text-align: left;
+    border: 2px solid #BBB;
+    border-radius: 5px;
 }
 
 .post-title {
@@ -250,6 +247,29 @@ p.p3 {
     text-align: justify;
 }
 
+.post-summary {
+    margin-bottom: 0;
+}
+
+.projects-content {
+    margin: auto 0 auto auto;
+    width: 80%;
+}
+
+.projects-content-inner {
+    margin: 2em 5em;
+}
+
 .projects-form {
     text-align: center;
+}
+
+.empty {
+    color: #777;
+}
+
+/* Writer */
+
+.keyword {
+    background-color: yellow;
 }

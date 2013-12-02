@@ -1,3 +1,5 @@
+from flask import Markup
+
 __all__ = ["Document"]
 
 class Document(object):
@@ -11,13 +13,15 @@ class Document(object):
 
     @property
     def keywords(self):
-        pass
+        pass ######################################################################################################################
 
     @property
     def summary(self):
+        if not self.text:
+            return None
         if len(self.text) < 500:
-            return self.text
-        return self.text[:497] + u"..."
+            return Markup(self.text).striptags()
+        return Markup(self.text[:497]).striptags() + u"..."
 
     def render_txt(self):
         """Renders the document into a .txt file."""

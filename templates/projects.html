@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     </head>
     <body class="projects">
-        <div class="pure-g-r" id="layout">
+        <div class="pure-g">
             <div class="sidebar pure-u">
                 <header class="header">
                     <hgroup>
@@ -27,31 +27,41 @@
                     </nav>
                 </header>
             </div>
-            <div class="hero projects-hero">
-                <div class="hero-titles">
-                    <h1>{{username}}'s Projects</h1>
-                </div>
-            </div>
-            <div class="pure-u-1" align="center">
-                <div class="projects-content" align="left">
-                    {% if documents %}
-                        {% for document in documents %}
-                            <section class="post">
-                                <header class="post-header">
-                                    <a href="/write/{{document.docid}}" class="post-title">{{document.title}}</a>
-                                </header>
-                                <div class="post-description">
-                                    <p>{{document.summary}}</p>
-                                </div>
-                            </section>
-                        {% endfor %}
-                    {% else %}
-                        <form class="pure-form projects-form" action="/write" method="post">
-                            <p>No projects! Create one?</p>
-                            <input class="pure-input-2-3" type="text" name="topic" placeholder="What do you want to write about?">
-                            <button class="pure-button" type="submit">Start</a>
-                        </form>
-                    {% endif %}
+            <div class="projects-content">
+                <div class="projects-content-inner">
+                    <div class="hero projects-hero">
+                        <div class="hero-titles">
+                            <h1>{{username}}'s Projects</h1>
+                        </div>
+                    </div>
+                    <div class="pure-u-1" align="center">
+                        {% if documents %}
+                            {% for document in documents %}
+                                <section class="post">
+                                    <header class="post-header">
+                                        {% if document.title %}
+                                        <a href="/write/{{document.docid}}" class="post-title">{{document.title}}</a>
+                                        {% else %}
+                                        <a href="/write/{{document.docid}}" class="post-title empty">Untitled</a>
+                                        {% endif %}
+                                    </header>
+                                    <div class="post-description">
+                                        {% if document.summary %}
+                                            <p class="post-summary">{{document.summary}}</p>
+                                        {% else %}
+                                            <p class="post-summary empty">Empty document.</p>
+                                        {% endif %}
+                                    </div>
+                                </section>
+                            {% endfor %}
+                        {% else %}
+                            <form class="pure-form projects-form" action="/write" method="post">
+                                <p>No projects! Create one?</p>
+                                <input class="pure-input-2-3" type="text" name="topic" placeholder="What do you want to write about?">
+                                <button class="pure-button" type="submit">Start</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
