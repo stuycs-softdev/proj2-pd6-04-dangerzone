@@ -97,7 +97,7 @@ class Database(object):
         author = result[0][0]
         return author is None or author == username
 
-    def create_document(self, username, topic=None):
+    def create_document(self, username, topic):
         """Create a document for a user and return its ID."""
         docid = self._get_next_docid()
         if username:

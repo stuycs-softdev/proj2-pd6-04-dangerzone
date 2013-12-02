@@ -29,7 +29,7 @@ def login():
     if request.method == "GET":
         session["focus_login"] = True
         return redirect("/")
-    username = request.form.get("username").strip()
+    username = request.form.get("username", "").strip()
     password = request.form.get("password")
     if username and password:
         error = database.login(username, password)
@@ -48,12 +48,12 @@ def register():
     session.pop("username", None)
     if request.method == "GET":
         return render_template("register.html")
-    username = request.form.get("username").strip()
+    username = request.form.get("username", "").strip()
     email = request.form.get("email").strip()
     password = request.form.get("password")
     confirm = request.form.get("confirm")
-    securityq = request.form.get("securityq").strip()
-    securitya = request.form.get("securitya").strip()
+    securityq = request.form.get("securityq", "").strip()
+    securitya = request.form.get("securitya", "").strip()
     if username and email and password and confirm:
         if password != confirm:
             error = "Your passwords must match."
@@ -96,15 +96,11 @@ def write(docid=None):
         if not database.authorize_document(username, docid):
             return redirect("/")
         return render_template("write.html", docid=docid)
-    topic = request.form.get("topic")
+    topic = request.form.get("topic", "").strip()
     docid = database.create_document(username, topic)
     return redirect("/write/{0}".format(docid))
 
-# ***TEST*** page for Ben's socket protocol
-@app.route("/ben-socket-test")
-def test():
-    return render_template("ben-socket-test.html")
-
+# Web socket for live document updating
 @sockets.route("/socket")
 def websocket(socket):
     conn = Connection(socket, database)
