@@ -14,6 +14,7 @@ class Google():
         for word in words:
             string += word + '+'
         string = string.rstrip('+')
+        print 'https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, string)
         response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, string))
         Json_Data = json.loads(response.read())
 

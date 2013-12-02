@@ -16,7 +16,7 @@ def aggregate(startTopic):
     return boxes
 
 def makeBoxes(topic, depth, boxes, used):
-    if depth > 2 or topic in used:
+    if depth >= 2 or topic in used:
         return
     else: 
         used.append(topic)
@@ -41,7 +41,10 @@ class Aggregator():
         #self.wiki = wikipedia()
         self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
-        self.goog = Google(topic)
+        try:
+            self.goog = Google(topic)
+        except:
+            pass
 
     def getCategory(self):
         #For now just returns default... We can get back to this eventually
@@ -74,12 +77,17 @@ class Aggregator():
         defi = self.getDefinition()
         if defi != "":
             box['Definition'] = defi
-
-        box['GoogleArticles'] = self.getGoogleArticles()
+        try:
+            box['GoogleArticles'] = self.getGoogleArticles()
+        except:
+            pass
         box['HSWArticles'] = self.getHSWArticles()
         box['NyTimesArticles'] = self.getNYArticles()
         box['Videos'] = self.getYoutubeVideos()
-        box['Images'] = self.getImages()
+        try:
+            box['Images'] = self.getImages()
+        except:
+            pass
         return box
 
     def createPersonBox(self, name):
@@ -184,9 +192,9 @@ class Aggregator():
         return images
 
 if __name__ == "__main__":
-#      aggregate("train")
-    a = Aggregator("train")
-    box = a.createBox()
+    aggregate("train")
+#      a = Aggregator("train")
+#      box = a.createBox()
 #      print "Printing def..."
 #      print box['Definition']
 #      print "Printing hsw articles"
