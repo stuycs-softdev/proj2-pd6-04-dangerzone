@@ -3,6 +3,12 @@
 import json
 from urllib import urlopen
 
+# http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=Obama&FACET_FIELD=day_of_week&BEGIN_DATE=19000101
+# &API-KEY=5772CD9A42F195C96DA0E930A7182688:14:68439177
+# The original link is above. What happens is because we don't specify an end date, the panda article, which was 
+# coincidentally published today, becomes the first article that we see and gives us keywords like zoo. 
+# If we add an end date before then, then we can filter it out. 
+
 def ReturnRelatedTopics(Topic):
         NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
         API_KEY = "5772CD9A42F195C96DA0E930A7182688:14:68439177"
@@ -10,7 +16,9 @@ def ReturnRelatedTopics(Topic):
         FQ = str(Topic)
         FACET_FIELD = "day_of_week"
         BEGIN_DATE = str(19000101)
-        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, API_KEY)
+        END_DATE = str(20131130)
+        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
+        print(url)
         response = urlopen(url)
         Json_Data = json.loads(response.read())
         RELTOPICS = list()
@@ -20,6 +28,12 @@ def ReturnRelatedTopics(Topic):
                     for a in y[x]:
                         print a
                         RELTOPICS.append(a["value"])
+        RELTOPICS.pop(0)
+        RELTOPICS.pop(0)
+        RELTOPICS.pop(0)
+
+        print("Filtered List")
+        print(RELTOPICS)
         return RELTOPICS
 
 class Nytimes():
@@ -30,7 +44,8 @@ class Nytimes():
         FQ = str(Topic)
         FACET_FIELD = "day_of_week"
         BEGIN_DATE = str(19000101)
-        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, API_KEY)
+        END_DATE = str(20131130)
+        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
         response = urlopen(url)
         self.Json_Data = json.loads(response.read())
 
@@ -62,4 +77,4 @@ class Nytimes():
 
     if __name__ == '__main__':
     #FindArticles("Obama")
-        ReturnRelatedTopics("barrack obama")
+        ReturnRelatedTopics("Barack Obama")
