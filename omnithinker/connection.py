@@ -9,10 +9,11 @@ __all__ = ["Connection"]
 class Connection(object):
     """Handles an open connection between the server and the JS client."""
 
-    def __init__(self, socket):
+    def __init__(self, socket, database):
         self._socket = socket
         self._client = "%04d" % (id(self._socket) % 10000)
         self._state = STATE_WAITING
+        self._database = database
         self._document = None
 
         self._logger = getLogger("gunicorn.error")
@@ -42,7 +43,10 @@ class Connection(object):
         """Handle input from the client when in the "waiting" state."""
         if verb == CVERB_OPEN:
             self._state = STATE_READY
-            self._document = Document()
+            ### get document ID from data
+            ### check validity?
+            ### get document from database
+            ## self._document = self._database.get_document(docid)
             self._send(SVERB_READY)
         else:
             self._error()
@@ -92,5 +96,5 @@ class Connection(object):
     def finish(self):
         """Close the connection and save all data."""
         if self._document:
-            self._document.save()
+            self._database.save_document(self._document)
         self._log("INFO", "Connection closed.")

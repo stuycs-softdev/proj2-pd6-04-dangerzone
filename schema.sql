@@ -16,3 +16,11 @@ CREATE TABLE users (
     user_security_question TEXT,
     user_security_answer BLOB
 );
+
+DROP TABLE IF EXISTS documents;
+CREATE TABLE documents (
+    document_id INTEGER PRIMARY KEY,
+    document_author INTEGER,
+    document_title TEXT,
+    document_text TEXT
+);

@@ -1,10 +1,14 @@
 import hashlib
 import sqlite3
 
+from flask import Markup
+
+from .document import Document
+
 __all__ = ["Database"]
 
 SCHEMA_FILE = "schema.sql"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 class Database(object):
     """Represents an Omnithinker database for storing users and documents."""
@@ -34,13 +38,18 @@ class Database(object):
         result = self._execute("SELECT MAX(user_id) FROM users")
         return result[0][0] + 1 if result[0][0] else 1
 
+    def _get_next_docid(self):
+        """Return the next document ID in sequence."""
+        result = self._execute("SELECT MAX(document_id) FROM documents")
+        return result[0][0] + 1 if result[0][0] else 1
+
     def login(self, username, password):
         """Try to log in the user with the given username/password."""
         query = "SELECT user_password_hash FROM users WHERE user_name = ?"
-        results = self._execute(query, username)
-        if not results:
+        result = self._execute(query, username)
+        if not result:
             return "Incorrect username or password."
-        pwhash = results[0][0]
+        pwhash = result[0][0]
         if hashlib.sha256(password).hexdigest() != pwhash:
             return "Incorrect username or password."
         return None
@@ -56,3 +65,50 @@ class Database(object):
         self._execute("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)", user_id,
                       username, email, pwhash, securityq, securitya)
         return None
+
+    def get_documents(self, username):
+        """Return a list of all documents associated with a given username."""
+        query = """SELECT document_id, document_author, document_title,
+                          document_text
+                   FROM documents LEFT JOIN users ON document_author = user_id
+                   WHERE user_name = ?"""
+        result = self._execute(query, username)
+        documents = []
+        for row in result:
+            documents.append(Document(*row))
+        return documents
+
+    def create_document(self, username, topic=None):
+        """Create a document for a user and return its ID."""
+        docid = self._get_next_docid()
+        if username:
+            query = "SELECT user_id FROM users WHERE user_name = ?"
+            userid = self._execute(query, username)[0][0]
+        else:
+            userid = -1  # Anonymous
+        if topic:
+            title = topic
+            template = u'My project about <span class="keyword">{0}</span>...'
+            text = template.format(Markup.escape(topic))
+        else:
+            title = text = None
+        query = "INSERT INTO documents VALUES (?, ?, ?, ?)"
+        self._execute(query, docid, userid, title, text)
+        return docid
+
+    def authorize_document(self, username, docid):
+        """Return whether the given document was created by the given user."""
+        query = """SELECT user_name FROM documents
+                   LEFT JOIN users ON document_author = user_id
+                   WHERE document_id = ?"""
+        result = self._execute(query, docid)
+        if not result:
+            return False
+        author = result[0][0]
+        return author is None or author == username
+
+    def save_document(self, document):
+        """Save a document to the database."""
+        query = """UPDATE documents SET document_title = ?, document_text = ?
+                   WHERE document_id = ?"""
+        self._execute(query, document.title, document.text, document.docid)

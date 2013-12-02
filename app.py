@@ -84,14 +84,21 @@ def projects():
     if not username:
         session["focus_login"] = True
         return redirect("/")
-    return render_template("projects.html", username=username, documents=[])
+    docs = database.get_documents(username)
+    return render_template("projects.html", username=username, documents=docs)
 
 # Write document page
 @app.route("/write", methods=["GET", "POST"])
-@app.route("/write/{document}")
-def write(document=None):
+@app.route("/write/{docid}")
+def write(docid=None):
+    username = session.get("username")
+    if docid:
+        if not database.authorize_document(username, docid):
+            return redirect("/")
+        return render_template("write.html", docid=docid)
     topic = request.form.get("topic")
-    return render_template("write.html", document=document, topic=topic)
+    docid = database.create_document(username, topic)
+    return redirect("/write/{0}".format(docid))
 
 # ***TEST*** page for Ben's socket protocol
 @app.route("/ben-socket-test")
@@ -100,7 +107,7 @@ def test():
 
 @sockets.route("/socket")
 def websocket(socket):
-    conn = Connection(socket)
+    conn = Connection(socket, database)
     try:
         conn.handle()
     finally:
