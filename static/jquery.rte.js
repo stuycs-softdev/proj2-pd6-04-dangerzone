@@ -58,7 +58,7 @@ jQuery.fn.rte = function(css_url, media_url) {
         iframe.frameBorder=0;
         iframe.frameMargin=0;
         iframe.framePadding=0;
-        iframe.height=200;
+        iframe.height=500;
         if(textarea.attr('class'))
             iframe.className = textarea.attr('class');
         if(textarea.attr('id'))
@@ -120,9 +120,6 @@ jQuery.fn.rte = function(css_url, media_url) {
 
         iframeDoc.keyup(function() {
             on_type();
-            var body = $('body', iframeDoc);
-            if(body.scrollTop()>0)
-                iframe.height = Math.min(350, parseInt(iframe.height)+body.scrollTop());
             return true;
         });
 
