@@ -274,6 +274,38 @@ p.p3 {
 
 /* Writer */
 
+.writer-content {
+    margin: 1em auto 1em auto;
+    padding: 1em 1.5em 1.5em 1.5em;
+    max-width: 1600px;
+    background-color: #EEE;
+    border-radius: 5px;
+}
+
+h1.writer {
+    font-size: 2.5em;
+    margin: 0;
+    padding: 0;
+}
+
+.writer-primary {
+    color: #01A9DB;
+    font-weight: 300;
+}
+
+.writer-secondary {
+    color: #848484;
+    font-weight: 500;
+}
+
+div.writer-box-left {
+    padding-right: 1em;
+}
+
+div.writer-box-right {
+    padding-left: 1em;
+}
+
 #textbox {
     background-color: #DDD;
     width: 100%;
