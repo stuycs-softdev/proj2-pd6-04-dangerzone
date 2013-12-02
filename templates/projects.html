@@ -34,16 +34,24 @@
             </div>
             <div class="pure-u-1" align="center">
                 <div class="projects-content" align="left">
-                    {% for document in documents %}
-                        <section class="post">
-                            <header class="post-header">
-                                <a href="/write/{{document.docid}}" class="post-title">{{document.title}}</a>
-                            </header>
-                            <div class="post-description">
-                                <p>{{document.summary}}</p>
-                            </div>
-                        </section>
-                    {% endfor %}
+                    {% if documents %}
+                        {% for document in documents %}
+                            <section class="post">
+                                <header class="post-header">
+                                    <a href="/write/{{document.docid}}" class="post-title">{{document.title}}</a>
+                                </header>
+                                <div class="post-description">
+                                    <p>{{document.summary}}</p>
+                                </div>
+                            </section>
+                        {% endfor %}
+                    {% else %}
+                        <form class="pure-form projects-form" action="/write" method="post">
+                            <p>No projects! Create one?</p>
+                            <input class="pure-input-2-3" type="text" name="topic" placeholder="What do you want to write about?">
+                            <button class="pure-button" type="submit">Start</a>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
