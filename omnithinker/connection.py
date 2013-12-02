@@ -1,5 +1,6 @@
 from json import dumps, loads
 from logging import getLogger
+from threading import Thread
 
 from .api import aggregate
 from .protocol import *
@@ -42,12 +43,19 @@ class Connection(object):
 
     def _handle_keywords(self, keywords):
         """Handle a keyword update in the document. Maybe reply with stuff."""
-        for keyword in keywords:
-            if keyword in self._processed:
-                continue
-            self._processed.append(keyword)
-            for box in aggregate(keyword):
-                self._send(SVERB_UPDATE, dumps(box))
+        def inner():
+            for keyword in keywords:
+                if keyword in self._processed:
+                    continue
+                self._processed.append(keyword)
+                for box in aggregate(keyword):
+                    if self._state != STATE_READY:
+                        return
+                    self._send(SVERB_UPDATE, dumps(box))
+
+        thread = Thread(target=inner)
+        thread.daemon = True
+        thread.start()
 
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""
