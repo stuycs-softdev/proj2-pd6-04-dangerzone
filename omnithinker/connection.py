@@ -4,7 +4,7 @@ from logging import getLogger
 from .document import Document
 from .protocol import *
 
-__all__ = ["Server"]
+__all__ = ["Connection"]
 
 class Connection(object):
     """Handles an open connection between the server and the JS client."""

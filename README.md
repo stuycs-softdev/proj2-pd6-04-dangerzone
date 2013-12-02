@@ -61,7 +61,7 @@ Running
 -------
 
     source env/bin/activate
-    gunicorn -w 4 -k flask_sockets.worker app:app
+    ./run.sh
 
 Now go to [http://localhost:8000](http://localhost:8000).
 

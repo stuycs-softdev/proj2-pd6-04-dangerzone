@@ -4,9 +4,14 @@
             <h1 id="myModalLabel">Login</h1>
         </div>
         <div class="modal-body">
+        {% if error %}
+            <div class="error">
+                <p class="p3">{{error}}</p>
+            </div>
+        {% endif %}
             <p>Welcome back to OmniThinker!<br>Enter your username and password below to login.</p>
-            <input name="username" type="text" placeholder="Username">
-            <input name="password" type="password" placeholder="Password">
+            <input name="username" type="text" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
         </div>
         <div class="modal-footer">
             <button class="pure-button pure-button-primary">Login</button>
@@ -14,3 +19,8 @@
         </div>
     </form>
 </div>
+{% if focus_login %}
+    <script>
+        $("#loginModal").modal("show");
+    </script>
+{% endif %}
