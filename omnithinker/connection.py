@@ -1,7 +1,6 @@
 from json import dumps, loads
 from logging import getLogger
 
-from .document import Document
 from .protocol import *
 
 __all__ = ["Connection"]
@@ -34,20 +33,21 @@ class Connection(object):
         self._log("SEND", data)
         self._socket.send(data)
 
-    def _error(self):
+    def _error(self, reply=REPLY_INVALID):
         """Client has sent bad data; close the connection with an error."""
         self._state = STATE_CLOSING
-        self._send(SVERB_INVALID, REPLY_INVALID)
+        self._send(SVERB_INVALID, reply)
 
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""
         if verb == CVERB_OPEN:
             self._state = STATE_READY
-            ### get document ID from data
-            ### check validity?
-            ### get document from database
-            ## self._document = self._database.get_document(docid)
-            self._send(SVERB_READY)
+            self._document = doc = self._database.get_document(data)
+            if doc:
+                payload = {"title": doc.title, "text": doc.text}
+                self._send(SVERB_READY, dumps(payload))
+            else:
+                self._error(REPLY_NODOC)
         else:
             self._error()
 

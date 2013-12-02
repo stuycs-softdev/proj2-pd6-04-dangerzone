@@ -78,6 +78,25 @@ class Database(object):
             documents.append(Document(*row))
         return documents
 
+    def get_document(self, docid):
+        """Return a document given its ID. Return None if it doesn't exist."""
+        query = """SELECT document_id, document_author, document_title,
+                          document_text
+                   FROM documents WHERE document_id = ?"""
+        result = self._execute(query, docid)
+        return Document(*result[0]) if result else None
+
+    def authorize_document(self, username, docid):
+        """Return whether the given document was created by the given user."""
+        query = """SELECT user_name FROM documents
+                   LEFT JOIN users ON document_author = user_id
+                   WHERE document_id = ?"""
+        result = self._execute(query, docid)
+        if not result:
+            return False
+        author = result[0][0]
+        return author is None or author == username
+
     def create_document(self, username, topic=None):
         """Create a document for a user and return its ID."""
         docid = self._get_next_docid()
@@ -95,17 +114,6 @@ class Database(object):
         query = "INSERT INTO documents VALUES (?, ?, ?, ?)"
         self._execute(query, docid, userid, title, text)
         return docid
-
-    def authorize_document(self, username, docid):
-        """Return whether the given document was created by the given user."""
-        query = """SELECT user_name FROM documents
-                   LEFT JOIN users ON document_author = user_id
-                   WHERE document_id = ?"""
-        result = self._execute(query, docid)
-        if not result:
-            return False
-        author = result[0][0]
-        return author is None or author == username
 
     def save_document(self, document):
         """Save a document to the database."""

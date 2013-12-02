@@ -92,7 +92,7 @@ def projects():
 @app.route("/write/{docid}")
 def write(docid=None):
     username = session.get("username")
-    if docid:
+    if docid is not None:
         if not database.authorize_document(username, docid):
             return redirect("/")
         return render_template("write.html", docid=docid)

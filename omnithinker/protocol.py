@@ -16,3 +16,4 @@ SVERB_INVALID = "INVALID"
 
 # Human-readable server replies
 REPLY_INVALID = "Bad transmission."
+REPLY_NODOC = "Document doesn't exist."
