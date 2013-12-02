@@ -1,103 +1,25 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title> OmniThinker - Write </title>
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/static/writing.css">
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-  <link rel="stylesheet" href="/static/modal.css">
-  <link rel="stylesheet" href="/static/animate-custom.css">
-</head>
-<body>
-
-  <div class="pure-g-r" id="layout">
-
-    <div class="sidebar pure-u">
-      <header class="header">
-  <hgroup>
-    <h1 class="sidebar-title"> OmniThinker </h1>
-  </hgroup>
-
-  <nav class="nav">
-    <ul class="nav-list">
-      <li class="nav-item">
-        <a class="pure-button" href="/write"> New </a>
-      </li>
-      <li class="nav-item">
-        <a class="pure-button" href=""> Save </a>
-      </li>
-      <li class="nav-item">
-        <a class="pure-button" href="#exportModal" data-toggle="modal"> Export </a>
-      </li>
-      <li class="nav-item">
-        <a class="pure-button" href="/projects"> View Projects </a>
-      </li>
-      <li class="nav-item">
-        <a class="pure-button" href="#deleteModal" data-toggle="modal"> Discard </a>
-      </li>
-    </ul>
-  </nav>
-      </header>
-    </div>
-
-    <div id="exportModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-  <h1 id="myModalLabel"> Export </h1>
-      </div>
-      <div class="modal-body">
-  <p>
-    Choose how you'd like to export your project.
-  </p>
-      </div>
-      <div class="modal-footer">
-  <button class="pure-button pure-button-primary" href=""> .PDF </button>
-  <button class="pure-button pure-button-primary" href=""> .TXT </button>
-  <button class="pure-button" data-dismiss="modal" aria-hidden="true"> Return </button>
-      </div>
-    </div>
-    <div class="hero">
-      <div class = "hero-titles">
-  <h1> testing </h1>
-      </div>
-    </div>
-    <!--
-    <div class="pure-u-1-5">
-      <nav class="nav">
-  <u1 class="nav-list">
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li>
-    </div>
-    -->
-    <div class="pure-u-2-3" align="left">
-      <!-- Just a filler for Ben's JS text-area with highlight options. -->
-      <textarea cols="120" rows="28" name="project.content" wrap="soft"> </textarea>
-    </div>
-
-    <div class="pure-u-1-3" align="center">
-      <div class="toolbar">
-  <!-- Javascript-y things to choose how many boxes to display -->
-  <div class="box">
-    <div class="keyword"> Search Item 1 </div>
-    <div class="content">
-      blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb
-    </div>
-  </div>
-  <div class="box">
-
-  </div>
-  <div class="box">
-
-  </div>
-      </div>
-    </div>
-  </div>
-
-
-</body>
-
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>OmniThinker - Writer</title>
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="/static/jquery.rte.js"></script>
+        <script src="/static/omnithinker.js"></script>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <link rel="stylesheet" href="/static/common.css">
+    </head>
+    <body class="write" style="max-width: 1000px; margin: 1em auto 0 auto;">
+        <h2>Ben's Socket Test</h2>
+        <div style="font-family: monospace;">
+            <textarea id="textbox"></textarea>
+            <div id="output" style="background-color:#DDD; padding: .5em; margin: 1em 0 1em 0; max-height: 400px; overflow: auto;"></div>
+            <div id="options" style="background-color:#DDD; padding: .5em;">
+                <input id="sendbox" type="text" />
+                <a href="#" id="send">Send</a> &bull;
+                <a href="#" id="disconnect">Disconnect</a>
+            </div>
+        </div>
+    </body>
 </html>
