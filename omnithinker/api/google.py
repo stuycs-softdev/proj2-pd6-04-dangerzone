@@ -9,7 +9,12 @@ class Google():
         self.acounter = 0
     def GoogleSearchArticles(self, topic):
         DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
-        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, topic))
+        string = ""
+        words = topic.split(' ')
+        for word in words:
+            string += word + '+'
+        string = string.rstrip('+')
+        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, string))
         Json_Data = json.loads(response.read())
 
         TITLE = list()
@@ -26,7 +31,12 @@ class Google():
 
     def GoogleSearchImages(self, topic):
         DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
-        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, topic))
+        string = ""
+        words = topic.split(' ')
+        for word in words:
+            string += word + '+'
+        string = string.rstrip('+')
+        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, string))
         Json_Data = json.loads(response.read())
 
         IMAGES = list()

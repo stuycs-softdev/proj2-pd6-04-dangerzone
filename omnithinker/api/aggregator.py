@@ -9,15 +9,17 @@ from google import Google
 
 #Function to be called...
 def aggregate(startTopic):
+    used = []
     boxes = []
-    makeBoxes(startTopic, 0, boxes) #Populates the boxes array
+    makeBoxes(startTopic, 0, boxes, used) #Populates the boxes array
     print boxes
     return boxes
 
-def makeBoxes(topic, depth, boxes):
-    if depth > 2:
+def makeBoxes(topic, depth, boxes, used):
+    if depth > 2 or topic in used:
         return
     else: 
+        used.append(topic)
         try: 
             print topic
             agg = Aggregator(topic)
@@ -28,7 +30,7 @@ def makeBoxes(topic, depth, boxes):
         
     Related = ReturnRelatedTopics(topic)      
     for newTopic in Related:
-        makeBoxes(newTopic, depth + 1, boxes)
+        makeBoxes(newTopic, depth + 1, boxes, used)
 
 #This creates one box
 class Aggregator():
@@ -182,9 +184,9 @@ class Aggregator():
         return images
 
 if __name__ == "__main__":
-    aggregate("train")
-#      a = Aggregator("Railroad Accidents and Safety")
-#      box = a.createBox()
+#      aggregate("train")
+    a = Aggregator("train")
+    box = a.createBox()
 #      print "Printing def..."
 #      print box['Definition']
 #      print "Printing hsw articles"
