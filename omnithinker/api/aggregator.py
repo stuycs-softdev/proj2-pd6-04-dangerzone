@@ -5,19 +5,13 @@ from logging import getLogger
 from .howstuffworks import Howstuffworks
 from .nytimes import Nytimes, ReturnRelatedTopics
 from .youtube import Youtube
-# from .duckduckgo import Duckduckgo
+from .duckduckgo import Duckduckgo
 from .google import Google
 
 logger = getLogger("gunicorn.error")
 
 # THIS IS A CLASS MOCK-UP UNTIL AARON CAN ADD IT BACK BECAUSE HE SEEMS TO HAVE
 # FORGOTTEN ABOUT IT. HA, HA, GET IT? MOCK DUCK!?
-class Duckduckgo(object):
-    def __init__(self, topic):
-        pass
-    def getDefinition(self):
-        return ""
-
 #Function to be called...
 def aggregate(startTopic):
     return makeBoxes(startTopic, 0, []) #Populates the boxes array
