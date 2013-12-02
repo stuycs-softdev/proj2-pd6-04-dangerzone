@@ -318,13 +318,14 @@ div.writer-box-inner {
     margin-bottom: -4px;  /* offset some funky thing */
 }
 
-#omnitoolbar {
-    background-color: #DDD;
-    margin-top: 1em;
+#title {
+    font-size: 90%;
+    color: #848484;
+    vertical-align: top;
 }
 
-.title-box {
-    font-size: 1.5em;
+#omnitoolbar {
+    background-color: #DDD;
     margin-top: 1em;
 }
 
