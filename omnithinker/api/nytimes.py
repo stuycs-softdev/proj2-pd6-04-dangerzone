@@ -3,6 +3,25 @@
 import json
 from urllib import urlopen
 
+def ReturnRelatedTopics(Topic):
+        NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
+        API_KEY = "5772CD9A42F195C96DA0E930A7182688:14:68439177"
+        FORMAT = "json"
+        FQ = str(Topic)
+        FACET_FIELD = "day_of_week"
+        BEGIN_DATE = str(19000101)
+        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, API_KEY)
+        response = urlopen(url)
+        Json_Data = json.loads(response.read())
+        RELTOPICS = list()
+        for y in Json_Data["response"]["docs"]:
+            for x in y:
+                if x == "keywords":
+                    for a in y[x]:
+                        print a
+                        RELTOPICS.append(a["value"])
+        return RELTOPICS
+
 class Nytimes():
     def __init__(self, Topic):
         NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
@@ -39,15 +58,8 @@ class Nytimes():
         except:
             return list()
 
-    def ReturnRelatedTopics(self):
-        RELTOPICS = list()
-        for y in self.Json_Data["response"]["docs"]:
-            for x in y:
-                if x == "keywords":
-                    for a in y[x]:
-                        RELTOPICS.append(a["value"])
-        return RELTOPICS
-if __name__ == '__main__':
+    #End of class
+
+    if __name__ == '__main__':
     #FindArticles("Obama")
-    nyt = Nytimes("Barrack Obama")
-    print nyt.ReturnRelatedTopics()
+        ReturnRelatedTopics("barrack obama")
