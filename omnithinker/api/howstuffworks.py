@@ -1,4 +1,5 @@
 import urllib2
+
 from bs4 import BeautifulSoup
 
 class Howstuffworks():
@@ -10,9 +11,10 @@ class Howstuffworks():
         link = link.rstrip('+')
         page = urllib2.urlopen(link)
         data = page.read()
-        self.soup = BeautifulSoup(data, "html5lib")
+        self.soup = BeautifulSoup(data)
         self.blurbIter = 0
-    
+        self.headlineIter = 0
+
     def getArticle(self): #Uses blurbs iterable function
         i = 0
         for link in self.soup.find_all('div'):
@@ -35,6 +37,15 @@ class Howstuffworks():
             except:
                 pass
         return ""
+
+    def getHeadline(self):
+        try:
+            t = self.soup.find_all('div', {"class": "item"})[self.headlineIter].find("h3").text.strip()
+        except:
+            pass
+        else:
+            self.headlineIter += 1
+            return t
 
 if __name__ == "__main__":
     h = Howstuffworks("Obama")

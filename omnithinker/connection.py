@@ -1,19 +1,21 @@
 from json import dumps, loads
 from logging import getLogger
 
-from .document import Document
+from .api import aggregate
 from .protocol import *
 
-__all__ = ["Server"]
+__all__ = ["Connection"]
 
 class Connection(object):
     """Handles an open connection between the server and the JS client."""
 
-    def __init__(self, socket):
+    def __init__(self, socket, database):
         self._socket = socket
         self._client = "%04d" % (id(self._socket) % 10000)
         self._state = STATE_WAITING
+        self._database = database
         self._document = None
+        self._processed = []
 
         self._logger = getLogger("gunicorn.error")
         self._log("INFO", "Connection opened.")
@@ -33,17 +35,31 @@ class Connection(object):
         self._log("SEND", data)
         self._socket.send(data)
 
-    def _error(self):
+    def _error(self, reply=REPLY_INVALID):
         """Client has sent bad data; close the connection with an error."""
         self._state = STATE_CLOSING
-        self._send(SVERB_INVALID, REPLY_INVALID)
+        self._send(SVERB_INVALID, reply)
+
+    def _handle_keywords(self, keywords):
+        """Handle a keyword update in the document. Maybe reply with stuff."""
+        for keyword in keywords:
+            if keyword in self._processed:
+                continue
+            self._processed.append(keyword)
+            for box in aggregate(keyword):
+                self._send(SVERB_UPDATE, dumps(box))
 
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""
         if verb == CVERB_OPEN:
             self._state = STATE_READY
-            self._document = Document()
-            self._send(SVERB_READY)
+            self._document = doc = self._database.get_document(data)
+            if doc:
+                payload = {"title": doc.title, "text": doc.text}
+                self._send(SVERB_READY, dumps(payload))
+                self._handle_keywords(doc.keywords)
+            else:
+                self._error(REPLY_NODOC)
         else:
             self._error()
 
@@ -59,9 +75,8 @@ class Connection(object):
                 self._document.title = data["title"]
             if "text" in data:
                 self._document.text = data["text"]
-            # if "keywords" in data:
-            #     self._document.keywords = data["keywords"]
-            self._send(SVERB_OK)
+            if "keywords" in data:
+                self._handle_keywords(data["keywords"])
         elif verb == CVERB_CLOSE:
             self._state = STATE_CLOSING
             self._send(SVERB_BYE)
@@ -92,5 +107,5 @@ class Connection(object):
     def finish(self):
         """Close the connection and save all data."""
         if self._document:
-            self._document.save()
+            self._database.save_document(self._document)
         self._log("INFO", "Connection closed.")

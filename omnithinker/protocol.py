@@ -10,9 +10,10 @@ CVERB_CLOSE = "BYE"
 
 # Server verbs
 SVERB_READY = "READY"
-SVERB_OK = "OK"
+SVERB_UPDATE = "UPDATE"
 SVERB_BYE = "GOODBYE"
 SVERB_INVALID = "INVALID"
 
 # Human-readable server replies
 REPLY_INVALID = "Bad transmission."
+REPLY_NODOC = "Document doesn't exist."

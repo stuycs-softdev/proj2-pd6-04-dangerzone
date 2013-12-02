@@ -1,0 +1,26 @@
+<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form class="pure-form pure-form-stacked" action="/login" method="post">
+        <div class="modal-header">
+            <h1 id="myModalLabel">Login</h1>
+        </div>
+        <div class="modal-body">
+        {% if error %}
+            <div class="error">
+                <p class="p3">{{error}}</p>
+            </div>
+        {% endif %}
+            <p>Welcome back to OmniThinker!<br>Enter your username and password below to login.</p>
+            <input name="username" type="text" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+        </div>
+        <div class="modal-footer">
+            <button class="pure-button pure-button-primary">Login</button>
+            <button class="pure-button" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </form>
+</div>
+{% if focus_login %}
+    <script>
+        $("#loginModal").modal("show");
+    </script>
+{% endif %}

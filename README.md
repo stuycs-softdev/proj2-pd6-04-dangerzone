@@ -55,13 +55,13 @@ Installing
     pip install virtualenv
     virtualenv env
     source env/bin/activate
-    pip install cython git+git://github.com/surfly/gevent.git@1.0rc3#egg=gevent flask Flask-Sockets gunicorn
+    pip install cython git+git://github.com/surfly/gevent.git@1.0rc3#egg=gevent flask Flask-Sockets gunicorn beautifulsoup4 google-api-python-client
 
 Running
 -------
 
     source env/bin/activate
-    gunicorn -w 4 -k flask_sockets.worker app:app
+    ./run.sh
 
 Now go to [http://localhost:8000](http://localhost:8000).
 

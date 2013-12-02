@@ -1,36 +1,47 @@
 #Aggregates all api calls and returns json object with the most relevant things
-from howstuffworks import Howstuffworks
-from duckduckgo import Duckduckgo 
-from nytimes import Nytimes, ReturnRelatedTopics 
-from youtube import Youtube
-from google import Google
-#Lets create a multitude of boxes
 
+from logging import getLogger
+
+from .howstuffworks import Howstuffworks
+from .nytimes import Nytimes, ReturnRelatedTopics
+from .youtube import Youtube
+# from .duckduckgo import Duckduckgo
+from .google import Google
+
+logger = getLogger("gunicorn.error")
+
+# THIS IS A CLASS MOCK-UP UNTIL AARON CAN ADD IT BACK BECAUSE HE SEEMS TO HAVE
+# FORGOTTEN ABOUT IT. HA, HA, GET IT? MOCK DUCK!?
+class Duckduckgo(object):
+    def __init__(self, topic):
+        pass
+    def getDefinition(self):
+        return ""
 
 #Function to be called...
 def aggregate(startTopic):
-    used = []
-    boxes = []
-    makeBoxes(startTopic, 0, boxes, used) #Populates the boxes array
-    print boxes
-    return boxes
+    return makeBoxes(startTopic, 0, []) #Populates the boxes array
 
-def makeBoxes(topic, depth, boxes, used):
+def makeBoxes(topic, depth, used):
     if depth >= 2 or topic in used:
         return
-    else: 
+    else:
         used.append(topic)
-        try: 
-            print topic
+        try:
             agg = Aggregator(topic)
-            boxes.append(agg.createBox())
-        except:
-            print "Error with topic " + topic
+            yield agg.createBox()
+        except Exception as exc:
+            logger.error("Error with topic " + topic + ": " + str(exc))
             return
-        
-    Related = ReturnRelatedTopics(topic)      
-    for newTopic in Related:
-        makeBoxes(newTopic, depth + 1, boxes, used)
+
+    try:
+        Related = ReturnRelatedTopics(topic)
+    except Exception as exc:
+        logger.error("Error with topic " + topic + ": " + str(exc))
+    else:
+        for newTopic in Related:
+            for data in makeBoxes(newTopic, depth + 1, used):
+                yield data
 
 #This creates one box
 class Aggregator():
@@ -39,7 +50,7 @@ class Aggregator():
         self.hsw = Howstuffworks(topic)
         self.nyt = Nytimes(topic)
         #self.wiki = wikipedia()
-        self.youtube = Youtube(topic)
+        # self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
         try:
             self.goog = Google(topic)
@@ -69,11 +80,11 @@ class Aggregator():
 
     def createDefaultBox(self, topic):
         box = {}
-        
+
         box['Keyword'] = topic
         #Try to get links
         #Best option is nytimes
-        #Let's see if we can get an image link    
+        #Let's see if we can get an image link
         defi = self.getDefinition()
         if defi != "":
             box['Definition'] = defi
@@ -83,7 +94,7 @@ class Aggregator():
             pass
         box['HSWArticles'] = self.getHSWArticles()
         box['NyTimesArticles'] = self.getNYArticles()
-        box['Videos'] = self.getYoutubeVideos()
+        # box['Videos'] = self.getYoutubeVideos()
         try:
             box['Images'] = self.getImages()
         except:
@@ -99,7 +110,7 @@ class Aggregator():
         profession = wiki.getProfession()
         #Place of birth / categories
         imgLink = duck.getImage()
-        
+
 
         box = {}
         box['Keyword'] = topic
@@ -116,10 +127,12 @@ class Aggregator():
         articles = {}
         articles['Blurbs'] = [0]*4
         articles['Links'] = [0]*4
+        articles['Headline'] = [0]*4
         i = 0
         for i in range(4):
             articles['Links'][i] = self.hsw.getArticle()
             articles['Blurbs'][i] = self.hsw.getBlurb()
+            articles['Headline'][i] = self.hsw.getHeadline()
         return articles
     def getNYArticles(self):
         URL = 0
@@ -192,7 +205,9 @@ class Aggregator():
         return images
 
 if __name__ == "__main__":
-    aggregate("train")
+    gen = aggregate("apples")
+    for box in gen:
+        print box
 #      a = Aggregator("train")
 #      box = a.createBox()
 #      print "Printing def..."

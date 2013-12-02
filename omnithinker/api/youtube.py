@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-from apiclient.discovery import build
-from optparse import OptionParser
-
 import json
+from optparse import OptionParser
 import urllib
+
+from apiclient.discovery import build
 
 class Youtube():
     def __init__(self, topic):
