@@ -3,7 +3,7 @@ from howstuffworks import Howstuffworks
 from duckduckgo import Duckduckgo 
 from nytimes import Nytimes 
 from youtube import Youtube
-
+from google import Google
 #Lets create a multitude of boxes
 
 #  def makeBoxes(topic, depth):
@@ -18,6 +18,7 @@ class Aggregator():
         #self.wiki = wikipedia()
         self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
+        self.goog = Google(topic)
 
     def getCategory(self):
         #For now just returns default... We can get back to this eventually
@@ -43,6 +44,7 @@ class Aggregator():
     def createDefaultBox(self, topic):
         box = {}
         
+        box['Keyword'] = topic
         #Try to get links
         #Best option is nytimes
         #Let's see if we can get an image link    
@@ -50,11 +52,11 @@ class Aggregator():
         if defi != "":
             box['Definition'] = defi
 
+        box['GoogleArticles'] = self.getGoogleArticles()
         box['HSWArticles'] = self.getHSWArticles()
         box['NyTimesArticles'] = self.getNYArticles()
         box['Videos'] = self.getYoutubeVideos()
-        #box['Images'] = getImages()
-        box['Keyword'] = topic
+        box['Images'] = self.getImages()
         return box
 
     def createPersonBox(self, name):
@@ -123,9 +125,28 @@ class Aggregator():
         if definition == "":
             definition = self.wiki.getDefinition()
         return definition
+    def getGoogleArticles(self):
+        URL = 0
+        HEADLINE = 1
+        BLURB = 2
+        i = 0
+        articles = {}
+        articles['Links'] = [0]*4
+        articles['Blurbs'] = [0]*4
+        articles['Headline'] = [0]*4
+        for i in range(4):
+            temp = self.goog.getArticle()
+            if not temp:
+                return articles
+
+            articles['Links'][i] = temp[URL]
+            articles['Blurbs'][i] = temp[BLURB]
+            articles['Headline'][i] = temp[HEADLINE]
+
+        return articles
 
     def getImages(self):
-        images = []
+        images = [0]*4
         i = 0
         for i in range(3):
             imgLink = self.goog.getImage()
@@ -139,11 +160,12 @@ class Aggregator():
 if __name__ == "__main__":
     a = Aggregator("Train")
     box = a.createBox()
-    print "Printing def..."
-    print box['Definition']
-    print "Printing hsw articles"
-    print box['HSWArticles']
-    print "Printing nytimes articles"
-    print box['NyTimesArticles']
-    print "Printing videos..."
-    print box['Videos']
+#      print "Printing def..."
+#      print box['Definition']
+#      print "Printing hsw articles"
+#      print box['HSWArticles']
+#      print "Printing nytimes articles"
+#      print box['NyTimesArticles']
+#      print "Printing videos..."
+#      print box['Videos']
+    print json.loads(box)
