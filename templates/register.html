@@ -25,6 +25,11 @@
                 <div class="pure-u-2-3">
                     <div class="box">
                         <div class="subhead subhead2">Create your profile and get started right away</div>
+                        {% if error %}
+                            <div class="error">
+                                <p class="p3">{{error}}</p>
+                            </div>
+                        {% endif %}
                         <form class="pure-form pure-form-aligned" action="/register" method="post">
                             <fieldset>
                                 <div class="pure-control-group">
