@@ -16,6 +16,10 @@ body.register {
     background-image: url('http://www.ommwriter.com/images/bg1.jpg');
 }
 
+body.projects {
+    background-image: url('http://www.ommwriter.com/images/bg3.jpg');
+}
+
 img.logo {
     width: 125px;
     opacity: 0.75;
@@ -33,6 +37,10 @@ img.logo {
     text-align: center;
     margin: 2em auto 2em auto;
     border-bottom: 2px solid #eee;
+}
+
+.projects-hero {
+    margin-top: 6em;
 }
 
 .hero-titles {
@@ -68,6 +76,10 @@ img.logo {
 
 .register-content {
     max-width: 1000px;
+}
+
+.projects-content {
+    padding: 2em 3em 0;
 }
 
 .subhead {
@@ -157,4 +169,82 @@ p.p3 {
 
 .pure-button:hover {
     background: #2E9AFE;
+}
+
+/* Sidebar */
+
+#layout {
+    padding-left: 25%; /* "left col (nav + list)" width */
+    position: relative;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    margin-left: -25%;
+    background: #0099CC;
+    color: #fff;
+}
+
+.header {
+    margin: 50% 2em 0;
+    text-align: right;
+}
+
+.sidebar-title, .sidebar-tagline {
+    margin: 0;
+}
+
+.sidebar-title {
+    text-transform: uppercase;
+}
+
+.sidebar-tagline {
+    font-weight: 300;
+    color: #99CCFF;
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-item {
+    display: list-item;
+    *display: inline;
+    zoom: 1;
+}
+
+.nav-item a {
+    background: transparent;
+    border: 3px solid #00CCCC;
+    color: #fff;
+    margin-top: 1em;
+}
+
+.nav-item a:hover, .nav-item a:focus {
+    border: 3px solid rgb(142, 142, 214);
+    color: rgb(142, 142, 214);
+    text-decoration: none;
+}
+
+/* Projects */
+
+.post {
+    padding-bottom: 2em;
+}
+
+.post-title {
+    font-size: 2em;
+    color: #222;
+    margin-bottom: 0.2em;
+}
+
+.post-description {
+    color: #444;
+    line-height: 1.8em;
+    text-align: justify;
 }

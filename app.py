@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask_sockets import Sockets
 
 from omnithinker import neuter_monkey
@@ -40,7 +40,6 @@ def login():
         session["error"] = error
         return redirect("/")
     session["username"] = username
-    # flash(u"Welcome, {0}!".format(username))
     return redirect("/projects")
 
 # Register page
@@ -70,7 +69,6 @@ def register():
     if error:
         return render_template("register.html", error=error)
     session["username"] = username
-    # flash(u"Welcome, {0}!".format(username))
     return redirect("/projects")
 
 # Logout redirector
@@ -82,13 +80,18 @@ def logout():
 # Projects page
 @app.route("/projects")
 def projects():
-    return "Projects!"
+    username = session.get("username")
+    if not username:
+        session["focus_login"] = True
+        return redirect("/")
+    return render_template("projects.html", username=username, documents=[])
 
 # Write document page
 @app.route("/write", methods=["GET", "POST"])
-def write():
+@app.route("/write/{document}")
+def write(document=None):
     topic = request.form.get("topic")
-    return render_template("write.html")
+    return render_template("write.html", document=document, topic=topic)
 
 # ***TEST*** page for Ben's socket protocol
 @app.route("/ben-socket-test")
