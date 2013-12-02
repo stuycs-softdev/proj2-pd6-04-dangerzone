@@ -1,4 +1,5 @@
 import urllib2
+
 from bs4 import BeautifulSoup
 
 class Howstuffworks():
@@ -10,9 +11,9 @@ class Howstuffworks():
         link = link.rstrip('+')
         page = urllib2.urlopen(link)
         data = page.read()
-        self.soup = BeautifulSoup(data, "html5lib")
+        self.soup = BeautifulSoup(data)
         self.blurbIter = 0
-    
+
     def getArticle(self): #Uses blurbs iterable function
         i = 0
         for link in self.soup.find_all('div'):

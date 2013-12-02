@@ -1,13 +1,12 @@
 #!/usr/bin/python
-
 import json
 from urllib import urlopen
 
 # http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=Obama&FACET_FIELD=day_of_week&BEGIN_DATE=19000101
 # &API-KEY=5772CD9A42F195C96DA0E930A7182688:14:68439177
-# The original link is above. What happens is because we don't specify an end date, the panda article, which was 
-# coincidentally published today, becomes the first article that we see and gives us keywords like zoo. 
-# If we add an end date before then, then we can filter it out. 
+# The original link is above. What happens is because we don't specify an end date, the panda article, which was
+# coincidentally published today, becomes the first article that we see and gives us keywords like zoo.
+# If we add an end date before then, then we can filter it out.
 
 def ReturnRelatedTopics(Topic):
         NYT_API_URL = 'http://api.nytimes.com/svc/search/v2/articlesearch'
@@ -61,7 +60,7 @@ class Nytimes():
         self.Data = zip(URL, TITLE, SNIPPET)
         self.counter = 0
         #print(Data)
-        
+
     def getArticle(self):
         try:
             self.counter += 1

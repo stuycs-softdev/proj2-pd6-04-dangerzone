@@ -325,11 +325,6 @@ div.writer-box-inner {
     max-width: 250px;
 }
 
-#omnitoolbar {
-    background-color: #DDD;
-    margin-top: 1em;
-}
-
 .keyword {
     background-color: yellow;
 }
@@ -365,4 +360,11 @@ div.writer-box-inner {
 
 .header-link {
     text-decoration: none;
+}
+
+/* Toolbar */
+
+#omnitoolbar {
+    background-color: #DDD;
+    margin-top: 1em;
 }

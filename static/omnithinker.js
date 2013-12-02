@@ -3,6 +3,7 @@ var socket;
 
 var docid;
 var title;
+var omnitoolbar;
 var textbox;
 
 var timeout_id = 0;
@@ -40,6 +41,7 @@ function on_type() {
 $(document).ready(function() {
     $("#textbox").rte("/static/common.css", "/static/img/");
     title = $("#title");
+    omnitoolbar = $("#omnitoolbar");
     socket = new WebSocket(URL);
 
     socket.onopen = function(event) {
@@ -52,7 +54,12 @@ $(document).ready(function() {
             title.val(payload.title);
             textbox.html(payload.text);
         }
-        if (evt.data == "GOODBYE") {
+        else if (evt.data.indexOf("UPDATE") == 0) {
+            var payload = JSON.parse(evt.data.substring(7));
+            console.log(payload);
+            omnitoolbar.text(omnitoolbar.text() + payload);
+        }
+        else if (evt.data == "GOODBYE") {
             socket.close();
         }
     };

@@ -55,7 +55,7 @@ Installing
     pip install virtualenv
     virtualenv env
     source env/bin/activate
-    pip install cython git+git://github.com/surfly/gevent.git@1.0rc3#egg=gevent flask Flask-Sockets gunicorn beautifulsoup4
+    pip install cython git+git://github.com/surfly/gevent.git@1.0rc3#egg=gevent flask Flask-Sockets gunicorn beautifulsoup4 google-api-python-client
 
 Running
 -------

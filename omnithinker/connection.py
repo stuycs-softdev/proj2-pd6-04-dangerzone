@@ -1,6 +1,7 @@
 from json import dumps, loads
 from logging import getLogger
 
+from .api import aggregate
 from .protocol import *
 
 __all__ = ["Connection"]
@@ -14,6 +15,7 @@ class Connection(object):
         self._state = STATE_WAITING
         self._database = database
         self._document = None
+        self._processed = []
 
         self._logger = getLogger("gunicorn.error")
         self._log("INFO", "Connection opened.")
@@ -40,8 +42,12 @@ class Connection(object):
 
     def _handle_keywords(self, keywords):
         """Handle a keyword update in the document. Maybe reply with stuff."""
-        ## AARON'S AGGREGATION CODE GOES HERE
-        pass
+        for keyword in keywords:
+            if keyword in self._processed:
+                continue
+            self._processed.append(keyword)
+            for topic, box in aggregate(self._logger, keyword):
+                self._send(SVERB_UPDATE, dumps({"topic": topic, "data": box}))
 
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""
