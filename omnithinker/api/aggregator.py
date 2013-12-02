@@ -1,7 +1,7 @@
 #Aggregates all api calls and returns json object with the most relevant things
 from howstuffworks import Howstuffworks
 from duckduckgo import Duckduckgo 
-from nytimes import Nytimes 
+from nytimes import Nytimes, ReturnRelatedTopics 
 from youtube import Youtube
 from google import Google
 #Lets create a multitude of boxes
@@ -11,16 +11,22 @@ from google import Google
 def aggregate(startTopic):
     boxes = []
     makeBoxes(startTopic, 0, boxes) #Populates the boxes array
+    print boxes
     return boxes
 
 def makeBoxes(topic, depth, boxes):
-    if depth > MAXDEPTH:
+    if depth > 2:
         return
-    else:
-        agg = Aggregator(topic)
-        boxes.append(agg.createBox())
+    else: 
+        try: 
+            print topic
+            agg = Aggregator(topic)
+            boxes.append(agg.createBox())
+        except:
+            print "Error with topic " + topic
+            return
         
-    Related = nytimes.getRelated(topic)      
+    Related = ReturnRelatedTopics(topic)      
     for newTopic in Related:
         makeBoxes(newTopic, depth + 1, boxes)
 
@@ -131,6 +137,8 @@ class Aggregator():
         videos['Link'] = [0]*4
         for i in range(4):
             temp = self.youtube.getVideo()
+            if temp == "":
+                return videos
             videos['Title'][i] = temp[0]
             videos['Link'][i] = temp[1]
         return videos
@@ -138,7 +146,8 @@ class Aggregator():
     def getDefinition(self):
         definition = self.duck.getDefinition()
         if definition == "":
-            definition = self.wiki.getDefinition()
+#              definition = self.wiki.getDefinition()
+            pass
         return definition
     def getGoogleArticles(self):
         URL = 0
@@ -173,8 +182,9 @@ class Aggregator():
         return images
 
 if __name__ == "__main__":
-    a = Aggregator("Train")
-    box = a.createBox()
+    aggregate("train")
+#      a = Aggregator("Railroad Accidents and Safety")
+#      box = a.createBox()
 #      print "Printing def..."
 #      print box['Definition']
 #      print "Printing hsw articles"
@@ -183,4 +193,4 @@ if __name__ == "__main__":
 #      print box['NyTimesArticles']
 #      print "Printing videos..."
 #      print box['Videos']
-    print json.loads(box)
+#      print json.loads(box)

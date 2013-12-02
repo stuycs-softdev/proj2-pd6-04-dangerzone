@@ -8,7 +8,7 @@ class Google():
         self.icounter = 0
         self.acounter = 0
     def GoogleSearchArticles(self, topic):
-        DEVELOPER_KEY = "AIzaSyCmBiXQBlUnuYehSvCcM_5CxNuT2hu41Qs"
+        DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
         response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, topic))
         Json_Data = json.loads(response.read())
 
@@ -25,7 +25,7 @@ class Google():
         return data
 
     def GoogleSearchImages(self, topic):
-        DEVELOPER_KEY = "AIzaSyCmBiXQBlUnuYehSvCcM_5CxNuT2hu41Qs"
+        DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
         response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, topic))
         Json_Data = json.loads(response.read())
 
