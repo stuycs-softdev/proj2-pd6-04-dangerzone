@@ -38,6 +38,11 @@ class Connection(object):
         self._state = STATE_CLOSING
         self._send(SVERB_INVALID, reply)
 
+    def _handle_keywords(self, keywords):
+        """Handle a keyword update in the document. Maybe reply with stuff."""
+        ## AARON'S AGGREGATION CODE GOES HERE
+        pass
+
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""
         if verb == CVERB_OPEN:
@@ -46,6 +51,7 @@ class Connection(object):
             if doc:
                 payload = {"title": doc.title, "text": doc.text}
                 self._send(SVERB_READY, dumps(payload))
+                self._handle_keywords(doc.keywords)
             else:
                 self._error(REPLY_NODOC)
         else:
@@ -63,9 +69,8 @@ class Connection(object):
                 self._document.title = data["title"]
             if "text" in data:
                 self._document.text = data["text"]
-            # if "keywords" in data:
-            #     self._document.keywords = data["keywords"]
-            self._send(SVERB_OK)
+            if "keywords" in data:
+                self._handle_keywords(data["keywords"])
         elif verb == CVERB_CLOSE:
             self._state = STATE_CLOSING
             self._send(SVERB_BYE)

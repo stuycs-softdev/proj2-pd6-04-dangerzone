@@ -50,7 +50,6 @@ $(document).ready(function() {
 
     socket.onopen = function(event) {
         display('<span style="color: brown;">CONNECTED</span>', '');
-        send("HELLO");
     };
 
     socket.onclose = function(evt) {
@@ -72,7 +71,7 @@ $(document).ready(function() {
     $("#send").click(function() {
         var msg = $("#sendbox").val();
         if (msg) {
-            send("UPDATE " + msg);
+            send(msg);
             $("#sendbox").val("");
         }
     });
