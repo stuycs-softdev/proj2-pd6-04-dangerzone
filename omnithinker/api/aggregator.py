@@ -6,8 +6,23 @@ from youtube import Youtube
 from google import Google
 #Lets create a multitude of boxes
 
-#  def makeBoxes(topic, depth):
-       
+
+#Function to be called...
+def aggregate(startTopic):
+    boxes = []
+    makeBoxes(startTopic, 0, boxes) #Populates the boxes array
+    return boxes
+
+def makeBoxes(topic, depth, boxes):
+    if depth > MAXDEPTH:
+        return
+    else:
+        agg = Aggregator(topic)
+        boxes.append(agg.createBox())
+        
+    Related = nytimes.getRelated(topic)      
+    for newTopic in Related:
+        makeBoxes(newTopic, depth + 1, boxes)
 
 #This creates one box
 class Aggregator():
