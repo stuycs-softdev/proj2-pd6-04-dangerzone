@@ -2,15 +2,21 @@ from urllib2 import urlopen
 import json
 
 class Google():
-    def __init__(self):
-        GoogleSearch("Apples")
-
-    def GoogleSearchArticles(topic):
-        DEVELOPER_KEY = "AIzaSyCmBiXQBlUnuYehSvCcM_5CxNuT2hu41Qs"
-        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, topic))
+    def __init__(self, topic):
+        self.articles = self.GoogleSearchArticles(topic)
+        self.images = self.GoogleSearchImages(topic)
+        self.icounter = 0
+        self.acounter = 0
+    def GoogleSearchArticles(self, topic):
+        DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
+        string = ""
+        words = topic.split(' ')
+        for word in words:
+            string += word + '+'
+        string = string.rstrip('+')
+        print 'https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, string)
+        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, string))
         Json_Data = json.loads(response.read())
-        print('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s' % (DEVELOPER_KEY, topic))
-        print(Json_Data)
 
         TITLE = list()
         URL = list()
@@ -21,21 +27,18 @@ class Google():
             URL.append(x["link"])
             SNIPPET.append(x["snippet"])
 
-        print("Printing TITLE")
-        print(TITLE)
-        print("Printing URL")
-        print(URL)
-        print("Printing SNIPPET")
-        print(SNIPPET)
         data = zip(TITLE, URL, SNIPPET)
         return data
 
-    def GoogleSearchImages(topic):
-        DEVELOPER_KEY = "AIzaSyCmBiXQBlUnuYehSvCcM_5CxNuT2hu41Qs"
-        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, topic))
+    def GoogleSearchImages(self, topic):
+        DEVELOPER_KEY = "AIzaSyCSO5JoLloaoPsO4QJ_NS1PEh4TepSTtgI"
+        string = ""
+        words = topic.split(' ')
+        for word in words:
+            string += word + '+'
+        string = string.rstrip('+')
+        response = urlopen('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, string))
         Json_Data = json.loads(response.read())
-        print('https://www.googleapis.com/customsearch/v1?key=%s&cx=015867020359405023218:wnembc1eg9m&q=%s&searchType=image' % (DEVELOPER_KEY, topic))
-        print(Json_Data)
 
         IMAGES = list()
         for x in Json_Data["items"]:
@@ -43,7 +46,24 @@ class Google():
 
         return IMAGES
 
+    def getImage(self):
+        if not self.images[self.icounter]:
+            return ""
+        else:
+            self.icounter += 1
+            return self.images[self.icounter - 1]
 
+    def getArticle(self):
+        if not self.articles[self.acounter]:
+            return ""
+        else:
+            self.acounter += 1
+            return self.articles[self.acounter - 1]
+if __name__ == "__main__":
+    g = Google("Train")
+    print g.getArticle()
+    print g.getImage()
 
+    print g.getArticle()
 
-
+    print g.getImage()

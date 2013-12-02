@@ -1,9 +1,36 @@
 #Aggregates all api calls and returns json object with the most relevant things
 from howstuffworks import Howstuffworks
 from duckduckgo import Duckduckgo 
-from nytimes import Nytimes 
+from nytimes import Nytimes, ReturnRelatedTopics 
+from youtube import Youtube
+from google import Google
+#Lets create a multitude of boxes
 
 
+#Function to be called...
+def aggregate(startTopic):
+    used = []
+    boxes = []
+    makeBoxes(startTopic, 0, boxes, used) #Populates the boxes array
+    print boxes
+    return boxes
+
+def makeBoxes(topic, depth, boxes, used):
+    if depth >= 2 or topic in used:
+        return
+    else: 
+        used.append(topic)
+        try: 
+            print topic
+            agg = Aggregator(topic)
+            boxes.append(agg.createBox())
+        except:
+            print "Error with topic " + topic
+            return
+        
+    Related = ReturnRelatedTopics(topic)      
+    for newTopic in Related:
+        makeBoxes(newTopic, depth + 1, boxes, used)
 
 #This creates one box
 class Aggregator():
@@ -12,7 +39,12 @@ class Aggregator():
         self.hsw = Howstuffworks(topic)
         self.nyt = Nytimes(topic)
         #self.wiki = wikipedia()
+        self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
+        try:
+            self.goog = Google(topic)
+        except:
+            pass
 
     def getCategory(self):
         #For now just returns default... We can get back to this eventually
@@ -38,18 +70,24 @@ class Aggregator():
     def createDefaultBox(self, topic):
         box = {}
         
+        box['Keyword'] = topic
         #Try to get links
         #Best option is nytimes
         #Let's see if we can get an image link    
         defi = self.getDefinition()
         if defi != "":
             box['Definition'] = defi
-
+        try:
+            box['GoogleArticles'] = self.getGoogleArticles()
+        except:
+            pass
         box['HSWArticles'] = self.getHSWArticles()
         box['NyTimesArticles'] = self.getNYArticles()
-        #box['Videos'] = getYoutubeVideos()
-        #box['Images'] = getImages()
-        box['Keyword'] = topic
+        box['Videos'] = self.getYoutubeVideos()
+        try:
+            box['Images'] = self.getImages()
+        except:
+            pass
         return box
 
     def createPersonBox(self, name):
@@ -108,7 +146,9 @@ class Aggregator():
         videos['Title'] = [0]*4
         videos['Link'] = [0]*4
         for i in range(4):
-            temp = self.utube.getVideo()
+            temp = self.youtube.getVideo()
+            if temp == "":
+                return videos
             videos['Title'][i] = temp[0]
             videos['Link'][i] = temp[1]
         return videos
@@ -116,11 +156,31 @@ class Aggregator():
     def getDefinition(self):
         definition = self.duck.getDefinition()
         if definition == "":
-            definition = self.wiki.getDefinition()
+#              definition = self.wiki.getDefinition()
+            pass
         return definition
+    def getGoogleArticles(self):
+        URL = 0
+        HEADLINE = 1
+        BLURB = 2
+        i = 0
+        articles = {}
+        articles['Links'] = [0]*4
+        articles['Blurbs'] = [0]*4
+        articles['Headline'] = [0]*4
+        for i in range(4):
+            temp = self.goog.getArticle()
+            if not temp:
+                return articles
+
+            articles['Links'][i] = temp[URL]
+            articles['Blurbs'][i] = temp[BLURB]
+            articles['Headline'][i] = temp[HEADLINE]
+
+        return articles
 
     def getImages(self):
-        images = []
+        images = [0]*4
         i = 0
         for i in range(3):
             imgLink = self.goog.getImage()
@@ -132,11 +192,15 @@ class Aggregator():
         return images
 
 if __name__ == "__main__":
-    a = Aggregator("Train")
-    box = a.createBox()
-    print "Printing def..."
-    print box['Definition']
-    print "Printing hsw articles"
-    print box['HSWArticles']
-    print "Printing nytimes articles"
-    print box['NyTimesArticles']
+    aggregate("train")
+#      a = Aggregator("train")
+#      box = a.createBox()
+#      print "Printing def..."
+#      print box['Definition']
+#      print "Printing hsw articles"
+#      print box['HSWArticles']
+#      print "Printing nytimes articles"
+#      print box['NyTimesArticles']
+#      print "Printing videos..."
+#      print box['Videos']
+#      print json.loads(box)
