@@ -18,7 +18,6 @@ def ReturnRelatedTopics(Topic):
         BEGIN_DATE = str(19000101)
         END_DATE = str(20131130)
         url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
-        print(url)
         response = urlopen(url)
         Json_Data = json.loads(response.read())
         RELTOPICS = list()
@@ -26,14 +25,11 @@ def ReturnRelatedTopics(Topic):
             for x in y:
                 if x == "keywords":
                     for a in y[x]:
-                        print a
                         RELTOPICS.append(a["value"])
         RELTOPICS.pop(0)
         RELTOPICS.pop(0)
         RELTOPICS.pop(0)
 
-        print("Filtered List")
-        print(RELTOPICS)
         return RELTOPICS
 
 class Nytimes():
@@ -77,4 +73,4 @@ class Nytimes():
 
     if __name__ == '__main__':
     #FindArticles("Obama")
-        ReturnRelatedTopics("Barack Obama")
+        print ReturnRelatedTopics("airplane")
