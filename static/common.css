@@ -183,6 +183,7 @@ p.p3 {
     top: 0;
     bottom: 0;
     width: 20%;
+    min-width: 275px;
     margin-left: -25%;
     background: #0099CC;
     color: #fff;
