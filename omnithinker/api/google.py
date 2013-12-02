@@ -45,7 +45,7 @@ class Google():
             IMAGES.append(x["image"]["contextLink"])
 
         return IMAGES
-        
+
     def getImage(self):
         if not self.images[self.icounter]:
             return ""
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     g = Google("Train")
     print g.getArticle()
     print g.getImage()
-    
+
     print g.getArticle()
 
     print g.getImage()

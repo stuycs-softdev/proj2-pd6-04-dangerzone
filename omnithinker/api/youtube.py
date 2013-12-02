@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 
 from apiclient.discovery import build
 from optparse import OptionParser
@@ -90,7 +90,7 @@ class Youtube():
         return Videos
 #          if len(Videos) > 0 :
 #                return Videos
-#          elif len(Channels) > 0 : 
+#          elif len(Channels) > 0 :
 #                return Channels
 #          else:
 #              return Playlists
@@ -110,4 +110,3 @@ if __name__ == "__main__":
     print y.getVideo()
     print y.getVideo()
     print y.getVideo()
-

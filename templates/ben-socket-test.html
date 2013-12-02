@@ -2,15 +2,19 @@
     <head>
         <title>Ben's Socket Test</title>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/static/jquery.rte.js"></script>
         <script src="/static/omnithinker.js"></script>
+        <link rel="stylesheet" href="/static/textbox.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
     </head>
     <body style="max-width: 1000px; margin: 1em auto 0 auto;">
         <h2>Ben's Socket Test</h2>
         <div style="font-family: monospace;">
-            <div id="output" style="background-color:#F5F5F5; padding: .5em;"></div>
-            <div id="options" style="background-color:#F5F5F5; padding: .5em; margin-top: 1em;">
+            <textarea id="textbox"></textarea>
+            <div id="output" style="background-color:#DDD; padding: .5em; margin: 1em 0 1em 0; max-height: 400px; overflow: auto;"></div>
+            <div id="options" style="background-color:#DDD; padding: .5em;">
                 <input id="sendbox" type="text" />
-                <a href="#" id="send">Send</a> <br />
+                <a href="#" id="send">Send</a> &bull;
                 <a href="#" id="disconnect">Disconnect</a>
             </div>
         </div>

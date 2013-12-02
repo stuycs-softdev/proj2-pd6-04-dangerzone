@@ -1,0 +1,109 @@
+<!doctype html> 
+
+<head>
+
+  <title> Writing Page </title>
+
+  <link rel="stylesheet" href="../static/writing.css">
+  <link rel="stylesheet" href="../static/pure-min.css">
+  <link rel="stylesheet" href="../static/modal.css">
+  <link rel="stylesheet" href="../static/animate-custom.css"> 
+
+</head>
+
+<body>
+
+  <div class="pure-g-r" id="layout">
+    
+    <div class="sidebar pure-u">
+      <header class="header">
+	<hgroup>
+	  <h1 class="sidebar-title"> OmniThinker </h1>
+	</hgroup>
+
+	<nav class="nav">
+	  <ul class="nav-list">
+	    <li class="nav-item">
+	      <a class="pure-button" href="/write"> New </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="pure-button" href=""> Save </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="pure-button" href="#exportModal" data-toggle="modal"> Export </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="pure-button" href="/projects"> View Projects </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="pure-button" href="#deleteModal" data-toggle="modal"> Discard </a> 
+	    </li>
+	  </ul>
+	</nav>
+      </header>
+    </div>
+    
+    <div id="exportModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+	<h1 id="myModalLabel"> Export </h1> 
+      </div>
+      <div class="modal-body"> 
+	<p>
+	  Choose how you'd like to export your project. 
+	</p>
+      </div>
+      <div class="modal-footer">
+	<button class="pure-button pure-button-primary" href=""> .PDF </button>
+	<button class="pure-button pure-button-primary" href=""> .TXT </button>
+	<button class="pure-button" data-dismiss="modal" aria-hidden="true"> Return </button>
+      </div>
+    </div>
+    
+    <script src="../static/jquery-1.9.1.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+    
+    <div class="hero">
+      <div class = "hero-titles">
+	<h1> {{PROJECT.TITLE}} </h1>
+      </div>
+    </div>
+    <!--
+    <div class="pure-u-1-5">
+      <nav class="nav">
+	<u1 class="nav-list">
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+	  <li> <a class="new_avatar" href="/write" height="48" width="48"></a> </li> 
+    </div>
+    -->
+    <div class="pure-u-2-3" align="left">
+      <!-- Just a filler for Ben's JS text-area with highlight options. -->
+      <textarea cols="120" rows="28" name="project.content" wrap="soft"> </textarea> 
+    </div>
+
+    <div class="pure-u-1-3" align="center">
+      <div class="toolbar"> 
+	<!-- Javascript-y things to choose how many boxes to display -->
+	<div class="box">
+	  <div class="keyword"> Search Item 1 </div>
+	  <div class="content">
+	    blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb 
+	  </div>
+	</div>
+	<div class="box">
+	  
+	</div>
+	<div class="box">
+	
+	</div>
+      </div>
+    </div>
+  </div>
+  
+
+</body>
+
+</html> 
