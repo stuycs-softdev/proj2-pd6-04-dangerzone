@@ -277,9 +277,9 @@ p.p3 {
 
 .writer-content {
     margin: auto;
-    padding: 1em 1.5em 1.5em 1.5em;
+    padding: 1em 2em 2em 2em;
     max-width: 1600px;
-    background-color: #EEE;
+    background-color: #F0F0F0;
     border-radius: 5px;
 }
 
@@ -365,6 +365,22 @@ div.writer-box-inner {
 /* Toolbar */
 
 #omnitoolbar {
-    background-color: #DDD;
     margin-top: 1em;
+}
+
+.topic {
+    margin-bottom: 1em;
+    border: 1px solid #CCC;
+}
+
+.topic-title {
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #CCC;
+    padding: 0.5em;
+}
+
+.topic-body {
+    background-color: #FFF;
+    padding: 0.5em;
+    font-size: 12px;
 }

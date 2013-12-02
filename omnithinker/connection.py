@@ -46,8 +46,8 @@ class Connection(object):
             if keyword in self._processed:
                 continue
             self._processed.append(keyword)
-            for topic, box in aggregate(self._logger, keyword):
-                self._send(SVERB_UPDATE, dumps({"topic": topic, "data": box}))
+            for box in aggregate(keyword):
+                self._send(SVERB_UPDATE, dumps(box))
 
     def _handle_state_waiting(self, verb, data):
         """Handle input from the client when in the "waiting" state."""

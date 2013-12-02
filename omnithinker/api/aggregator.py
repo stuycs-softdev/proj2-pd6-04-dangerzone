@@ -1,10 +1,14 @@
 #Aggregates all api calls and returns json object with the most relevant things
+
+from logging import getLogger
+
 from .howstuffworks import Howstuffworks
 from .nytimes import Nytimes, ReturnRelatedTopics
 from .youtube import Youtube
 # from .duckduckgo import Duckduckgo
 from .google import Google
-#Lets create a multitude of boxes
+
+logger = getLogger("gunicorn.error")
 
 # THIS IS A CLASS MOCK-UP UNTIL AARON CAN ADD IT BACK BECAUSE HE SEEMS TO HAVE
 # FORGOTTEN ABOUT IT. HA, HA, GET IT? MOCK DUCK!?
@@ -15,26 +19,29 @@ class Duckduckgo(object):
         return ""
 
 #Function to be called...
-def aggregate(logger, startTopic):
-    return makeBoxes(logger, startTopic, 0, []) #Populates the boxes array
+def aggregate(startTopic):
+    return makeBoxes(startTopic, 0, []) #Populates the boxes array
 
-def makeBoxes(logger, topic, depth, used):
+def makeBoxes(topic, depth, used):
     if depth >= 2 or topic in used:
         return
     else:
         used.append(topic)
         try:
-            logger.info(topic)
             agg = Aggregator(topic)
-            yield topic, agg.createBox()
+            yield agg.createBox()
         except Exception as exc:
             logger.error("Error with topic " + topic + ": " + str(exc))
             return
 
-    Related = ReturnRelatedTopics(topic)
-    for newTopic in Related:
-        for data in makeBoxes(logger, newTopic, depth + 1, used):
-            yield data
+    try:
+        Related = ReturnRelatedTopics(topic)
+    except Exception as exc:
+        logger.error("Error with topic " + topic + ": " + str(exc))
+    else:
+        for newTopic in Related:
+            for data in makeBoxes(newTopic, depth + 1, used):
+                yield data
 
 #This creates one box
 class Aggregator():
@@ -120,10 +127,12 @@ class Aggregator():
         articles = {}
         articles['Blurbs'] = [0]*4
         articles['Links'] = [0]*4
+        articles['Headline'] = [0]*4
         i = 0
         for i in range(4):
             articles['Links'][i] = self.hsw.getArticle()
             articles['Blurbs'][i] = self.hsw.getBlurb()
+            articles['Headline'][i] = self.hsw.getHeadline()
         return articles
     def getNYArticles(self):
         URL = 0

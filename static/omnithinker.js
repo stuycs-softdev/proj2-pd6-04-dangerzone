@@ -38,6 +38,34 @@ function on_type() {
     }
 }
 
+function process_update(payload) {
+    console.log(payload);
+    topic = payload["Keyword"];
+    data = "<ul>"
+    google = payload["GoogleArticles"];
+    if (google !== undefined) {
+        for (var i = 0; i < google["Links"].length; i++)
+            data += '<li><a href="' + google["Links"][i] + '">' + google["Headline"][i] + "</a>: " + google["Blurbs"][i] + "</li>";
+    }
+    hsw = payload["HSWArticles"];
+    if (hsw !== undefined) {
+        for (var i = 0; i < hsw["Links"].length; i++) {
+            if (hsw["Links"][i] != null)
+                data += '<li><a href="' + hsw["Links"][i] + '">' + hsw["Headline"][i] + "</a>: " + hsw["Blurbs"][i] + "</li>";
+        }
+    }
+    images = payload["Images"];
+    nytimes = payload["NyTimesArticles"];
+    if (nytimes !== undefined) {
+        for (var i = 0; i < nytimes["Links"].length; i++) {
+            if (nytimes["Links"][i] != null)
+                data += '<li><a href="' + nytimes["Links"][i] + '">' + nytimes["Headline"][i] + "</a>: " + nytimes["Blurbs"][i] + "</li>";
+        }
+    }
+    data += "</ul>"
+    omnitoolbar.append('<div class="topic"><div class="topic-title">' + topic + '</div><div class="topic-body">' + data + "</div></div>");
+}
+
 $(document).ready(function() {
     $("#textbox").rte("/static/common.css", "/static/img/");
     title = $("#title");
@@ -56,8 +84,7 @@ $(document).ready(function() {
         }
         else if (evt.data.indexOf("UPDATE") == 0) {
             var payload = JSON.parse(evt.data.substring(7));
-            console.log(payload);
-            omnitoolbar.text(omnitoolbar.text() + payload);
+            process_update(payload);
         }
         else if (evt.data == "GOODBYE") {
             socket.close();
