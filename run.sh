@@ -1,1 +1,1 @@
-gunicorn -w 4 -k flask_sockets.worker app:app
+gunicorn -w 4 -b 0.0.0.0:6004 -D -k flask_sockets.worker app:app

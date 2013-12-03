@@ -7,6 +7,8 @@ from omnithinker import neuter_monkey
 from omnithinker.connection import Connection
 from omnithinker.database import Database
 
+PORT = 6004
+
 app = Flask(__name__)
 app.secret_key = "cy9wuDOTpKKl8waurlOhbuwbKyvsRAQJ"
 sockets = Sockets(app)
@@ -110,4 +112,4 @@ def websocket(socket):
         conn.finish()
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=True)

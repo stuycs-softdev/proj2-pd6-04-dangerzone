@@ -1,4 +1,4 @@
-var URL = "ws://localhost:8000/socket";
+var URL = "ws://" + location.hostname + ":" + location.port + "/socket";
 var socket;
 
 var docid;
