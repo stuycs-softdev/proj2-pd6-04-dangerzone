@@ -85,13 +85,15 @@ jQuery.fn.rte = function(css_url, media_url) {
 
     function toolbar(iframe) {
 
-        var tb = $("<div class='rte-toolbar' id='toolbar-"+iframe.title+"'><div>\
+        var tb = $("<div class='rte-toolbar' id='toolbar-"+iframe.title+"' style='position: relative;'><div>\
             <p>\
-                <a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>\
-                <a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>\
-                <a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>\
-                <a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>\
-                <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>\
+                <a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>&nbsp;\
+                <a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>&nbsp;\
+                <a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>&nbsp;\
+                <a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>&nbsp;\
+                <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;\
+            </p></div><div class='tb-status-box'><p>\
+                <span id='tb-status-text'>Loading</span>&nbsp;<i id='tb-status' class='fa fa-exclamation-circle'></i>\
             </p></div></div>");
         $('.highlight', tb).click(function() {
             formatText(iframe, 'insertHTML', "<span class='keyword'>" + iframe.contentWindow.document.getSelection() + "</span>");

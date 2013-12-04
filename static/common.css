@@ -337,6 +337,7 @@ div.writer-box-inner {
 }
 
 .rte-toolbar {
+    position: relative;
     background-color: #F8F8F8;
     border-bottom: 1px solid #CCC;
     padding: 1em;
@@ -344,6 +345,13 @@ div.writer-box-inner {
 
 .rte-toolbar p {
     margin: 0;
+}
+
+.tb-status-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
 }
 
 .tb-button {

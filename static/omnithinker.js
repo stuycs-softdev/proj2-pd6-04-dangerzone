@@ -23,6 +23,7 @@ function update_server() {
     keywords = get_keywords(textbox);
     var data = {"title": title.val(), "text": textbox.html(), "keywords": keywords};
     socket.send("UPDATE " + JSON.stringify(data));
+    $("#tb-status").trigger("saved");
 }
 
 function gen_hash(s) {
@@ -36,6 +37,7 @@ function on_type() {
         last_text_hash = this_hash;
         window.clearTimeout(timeout_id);
         timeout_id = window.setTimeout(update_server, 500, textbox);
+        $("#tb-status").trigger("saving");
     }
 }
 
@@ -72,7 +74,7 @@ function process_update(payload) {
 }
 
 $(document).ready(function() {
-    $("#textbox").rte("/static/common.css", "/static/img/");
+    $("#textbox").rte("/static/common.css");
     title = $("#title");
     omnitoolbar = $("#omnitoolbar");
     socket = new WebSocket(URL);
@@ -86,6 +88,7 @@ $(document).ready(function() {
             var payload = JSON.parse(evt.data.substring(6));
             title.val(payload.title);
             textbox.html(payload.text);
+            $("#tb-status").trigger("saved");
         }
         else if (evt.data.indexOf("UPDATE") == 0) {
             var payload = JSON.parse(evt.data.substring(7));
@@ -96,7 +99,15 @@ $(document).ready(function() {
         }
     };
 
-    title.keyup(function(event) {
-        on_type();
+    title.keyup(on_type());
+
+    $("#tb-status").bind("saving", function() {
+        $(this).removeClass("fa-exclamation-circle fa-check-circle").addClass("fa-spinner");
+        $("#tb-status-text").text("Writing");
+    });
+
+    $("#tb-status").bind("saved", function() {
+        $(this).removeClass("fa-exclamation-circle fa-spinner").addClass("fa-check-circle");
+        $("#tb-status-text").text("Saved");
     });
 });
