@@ -90,6 +90,10 @@ jQuery.fn.rte = function(css_url, media_url) {
                 <a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>&nbsp;\
                 <a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>&nbsp;\
                 <a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>&nbsp;\
+                <a href='#' class='tb-button underline'><i class='fa fa-underline'></i></a>&nbsp;\
+                <a href='#' class='tb-button strikethrough'><i class='fa fa-strikethrough'></i></a>&nbsp;\
+                <a href='#' class='tb-button subscript'><i class='fa fa-subscript'></i></a>&nbsp;\
+                <a href='#' class='tb-button superscript'><i class='fa fa-superscript'></i></a>&nbsp;\
                 <a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>&nbsp;\
                 <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;\
             </p></div><div class='tb-status-box'><p>\
@@ -106,6 +110,22 @@ jQuery.fn.rte = function(css_url, media_url) {
         });
         $('.italic', tb).click(function() {
             formatText(iframe, 'italic');
+            return false;
+        });
+        $('.underline', tb).click(function() {
+            formatText(iframe, 'underline');
+            return false;
+        });
+        $('.strikethrough', tb).click(function() {
+            formatText(iframe, 'strikethrough');
+            return false;
+        });
+        $('.subscript', tb).click(function() {
+            formatText(iframe, 'subscript');
+            return false;
+        });
+        $('.superscript', tb).click(function() {
+            formatText(iframe, 'superscript');
             return false;
         });
         $('.orderedlist', tb).click(function() {
