@@ -33,6 +33,10 @@ function gen_hash(s) {
 
 function on_type() {
     var this_hash = gen_hash(title.val() + textbox.html());
+    if (last_text_hash === "") {  // Don't update when we first receive input.
+        last_text_hash = this_hash;
+        return;
+    }
     if (this_hash != last_text_hash) {
         last_text_hash = this_hash;
         window.clearTimeout(timeout_id);
