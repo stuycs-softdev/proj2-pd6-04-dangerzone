@@ -233,7 +233,7 @@ p.p3 {
 
 .post {
     margin-bottom: 2em;
-    padding: 1.5em 0 1.5em 5em;
+    padding: 1.5em 5em 1.5em 5em;
     background-color: rgba(238, 238, 238, 0.35);
     text-align: left;
     border: 2px solid #BBB;
@@ -250,6 +250,7 @@ p.p3 {
     color: #444;
     line-height: 1.8em;
     text-align: justify;
+    word-wrap: break-word;
 }
 
 .post-summary {

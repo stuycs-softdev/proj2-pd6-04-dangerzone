@@ -29,7 +29,7 @@ class Connection(object):
             "RECV": (self._logger.debug, u"\x1b[33m{0} \x1b[32m->\x1b[0m {1}")
         }
         func, template = events[event]
-        func(template.format(self._client, data))
+        func(template.format(self._client, data).encode("utf8"))
 
     def _send(self, verb, payload=None):
         """Send data to the client."""
@@ -86,6 +86,7 @@ class Connection(object):
                 self._document.text = data["text"]
             if "keywords" in data:
                 self._handle_keywords(data["keywords"])
+            self._database.save_document(self._document)
         elif verb == CVERB_CLOSE:
             self._state = STATE_CLOSING
             self._send(SVERB_BYE)

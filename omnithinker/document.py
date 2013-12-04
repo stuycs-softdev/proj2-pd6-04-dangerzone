@@ -26,9 +26,8 @@ class Document(object):
     def summary(self):
         if not self.text:
             return None
-        if len(self.text) < 500:
-            return Markup(self.text).striptags()
-        return Markup(self.text[:497]).striptags() + u"..."
+        base = Markup(self.text.replace("<br>", "\n")).striptags()
+        return (base[:197] + u"...") if len(self.text) > 200 else base
 
     def render_txt(self):
         """Renders the document into a .txt file."""
