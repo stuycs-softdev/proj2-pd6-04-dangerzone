@@ -24,11 +24,12 @@ class Connection(object):
     def _log(self, event, data):
         """Send a debug message to the terminal."""
         events = {
-            "INFO": u"\x1b[33m{0} \x1b[36m!!\x1b[0m {1}",
-            "SEND": u"\x1b[33m{0} \x1b[31m<-\x1b[0m {1}",
-            "RECV": u"\x1b[33m{0} \x1b[32m->\x1b[0m {1}"
+            "INFO": (self._logger.info, u"\x1b[33m{0} \x1b[36m!!\x1b[0m {1}"),
+            "SEND": (self._logger.debug, u"\x1b[33m{0} \x1b[31m<-\x1b[0m {1}"),
+            "RECV": (self._logger.debug, u"\x1b[33m{0} \x1b[32m->\x1b[0m {1}")
         }
-        self._logger.info(events[event].format(self._client, data))
+        func, template = events[event]
+        func(template.format(self._client, data))
 
     def _send(self, verb, payload=None):
         """Send data to the client."""

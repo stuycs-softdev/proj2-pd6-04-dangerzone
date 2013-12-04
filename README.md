@@ -55,7 +55,8 @@ Installing
     pip install virtualenv
     virtualenv env
     source env/bin/activate
-    pip install flask Flask-Sockets gunicorn beautifulsoup4 google-api-python-client
+    pip install flask flask-sockets gunicorn beautifulsoup4 google-api-python-client
+    mkdir logs
 
 Running
 -------
@@ -63,54 +64,4 @@ Running
     source env/bin/activate
     ./run.sh
 
-Now go to [http://localhost:8000](http://localhost:8000).
-
-Data
-----
-
-- http://en.wikipedia.org/w/api.php (Wiki)
-- https://duckduckgo.com/api (DuckDuckGo)
-- https://code.google.com/apis/console/?pli=1 (Google)
-(MAYBE extra feature)
--https://www.programmableweb.com/api/easybib
-
-Aaron and Jing
---------------
-
-How it's going to work:
-
-Aaron and Jing are responsible for the code that creates the sidebar. The
-server, when it receives a signal that the user has modified keywords, calls a
-function:
-
-    result = apis.get_all_apis(keyword)
-
-...which will return a list of the data in the sidebar. The data will look like:
-
-    result = apis.get_all_apis(["apples", "health effects"])
-    print result
-    [
-        {
-            "title": "Wikipedia",
-            "text": "An apple is a type of fruit...",
-            "image": "http://en.wikipedia.org/w/apple.png"
-        },
-        {
-            "title": "DuckDuckGo",
-            "results": [
-                {
-                    "title": "Apples Linked to Curing Cancer",
-                    "url": "http://nytimes.com/article/apples-cancer",
-                    "text": "A recent study has linked apples to curing cancer..."
-                }
-            ]
-        }
-    ]
-
-...ranked by importance.
-
-So you guys need to come up with the algorithm that takes the keywords and
-determines in what order to place results of APIs. The server will send this
-list directly as JSON to the JS client, which will display it by rendering the
-data to HTML, so JS will need to understand the possible keys in the
-dictionaries returned by `get_all_apis()`.
+Now go to [http://localhost:6004](http://localhost:6004).

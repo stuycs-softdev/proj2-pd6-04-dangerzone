@@ -35,8 +35,7 @@ nosetests.xml
 .project
 .pydevproject
 
-# Virtualenv
+# Omnithinker
 env
-
-# Database
+logs
 omnithinker.db
