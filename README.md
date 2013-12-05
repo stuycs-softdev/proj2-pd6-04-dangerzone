@@ -32,22 +32,30 @@ has finished writing, he can then export what he has written into an external
 PDF or text file stored in the SQlite database. The highlighted words won't show
 up in the output file.
 
-For instance: User selects the topic of stem cells for a science paper. Possible
-topics that pop up on the sidebar are: Synthesis, Methodology, Research Patents,
-Properties, Identification, Embryonic, Fetal and Adult stem cells. As the user
-selects and uses the information in a topic, other ideas pop onto the toolbar
-for the user's perusal.
-
-Cool Feature: If time permits, we are thinking of connecting keystrokes to
-musical notes, such that one can use OmniThinker with Jazzical, Piano, or other
-instrumental notes accompanying the creative thinking.
+For instance: The user selects Obama as the topic of a history paper. Possible
+links that pop up in the sidebar include: Patient Protection and Affordable
+Care Act, Senate Filibuster, Government Shutdown, Obama versus Bush Legacy,
+Nuclear Sanctions on Iran, and Tensions in Asia. As the user selects and uses
+the information in a topic, she can then X them out and other ideas pop onto
+the toolbar for the user's perusal that are directly related to the topic at
+hand similar to how a Queue of Information. Included with such topics are other
+broader topics indirectlyr related to Obama such as the American Government,
+Michelle Obama, Joe Biden, and Presidential Election of 2012. Furthermore, if
+the user wishes to search more specifically on these other relevant topics, she
+can type for instasnce Michelle Obama and highlight it, thereby updating the
+queue to hold information directly related to Michelle Obama and topics that
+can be traced back to it (indirectly related). Through a recursive call on
+topics, related topics, and direct information, the user may craft a work of
+writing, letting our project, Omnithinker, do the data fetching and provoke
+"thinking in all directions" by forcing the user to consider ideas and weigh in
+data from various sources.
 
 *Role Division:*
 
-+ Aaron Coppa: DuckDuckGo API
++ Aaron Coppa: DuckDuckGo API, API Aggregator
 + Edric Huang: FrontEnd Web Design
-+ Ben Kurtovic: Wikipedia API
-+ Jing Lin: Google API
++ Ben Kurtovic: Websocket Connection, Javascript, SQLite Database 
++ Jing Lin: Google API, Youtube API, NYT API
 
 Installing
 ----------
@@ -65,3 +73,8 @@ Running
     ./run.sh
 
 Now go to [http://localhost:6004](http://localhost:6004).
+
+**VERY IMPORTANT:** Since DOETWAC blocks connection requests to the server
+hosting the data, only stuycs or a proxy server can run the project in school.
+For our demo, we are running the project on Aaron's computer, which uses a
+proxy server.
