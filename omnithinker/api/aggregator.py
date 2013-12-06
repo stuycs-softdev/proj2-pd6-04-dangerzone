@@ -167,8 +167,8 @@ class Aggregator():
             pass
         return definition
     def getGoogleArticles(self):
-        URL = 0
-        HEADLINE = 1
+        URL = 1
+        HEADLINE = 0
         BLURB = 2
         i = 0
         articles = {}
