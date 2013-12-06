@@ -79,7 +79,8 @@ function process_update(payload) {
     box += '<div class="topic-title">' + topic + ' <a href="#" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
     box += '<div class="topic-body">' + data + "</div></div>";
     omnitoolbar.append(box);
-    $("#topic-box-remove-" + box_id).click(function(b_id) { return function() { $("#topic-box-" + b_id).remove(); } }(box_id));
+    $("#topic-box-" + box_id).css("display", "none").slideDown(300);
+    $("#topic-box-remove-" + box_id).click(function(b_id) { return function() { $("#topic-box-" + b_id).slideUp(300, function() { $(this).remove(); }); } }(box_id));
 }
 
 $(document).ready(function() {
