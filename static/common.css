@@ -396,6 +396,10 @@ div.writer-box-inner {
     font-size: 12px;
 }
 
+.topic-definition {
+    margin-left: 1em;
+}
+
 .topic-box-remove {
     color: #F99;
     text-decoration: none;

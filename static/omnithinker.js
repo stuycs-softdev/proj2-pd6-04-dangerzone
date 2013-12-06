@@ -48,7 +48,12 @@ function on_type() {
 function process_update(payload) {
     box_id++;
     topic = payload["Keyword"];
-    data = "<ul>"
+    data = "";
+    definition = payload["Definition"];
+    if (definition !== undefined) {
+        data += "<p class='topic-definition'>" + definition + "</p>";
+    }
+    data += "<ul>";
     google = payload["GoogleArticles"];
     if (google !== undefined) {
         for (var i = 0; i < google["Links"].length; i++)
