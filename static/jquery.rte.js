@@ -58,7 +58,7 @@ jQuery.fn.rte = function(css_url, media_url) {
         iframe.frameBorder=0;
         iframe.frameMargin=0;
         iframe.framePadding=0;
-        iframe.height = document.documentElement.clientHeight - 275 + "px";
+        iframe.height = document.documentElement.clientHeight - 250 + "px";
         if(textarea.attr('class'))
             iframe.className = textarea.attr('class');
         if(textarea.attr('id'))
