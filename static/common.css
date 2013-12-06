@@ -311,6 +311,7 @@ div.writer-box-right {
 div.writer-box-inner {
     margin: 1em 0;
     border: 1px solid #CCC;
+    height: 100%;
 }
 
 #textbox {
