@@ -44,10 +44,13 @@ class Aggregator():
         self.hsw = Howstuffworks(topic)
         self.nyt = Nytimes(topic)
         #self.wiki = wikipedia()
-        # self.youtube = Youtube(topic)
         self.duck = Duckduckgo(topic)
         try:
             self.goog = Google(topic)
+        except:
+            pass
+        try:
+            self.youtube = Youtube(topic)
         except:
             pass
 
@@ -84,6 +87,10 @@ class Aggregator():
             box['Definition'] = defi
         try:
             box['GoogleArticles'] = self.getGoogleArticles()
+        except:
+            pass
+        try:
+            box['Youtube'] = self.getYoutubeVideos()
         except:
             pass
         box['HSWArticles'] = self.getHSWArticles()

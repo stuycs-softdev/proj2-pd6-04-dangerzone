@@ -53,3 +53,7 @@ class Duckduckgo:
 
         return ""
 
+if __name__ == "__main__":
+    d = Duckduckgo("Barrack Obama")
+    print d.getDefinition()
+#      print d.getBlurb()

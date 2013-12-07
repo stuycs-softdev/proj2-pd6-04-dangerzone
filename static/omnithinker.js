@@ -59,6 +59,13 @@ function process_update(payload) {
         for (var i = 0; i < google["Links"].length; i++)
             data += '<li><a href="' + google["Links"][i] + '">' + google["Headline"][i] + "</a>: " + google["Blurbs"][i] + "</li>";
     }
+    youtube = payload["Youtube"];
+    if (youtube !== undefined) {
+        for(var i = 0; i < youtube["Title"].length; i++) {
+            if(youtube["Title"][i] == "") break;
+            data += '<li><a href="' + youtube["Link"][i] + '">' + youtube["Title"][i] + "</a></li>";
+        }
+    }
     hsw = payload["HSWArticles"];
     if (hsw !== undefined) {
         for (var i = 0; i < hsw["Links"].length; i++) {
