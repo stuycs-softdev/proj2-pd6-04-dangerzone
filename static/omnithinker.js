@@ -116,7 +116,7 @@ $(document).ready(function() {
         }
     };
 
-    title.keyup(on_type());
+    title.keyup(on_type);
 
     $("#tb-status").bind("saving", function() {
         $(this).removeClass("fa-exclamation-circle fa-check-circle").addClass("fa-spinner");
