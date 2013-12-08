@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from flask import abort, Markup
+from flask import Markup
 
 __all__ = ["Document"]
 
@@ -31,8 +31,10 @@ class Document(object):
 
     def render_txt(self):
         """Renders the document into a .txt file."""
-        return Markup(self.text.replace("<br>", "\n\n")).striptags()
+        soup = BeautifulSoup(self.text.replace("<br>", "\n"))
+        text = u"".join(soup.strings).replace("\n", "\n\n").strip() + "\n"
+        return text, "text/plain"
 
     def render_pdf(self):
         """Renders the document into a .pdf file."""
-        abort(503)  # HTTP 503 Service Unavailable
+        return "ERROR", "application/pdf"

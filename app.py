@@ -123,7 +123,10 @@ def download(docid, format):
         "pdf": document.render_pdf
     }
     try:
-        return methods[format.lower()]()
+        data, mimetype = methods[format.lower()]()
+        response = app.make_response(data)
+        response.mimetype = mimetype
+        return response
     except KeyError:
         abort(415)  # HTTP 415 Unsupported Media Type
 

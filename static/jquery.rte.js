@@ -148,6 +148,9 @@ jQuery.fn.rte = function(css_url, media_url) {
             return false;
         });
         $("#tb-menu", tb).hide();
+        $(".tb-menu-item", tb).click(function() {
+            $("#tb-menu").hide();
+        });
         $("#tb-menu-delete", tb).click(function() {
             $("#deleteModal").modal("show")
         });
