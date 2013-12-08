@@ -32,11 +32,7 @@ function gen_hash(s) {
 }
 
 function on_type() {
-    var this_hash = gen_hash(title.val() + textbox.html());
-    if (last_text_hash === "") {  // Don't update when we first receive input.
-        last_text_hash = this_hash;
-        return;
-    }
+    var this_hash = gen_hash(title.val() + "|separator|" + textbox.html());
     if (this_hash != last_text_hash) {
         last_text_hash = this_hash;
         window.clearTimeout(timeout_id);
@@ -116,7 +112,7 @@ $(document).ready(function() {
         }
     };
 
-    title.keyup(on_type);
+    title.on("input", on_type);
 
     $("#tb-status").bind("saving", function() {
         $(this).removeClass("fa-exclamation-circle fa-check-circle").addClass("fa-spinner");
