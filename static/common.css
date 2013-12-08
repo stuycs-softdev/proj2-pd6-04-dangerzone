@@ -329,11 +329,12 @@ div.writer-box-inner {
 
 #tb-menu {
     position: absolute;
+    list-style: none;
     background-color: #EEE;
-    padding: 1em;
-    top: 1.5em;
+    padding: 0.5em 0;
+    top: 0.5em;
     border: 1px solid #AAA;
-    width: 10em;
+    width: 12em;
 }
 
 .keyword {
@@ -380,18 +381,12 @@ div.writer-box-inner {
     background-color: #E0E0E0;
 }
 
-.tb-menu-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
 .tb-menu-item {
-    margin-bottom: .5em;
+    padding: 0.5em 1em 0.5em 1em;
 }
 
-.tb-menu-item:last-child {
-    margin-bottom: 0em;
+.tb-menu-item:hover {
+    background-color: #E0E0E0;
 }
 
 .header-link {

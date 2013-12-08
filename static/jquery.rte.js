@@ -97,13 +97,11 @@ jQuery.fn.rte = function(css_url, media_url) {
             <div class='tb-button-box'><a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;</div>\
             <div class='tb-button-box'>\
                 <a href='#' class='tb-button options'><i class='fa fa-cog'></i></a>\
-                <div id='tb-menu'>\
-                    <ul class='tb-menu-list'>\
-                        <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as TXT</li>\
-                        <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as PDF</li>\
-                        <li class='tb-menu-item'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;Delete</li>\
-                    </ul>\
-                </div>\
+                <ul id='tb-menu'>\
+                    <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as TXT</li>\
+                    <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as PDF</li>\
+                    <li class='tb-menu-item'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;Delete</li>\
+                </ul>\
             </div>\
             <div class='tb-status-box'><p>\
                 <span id='tb-status-text'>Loading</span>&nbsp;<i id='tb-status' class='fa fa-exclamation-circle'></i>\
