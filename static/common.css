@@ -325,10 +325,10 @@ div.writer-box-inner {
 
 #tb-menu {
     position: absolute;
-    background-color: #EEE;
+    background-color: #FAFAFA;
     padding: 0.5em 0;
     top: 1.5em;
-    border: 1px solid #AAA;
+    border: 1px solid #CCC;
     width: 14em;
 }
 
@@ -367,7 +367,7 @@ div.writer-box-inner {
     background-color: #EEE;
     text-decoration: none;
     font-size: 14px;
-    border: 1px solid #AAA;
+    border: 1px solid #BBB;
     padding: 0.5em;
 }
 
