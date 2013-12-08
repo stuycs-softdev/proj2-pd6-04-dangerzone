@@ -85,23 +85,32 @@ jQuery.fn.rte = function(css_url, media_url) {
 
     function toolbar(iframe) {
 
-        var tb = $("<div class='rte-toolbar' id='toolbar-"+iframe.title+"' style='position: relative;'><div>\
-            <p>\
-                <a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>&nbsp;\
-                <a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>&nbsp;\
-                <a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>&nbsp;\
-                <a href='#' class='tb-button underline'><i class='fa fa-underline'></i></a>&nbsp;\
-                <a href='#' class='tb-button strikethrough'><i class='fa fa-strikethrough'></i></a>&nbsp;\
-                <a href='#' class='tb-button subscript'><i class='fa fa-subscript'></i></a>&nbsp;\
-                <a href='#' class='tb-button superscript'><i class='fa fa-superscript'></i></a>&nbsp;\
-                <a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>&nbsp;\
-                <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;\
-            </p></div><div class='tb-status-box'><p>\
+        var tb = $("<div class='rte-toolbar' id='toolbar-"+iframe.title+"'>\
+            <div class='tb-button-box'><a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button underline'><i class='fa fa-underline'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button strikethrough'><i class='fa fa-strikethrough'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button subscript'><i class='fa fa-subscript'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button superscript'><i class='fa fa-superscript'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'><a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;</div>\
+            <div class='tb-button-box'>\
+                <a href='#' class='tb-button options'><i class='fa fa-cog'></i></a>\
+                <div id='tb-menu'>\
+                    <ul class='tb-menu-list'>\
+                        <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as TXT</li>\
+                        <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as PDF</li>\
+                        <li class='tb-menu-item'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;Delete</li>\
+                    </ul>\
+                </div>\
+            </div>\
+            <div class='tb-status-box'><p>\
                 <span id='tb-status-text'>Loading</span>&nbsp;<i id='tb-status' class='fa fa-exclamation-circle'></i>\
             </p></div></div>");
         $('.highlight', tb).click(function() {
             formatText(iframe, 'insertHTML', "<span class='keyword'>" + iframe.contentWindow.document.getSelection() + "</span>");
-            on_type($('body', iframeDoc));
+            on_type();
             return false;
         });
         $('.bold', tb).click(function() {
@@ -136,14 +145,15 @@ jQuery.fn.rte = function(css_url, media_url) {
             formatText(iframe, 'insertunorderedlist');
             return false;
         });
+        $('.options', tb).click(function() {
+            $("#tb-menu").toggle();
+            return false;
+        });
+        $("#tb-menu", tb).hide();
         $(iframe).parents('form').submit(function(){
             disableDesignMode(iframe, true); });
-        var iframeDoc = $(iframe.contentWindow.document);
 
-        iframeDoc.keyup(function() {
-            on_type();
-            return true;
-        });
+        $(iframe.contentWindow.document).keyup(on_type);
 
         return tb;
     }

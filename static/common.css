@@ -327,6 +327,15 @@ div.writer-box-inner {
     max-width: 250px;
 }
 
+#tb-menu {
+    position: absolute;
+    background-color: #EEE;
+    padding: 1em;
+    top: 1.5em;
+    border: 1px solid #AAA;
+    width: 10em;
+}
+
 .keyword {
     background-color: yellow;
 }
@@ -345,15 +354,16 @@ div.writer-box-inner {
     padding: 1em;
 }
 
-.rte-toolbar p {
-    margin: 0;
-}
-
 .tb-status-box {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 1em;
+    padding-right: 1em;
+}
+
+.tb-button-box {
+    display: inline;
+    position: relative;
 }
 
 .tb-button {
@@ -367,6 +377,21 @@ div.writer-box-inner {
 
 .tb-button:hover {
     color: #555;
+    background-color: #E0E0E0;
+}
+
+.tb-menu-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tb-menu-item {
+    margin-bottom: .5em;
+}
+
+.tb-menu-item:last-child {
+    margin-bottom: 0em;
 }
 
 .header-link {
