@@ -163,13 +163,9 @@ p.p3 {
 
 /* Buttons */
 
-.pure-button {
+.pure-button-primary {
     color: white;
     background: #0099FF;
-}
-
-.pure-button:hover {
-    background: #2E9AFE;
 }
 
 /* Sidebar */
@@ -381,12 +377,22 @@ div.writer-box-inner {
     background-color: #E0E0E0;
 }
 
+.tb-button:active {
+    color: #EEE;
+    background-color: #AAA;
+}
+
 .tb-menu-item {
-    padding: 0.5em 1em 0.5em 1em;
+    padding: 0.5em 1em;
 }
 
 .tb-menu-item:hover {
     background-color: #E0E0E0;
+}
+
+.tb-menu-item:active {
+    color: #EEE;
+    background-color: #AAA;
 }
 
 .header-link {

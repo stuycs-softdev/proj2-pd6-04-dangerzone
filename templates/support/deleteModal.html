@@ -1,0 +1,14 @@
+<div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form class="pure-form pure-form-stacked" action="/delete/{{docid}}" method="post">
+        <div class="modal-header">
+            <h1 id="myModalLabel">Delete</h1>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this document forever?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="pure-button pure-button-primary">Delete</button>
+            <button class="pure-button" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </form>
+</div>

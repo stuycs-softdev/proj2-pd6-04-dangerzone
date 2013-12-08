@@ -5,13 +5,12 @@
         <title>OmniThinker</title>
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="/static/common.css">
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
         <link rel="stylesheet" href="/static/modal.css">
+        <link rel="stylesheet" href="/static/common.css">
     </head>
     <body class="home">
         {% include "support/menu.html" %}
-        {% include "support/loginModal.html" %}
 
         <div class="hero">
             <div class="hero-titles">
@@ -28,7 +27,7 @@
             <p class="p2">Enter the topic or genre of your writing assignment below and we'll start you off right away.</p>
             <form class="pure-form" action="/write" method="post">
                 <input class="pure-input-2-3" type="text" name="topic" placeholder="What are you thinking or writing about?">
-                <button class="pure-button" type="submit">Let's Start</a>
+                <button class="pure-button pure-button-primary" type="submit">Let's Start</a>
             </form>
         </div>
 

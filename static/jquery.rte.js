@@ -98,9 +98,9 @@ jQuery.fn.rte = function(css_url, media_url) {
             <div class='tb-button-box'>\
                 <a href='#' class='tb-button options'><i class='fa fa-cog'></i></a>\
                 <ul id='tb-menu'>\
-                    <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as TXT</li>\
-                    <li class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as PDF</li>\
-                    <li class='tb-menu-item'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;Delete</li>\
+                    <li id='tb-menu-dl-txt' class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as TXT</li>\
+                    <li id='tb-menu-dl-pdf' class='tb-menu-item'><i class='fa fa-download'></i>&nbsp;&nbsp;Download as PDF</li>\
+                    <li id='tb-menu-delete' class='tb-menu-item'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;Delete</li>\
                 </ul>\
             </div>\
             <div class='tb-status-box'><p>\
@@ -148,11 +148,15 @@ jQuery.fn.rte = function(css_url, media_url) {
             return false;
         });
         $("#tb-menu", tb).hide();
+        $("#tb-menu-dl-txt", tb).click(serve_text);
+        $("#tb-menu-dl-pdf", tb).click(serve_pdf);
+        $("#tb-menu-delete", tb).click(function() {
+            $("#deleteModal").modal("show")
+        });
         $(iframe).parents('form').submit(function(){
-            disableDesignMode(iframe, true); });
-
+            disableDesignMode(iframe, true);
+        });
         $(iframe.contentWindow.document).keyup(on_type);
-
         return tb;
     }
 }

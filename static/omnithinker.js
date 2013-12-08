@@ -86,6 +86,14 @@ function process_update(payload) {
     $("#topic-box-remove-" + box_id).click(function(b_id) { return function() { $("#topic-box-" + b_id).slideUp(300, function() { $(this).remove(); }); } }(box_id));
 }
 
+function serve_text() {
+    // TODO
+}
+
+function serve_pdf() {
+    // TODO
+}
+
 $(document).ready(function() {
     $("#textbox").rte("/static/common.css");
     title = $("#title");
