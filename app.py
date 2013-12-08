@@ -96,7 +96,7 @@ def write(docid=None):
     username = session.get("username")
     if docid is not None:
         if not database.authorize_document(username, docid):
-            abort(403)
+            abort(403)  # HTTP 403 Forbidden
         return render_template("write.html", docid=docid)
     topic = request.form.get("topic", "").strip()
     docid = database.create_document(username, topic)
@@ -107,9 +107,25 @@ def write(docid=None):
 def delete(docid):
     username = session.get("username")
     if not database.authorize_document(username, docid):
-        abort(403)
+        abort(403)  # HTTP 403 Forbidden
     database.delete_document(docid)
     return redirect("/projects" if username else "/")
+
+# Document server
+@app.route("/download/<docid>/<format>")
+def download(docid, format):
+    username = session.get("username")
+    if not database.authorize_document(username, docid):
+        abort(403)  # HTTP 403 Forbidden
+    document = database.get_document(docid)
+    methods = {
+        "txt": document.render_txt,
+        "pdf": document.render_pdf
+    }
+    try:
+        return methods[format.lower()]()
+    except KeyError:
+        abort(415)  # HTTP 415 Unsupported Media Type
 
 # Web socket for live document updating
 @sockets.route("/socket")
