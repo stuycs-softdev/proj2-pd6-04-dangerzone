@@ -79,7 +79,7 @@ function process_update(payload) {
     }
     data += "</ul>"
     box = '<div class="topic" id="topic-box-' + box_id + '">';
-    box += '<div class="topic-title">' + topic + ' <a href="#" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
+    box += '<div class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
     box += '<div class="topic-body">' + data + "</div></div>";
     omnitoolbar.append(box);
     $("#topic-box-" + box_id).css("display", "none").slideDown(300);

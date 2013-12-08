@@ -163,13 +163,9 @@ p.p3 {
 
 /* Buttons */
 
-.pure-button {
+.pure-button-primary {
     color: white;
     background: #0099FF;
-}
-
-.pure-button:hover {
-    background: #2E9AFE;
 }
 
 /* Sidebar */
@@ -327,6 +323,15 @@ div.writer-box-inner {
     max-width: 250px;
 }
 
+#tb-menu {
+    position: absolute;
+    background-color: #FAFAFA;
+    padding: 0.5em 0;
+    top: 1.5em;
+    border: 1px solid #CCC;
+    width: 14em;
+}
+
 .keyword {
     background-color: yellow;
 }
@@ -345,15 +350,16 @@ div.writer-box-inner {
     padding: 1em;
 }
 
-.rte-toolbar p {
-    margin: 0;
-}
-
 .tb-status-box {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 1em;
+    padding-right: 1em;
+}
+
+.tb-button-box {
+    display: inline;
+    position: relative;
 }
 
 .tb-button {
@@ -361,12 +367,44 @@ div.writer-box-inner {
     background-color: #EEE;
     text-decoration: none;
     font-size: 14px;
-    border: 1px solid #AAA;
+    border: 1px solid #BBB;
     padding: 0.5em;
 }
 
 .tb-button:hover {
     color: #555;
+    background-color: #E0E0E0;
+}
+
+.tb-button:active {
+    color: #EEE;
+    background-color: #AAA;
+}
+
+.tb-menu-item {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    padding: 0.5em 1em;
+}
+
+.tb-menu-item-disabled {
+    color: #777;
+}
+
+.tb-menu-item:hover:not(.tb-menu-item-disabled) {
+    background-color: #E0E0E0;
+}
+
+.tb-menu-item:active:not(.tb-menu-item-disabled) {
+    color: #EEE;
+    background-color: #AAA;
+}
+
+.tb-menu-separator {
+    margin: 0.5em 1em;
+    border: 0;
+    border-bottom: 1px solid #BBB;
 }
 
 .header-link {

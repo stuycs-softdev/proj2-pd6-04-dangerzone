@@ -1,5 +1,5 @@
 -- Database schema
--- version 1
+-- version 3
 
 DROP TABLE IF EXISTS version;
 CREATE TABLE version (
@@ -22,5 +22,6 @@ CREATE TABLE documents (
     document_id INTEGER PRIMARY KEY,
     document_author INTEGER,
     document_title TEXT,
-    document_text TEXT
+    document_text TEXT,
+    document_deleted BOOLEAN
 );

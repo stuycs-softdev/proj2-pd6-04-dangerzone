@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, abort, redirect, render_template, request, session
 from flask_sockets import Sockets
 
 from omnithinker import neuter_monkey
@@ -96,11 +96,40 @@ def write(docid=None):
     username = session.get("username")
     if docid is not None:
         if not database.authorize_document(username, docid):
-            return redirect("/")
-        return render_template("write.html", docid=docid)
+            abort(403)  # HTTP 403 Forbidden
+        document = database.get_document(docid)
+        return render_template("write.html", document=document)
     topic = request.form.get("topic", "").strip()
     docid = database.create_document(username, topic)
     return redirect("/write/{0}".format(docid))
+
+# Delete document redirector
+@app.route("/delete/<docid>", methods=["POST"])
+def delete(docid):
+    username = session.get("username")
+    if not database.authorize_document(username, docid):
+        abort(403)  # HTTP 403 Forbidden
+    database.delete_document(docid)
+    return redirect("/projects" if username else "/")
+
+# Document server
+@app.route("/download/<docid>/<format>")
+def download(docid, format):
+    username = session.get("username")
+    if not database.authorize_document(username, docid):
+        abort(403)  # HTTP 403 Forbidden
+    document = database.get_document(docid)
+    methods = {
+        "txt": document.render_txt,
+        "pdf": document.render_pdf
+    }
+    try:
+        data, mimetype = methods[format.lower()]()
+        response = app.make_response(data)
+        response.mimetype = mimetype
+        return response
+    except KeyError:
+        abort(415)  # HTTP 415 Unsupported Media Type
 
 # Web socket for live document updating
 @sockets.route("/socket")

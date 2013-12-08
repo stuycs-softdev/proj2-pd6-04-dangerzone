@@ -1,5 +1,8 @@
+from StringIO import StringIO
+
 from bs4 import BeautifulSoup
 from flask import Markup
+from xhtml2pdf import pisa
 
 __all__ = ["Document"]
 
@@ -31,8 +34,26 @@ class Document(object):
 
     def render_txt(self):
         """Renders the document into a .txt file."""
-        raise NotImplementedError()
+        soup = BeautifulSoup(self.text.replace("<br>", "\n"))
+        text = u"".join(soup.strings).replace("\n", "\n\n").strip() + "\n"
+        return text, "text/plain"
 
     def render_pdf(self):
         """Renders the document into a .pdf file."""
-        raise NotImplementedError()
+        css = """<style>
+            #txt {
+                font-family: serif;
+                font-size: 18px;
+            }
+            h1 {
+                font-family: serif;
+                font-size: 36px;
+                font-weight: bold;
+            }
+        </style>"""
+        header = "<h1>{0}</h1>".format(self.title) if self.title else ""
+        text = '<div id="txt">{0}</div>'.format(self.text) if self.text else ""
+        content = css + header + text
+        pdf = StringIO()
+        pisa.CreatePDF(StringIO(content), pdf)
+        return pdf.getvalue(), "application/pdf"

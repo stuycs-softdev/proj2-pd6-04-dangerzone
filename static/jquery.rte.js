@@ -4,7 +4,7 @@
  * Copyright (c) 2007 Batiste Bieler
  * Distributed under the GPL (GPL-LICENSE.txt) licenses.
  *
- * Modifications by Ben Kurtovic, 2013.
+ * Major modifications by Ben Kurtovic, 2013.
  */
 
 // define the rte light plugin
@@ -75,76 +75,65 @@ jQuery.fn.rte = function(css_url, media_url) {
             content = '<br>';
         var doc = "<html><head>"+css+"</head><body class='frameBody'>"+content+"</body></html>";
         tryEnableDesignMode(iframe, doc, function() {
-            $("#toolbar-"+iframe.title).remove();
-            $(iframe).before(toolbar(iframe));
+            install_handlers(iframe);
             textarea.remove();
             iframe.contentWindow.document.execCommand("styleWithCSS", false, false);
             textbox = $('body', $(iframe.contentWindow.document));
         });
     }
 
-    function toolbar(iframe) {
-
-        var tb = $("<div class='rte-toolbar' id='toolbar-"+iframe.title+"' style='position: relative;'><div>\
-            <p>\
-                <a href='#' class='tb-button highlight'><i class='fa fa-pencil'></i></a>&nbsp;\
-                <a href='#' class='tb-button bold'><i class='fa fa-bold'></i></a>&nbsp;\
-                <a href='#' class='tb-button italic'><i class='fa fa-italic'></i></a>&nbsp;\
-                <a href='#' class='tb-button underline'><i class='fa fa-underline'></i></a>&nbsp;\
-                <a href='#' class='tb-button strikethrough'><i class='fa fa-strikethrough'></i></a>&nbsp;\
-                <a href='#' class='tb-button subscript'><i class='fa fa-subscript'></i></a>&nbsp;\
-                <a href='#' class='tb-button superscript'><i class='fa fa-superscript'></i></a>&nbsp;\
-                <a href='#' class='tb-button orderedlist'><i class='fa fa-list-ol'></i></a>&nbsp;\
-                <a href='#' class='tb-button unorderedlist'><i class='fa fa-list-ul'></i></a>&nbsp;\
-            </p></div><div class='tb-status-box'><p>\
-                <span id='tb-status-text'>Loading</span>&nbsp;<i id='tb-status' class='fa fa-exclamation-circle'></i>\
-            </p></div></div>");
-        $('.highlight', tb).click(function() {
+    function install_handlers(iframe) {
+        $('.highlight').click(function() {
             formatText(iframe, 'insertHTML', "<span class='keyword'>" + iframe.contentWindow.document.getSelection() + "</span>");
-            on_type($('body', iframeDoc));
+            on_type();
             return false;
         });
-        $('.bold', tb).click(function() {
+        $('.bold').click(function() {
             formatText(iframe, 'bold');
             return false;
         });
-        $('.italic', tb).click(function() {
+        $('.italic').click(function() {
             formatText(iframe, 'italic');
             return false;
         });
-        $('.underline', tb).click(function() {
+        $('.underline').click(function() {
             formatText(iframe, 'underline');
             return false;
         });
-        $('.strikethrough', tb).click(function() {
+        $('.strikethrough').click(function() {
             formatText(iframe, 'strikethrough');
             return false;
         });
-        $('.subscript', tb).click(function() {
+        $('.subscript').click(function() {
             formatText(iframe, 'subscript');
             return false;
         });
-        $('.superscript', tb).click(function() {
+        $('.superscript').click(function() {
             formatText(iframe, 'superscript');
             return false;
         });
-        $('.orderedlist', tb).click(function() {
+        $('.orderedlist').click(function() {
             formatText(iframe, 'insertorderedlist');
             return false;
         });
-        $('.unorderedlist', tb).click(function() {
+        $('.unorderedlist').click(function() {
             formatText(iframe, 'insertunorderedlist');
             return false;
         });
-        $(iframe).parents('form').submit(function(){
-            disableDesignMode(iframe, true); });
-        var iframeDoc = $(iframe.contentWindow.document);
-
-        iframeDoc.keyup(function() {
-            on_type();
-            return true;
+        $('.options').click(function() {
+            $("#tb-menu").toggle();
+            return false;
         });
-
-        return tb;
+        $("#tb-menu").hide();
+        $(".tb-menu-item").click(function() {
+            $("#tb-menu").hide();
+        });
+        $("#tb-menu-delete").click(function() {
+            $("#deleteModal").modal("show")
+        });
+        $(iframe).parents('form').submit(function(){
+            disableDesignMode(iframe, true);
+        });
+        $(iframe.contentWindow.document).keyup(on_type);
     }
 }
