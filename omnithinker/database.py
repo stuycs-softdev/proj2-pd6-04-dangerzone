@@ -1,4 +1,5 @@
 import hashlib
+from logging import getLogger
 import sqlite3
 
 from flask import Markup
@@ -8,13 +9,19 @@ from .document import Document
 __all__ = ["Database"]
 
 SCHEMA_FILE = "schema.sql"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
+
+class OldSchemaException(Exception):
+    """The database's schema is out of date."""
+    pass
+
 
 class Database(object):
     """Represents an Omnithinker database for storing users and documents."""
 
     def __init__(self, filename):
         self.filename = filename
+        self._logger = getLogger("gunicorn.error")
 
     def _create(self, conn):
         """Creates a fresh database, assuming one doesn't exist."""
@@ -27,8 +34,11 @@ class Database(object):
         with sqlite3.connect(self.filename) as conn:
             try:
                 result = conn.execute("SELECT version FROM version")
-                if result.fetchone()[0] < SCHEMA_VERSION:
-                    self._create(conn)
+                current = result.fetchone()[0]
+                if current < SCHEMA_VERSION:
+                    logmsg = "Schema is out of date ({0} < {1})!"
+                    self._logger.error(logmsg.format(current, SCHEMA_VERSION))
+                    raise OldSchemaException(current)
             except sqlite3.OperationalError:
                 self._create(conn)
             return conn.execute(query, args).fetchall()
@@ -71,7 +81,7 @@ class Database(object):
         query = """SELECT document_id, document_author, document_title,
                           document_text
                    FROM documents LEFT JOIN users ON document_author = user_id
-                   WHERE user_name = ?"""
+                   WHERE user_name = ? AND document_deleted = 0"""
         result = self._execute(query, username)
         documents = []
         for row in result:
@@ -82,15 +92,16 @@ class Database(object):
         """Return a document given its ID. Return None if it doesn't exist."""
         query = """SELECT document_id, document_author, document_title,
                           document_text
-                   FROM documents WHERE document_id = ?"""
+                   FROM documents
+                   WHERE document_id = ? AND document_deleted = 0"""
         result = self._execute(query, docid)
         return Document(*result[0]) if result else None
 
     def authorize_document(self, username, docid):
-        """Return whether the given document was created by the given user."""
+        """Return whether the given user can access the given document."""
         query = """SELECT user_name FROM documents
                    LEFT JOIN users ON document_author = user_id
-                   WHERE document_id = ?"""
+                   WHERE document_id = ? AND document_deleted = 0"""
         result = self._execute(query, docid)
         if not result:
             return False
@@ -111,8 +122,8 @@ class Database(object):
             text = template.format(Markup.escape(topic))
         else:
             title = text = None
-        query = "INSERT INTO documents VALUES (?, ?, ?, ?)"
-        self._execute(query, docid, userid, title, text)
+        query = "INSERT INTO documents VALUES (?, ?, ?, ?, ?)"
+        self._execute(query, docid, userid, title, text, False)
         return docid
 
     def save_document(self, document):
@@ -120,3 +131,9 @@ class Database(object):
         query = """UPDATE documents SET document_title = ?, document_text = ?
                    WHERE document_id = ?"""
         self._execute(query, document.title, document.text, document.docid)
+
+    def delete_document(self, docid):
+        """Delete a document from the database."""
+        query = """UPDATE documents SET document_deleted = 1
+                   WHERE document_id = ?"""
+        self._execute(query, docid)

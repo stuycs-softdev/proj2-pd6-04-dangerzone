@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, abort, redirect, render_template, request, session
 from flask_sockets import Sockets
 
 from omnithinker import neuter_monkey
@@ -96,11 +96,20 @@ def write(docid=None):
     username = session.get("username")
     if docid is not None:
         if not database.authorize_document(username, docid):
-            return redirect("/")
+            abort(403)
         return render_template("write.html", docid=docid)
     topic = request.form.get("topic", "").strip()
     docid = database.create_document(username, topic)
     return redirect("/write/{0}".format(docid))
+
+# Delete document redirector
+@app.route("/delete/<docid>", methods=["POST"])
+def delete(docid):
+    username = session.get("username")
+    if not database.authorize_document(username, docid):
+        abort(403)
+    database.delete_document(docid)
+    return redirect("/projects" if username else "/")
 
 # Web socket for live document updating
 @sockets.route("/socket")
