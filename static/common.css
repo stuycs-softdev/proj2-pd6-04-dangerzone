@@ -329,7 +329,7 @@ div.writer-box-inner {
     padding: 0.5em 0;
     top: 1.5em;
     border: 1px solid #AAA;
-    width: 12em;
+    width: 14em;
 }
 
 .keyword {
@@ -388,13 +388,23 @@ div.writer-box-inner {
     padding: 0.5em 1em;
 }
 
-.tb-menu-item:hover {
+.tb-menu-item-disabled {
+    color: #777;
+}
+
+.tb-menu-item:hover:not(.tb-menu-item-disabled) {
     background-color: #E0E0E0;
 }
 
-.tb-menu-item:active {
+.tb-menu-item:active:not(.tb-menu-item-disabled) {
     color: #EEE;
     background-color: #AAA;
+}
+
+.tb-menu-separator {
+    margin: 0.5em 1em;
+    border: 0;
+    border-bottom: 1px solid #BBB;
 }
 
 .header-link {

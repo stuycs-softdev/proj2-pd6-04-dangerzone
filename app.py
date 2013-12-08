@@ -97,7 +97,8 @@ def write(docid=None):
     if docid is not None:
         if not database.authorize_document(username, docid):
             abort(403)  # HTTP 403 Forbidden
-        return render_template("write.html", docid=docid)
+        document = database.get_document(docid)
+        return render_template("write.html", document=document)
     topic = request.form.get("topic", "").strip()
     docid = database.create_document(username, topic)
     return redirect("/write/{0}".format(docid))

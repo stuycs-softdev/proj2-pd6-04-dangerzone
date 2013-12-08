@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <link rel="stylesheet" href="/static/modal.css">
         <link rel="stylesheet" href="/static/common.css">
-        <script>docid = {{docid}};</script>
+        <script>docid = {{document.docid}};</script>
     </head>
     <body class="write">
         {% include "support/deleteModal.html" %}
@@ -24,6 +24,54 @@
                         <input id="title" type="text" placeholder="Title">
                     </h1>
                     <div class="writer-box-inner">
+                        <div class="rte-toolbar">
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button highlight"><i class="fa fa-pencil"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button bold"><i class="fa fa-bold"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button italic"><i class="fa fa-italic"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button underline"><i class="fa fa-underline"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button strikethrough"><i class="fa fa-strikethrough"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button subscript"><i class="fa fa-subscript"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button superscript"><i class="fa fa-superscript"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button orderedlist"><i class="fa fa-list-ol"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button unorderedlist"><i class="fa fa-list-ul"></i></a>&nbsp;
+                            </div>
+                            <div class="tb-button-box">
+                                <a href="javascript:void(0);" class="tb-button options"><i class="fa fa-cog"></i>&nbsp;<i id="tb-menu-toggle-icon" class="fa fa-sort-down"></i></a>
+                                <div id="tb-menu">
+                                    <a href="/download/{{document.docid}}/txt" class="tb-menu-item" download="document_{{document.docid}}.txt"><i class="fa fa-download fa-fw"></i>&nbsp;&nbsp;Download as TXT</a>
+                                    <a href="/download/{{document.docid}}/pdf" class="tb-menu-item" download="document_{{document.docid}}.pdf"><i class="fa fa-download fa-fw"></i>&nbsp;&nbsp;Download as PDF</a>
+                                    <hr class="tb-menu-separator" />
+                                    <a href="javascript:void(0);" class="tb-menu-item tb-menu-item-disabled">
+                                    {% if document.author != -1 %}
+                                        <i class="fa fa-lock fa-fw"></i>&nbsp;&nbsp;Private Document
+                                    {% else %}
+                                        <i class="fa fa-unlock fa-fw"></i>&nbsp;&nbsp;Public Document
+                                    {% endif %}
+                                    </a>
+                                    <a href="javascript:void(0);" class="tb-menu-item" id="tb-menu-delete"><i class="fa fa-times-circle fa-fw"></i>&nbsp;&nbsp;Delete</a>
+                                </div>
+                            </div>
+                            <div class="tb-status-box">
+                                <p><span id="tb-status-text">Loading</span>&nbsp;<i id="tb-status" class="fa fa-exclamation-circle"></i></p>
+                            </div>
+                        </div>
                         <textarea id="textbox"></textarea>
                     </div>
                 </div>
