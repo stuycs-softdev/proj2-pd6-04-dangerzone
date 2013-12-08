@@ -54,7 +54,7 @@ data from various sources.
 
 + Aaron Coppa: DuckDuckGo API, API Aggregator
 + Edric Huang: FrontEnd Web Design
-+ Ben Kurtovic: Websocket Connection, Javascript, SQLite Database 
++ Ben Kurtovic: Websocket Connection, Javascript, SQLite Database
 + Jing Lin: Google API, Youtube API, NYT API
 
 Installing
@@ -63,7 +63,7 @@ Installing
     pip install virtualenv
     virtualenv env
     source env/bin/activate
-    pip install flask flask-sockets gunicorn beautifulsoup4 google-api-python-client
+    pip install flask flask-sockets gunicorn beautifulsoup4 google-api-python-client xhtml2pdf
     mkdir logs
 
 Running
