@@ -78,12 +78,26 @@ function process_update(payload) {
         }
     }
     data += "</ul>"
-    box = '<div class="topic" id="topic-box-' + box_id + '">';
-    box += '<div class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
-    box += '<div class="topic-body">' + data + "</div></div>";
+    box = '<div id="topic-box-' + box_id + '" class="topic">';
+    box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
+    box += '<div id="topic-body-' + box_id + '" class="topic-body">' + data + "</div></div>";
     omnitoolbar.append(box);
     $("#topic-box-" + box_id).css("display", "none").slideDown(300);
-    $("#topic-box-remove-" + box_id).click(function(b_id) { return function() { $("#topic-box-" + b_id).slideUp(300, function() { $(this).remove(); }); } }(box_id));
+    $("#topic-box-remove-" + box_id).click(function(b_id) {
+        return function() {
+            $("#topic-title-" + b_id).off("click");
+            $("#topic-box-" + b_id).slideUp(300, function() { $(this).remove(); });
+        }
+    }(box_id));
+    $("#topic-title-" + box_id).click(function(b_id) {
+        return function() {
+            var body = $("#topic-body-" + b_id);
+            if (body.is(":visible"))
+                $("#topic-body-" + b_id).slideUp(300);
+            else
+                $("#topic-body-" + b_id).slideDown(300);
+        }
+    }(box_id));
 }
 
 $(document).ready(function() {

@@ -432,6 +432,7 @@ div.writer-box-inner {
 }
 
 .topic-title {
+    position: relative;
     background-color: #F8F8F8;
     border-bottom: 1px solid #CCC;
     padding: 0.5em;
@@ -448,6 +449,11 @@ div.writer-box-inner {
 }
 
 .topic-box-remove {
-    color: #F99;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    color: #F77;
     text-decoration: none;
 }
