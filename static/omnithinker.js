@@ -82,20 +82,32 @@ function process_update(payload) {
     box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
     box += '<div id="topic-body-' + box_id + '" class="topic-body">' + data + "</div></div>";
     omnitoolbar.append(box);
-    $("#topic-box-" + box_id).css("display", "none").slideDown(300);
+    set_box_listeners(box_id);
+}
+
+function set_box_listeners(box_id) {
+    var expanded_topics = 0;
+    $(".topic-body").each(function() {
+        if ($(this).is(":visible"))
+            expanded_topics++;
+    });
+    if (expanded_topics > 3)
+        $("#topic-body-" + box_id).hide();
+    $("#topic-box-" + box_id).hide().slideDown(200);
+
     $("#topic-box-remove-" + box_id).click(function(b_id) {
         return function() {
             $("#topic-title-" + b_id).off("click");
-            $("#topic-box-" + b_id).slideUp(300, function() { $(this).remove(); });
+            $("#topic-box-" + b_id).slideUp(200, function() { $(this).remove(); });
         }
     }(box_id));
     $("#topic-title-" + box_id).click(function(b_id) {
         return function() {
             var body = $("#topic-body-" + b_id);
             if (body.is(":visible"))
-                $("#topic-body-" + b_id).slideUp(300);
+                $("#topic-body-" + b_id).slideUp(200);
             else
-                $("#topic-body-" + b_id).slideDown(300);
+                $("#topic-body-" + b_id).slideDown(200);
         }
     }(box_id));
 }

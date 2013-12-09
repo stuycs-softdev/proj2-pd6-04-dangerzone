@@ -10,8 +10,6 @@ from .google import Google
 
 logger = getLogger("gunicorn.error")
 
-# THIS IS A CLASS MOCK-UP UNTIL AARON CAN ADD IT BACK BECAUSE HE SEEMS TO HAVE
-# FORGOTTEN ABOUT IT. HA, HA, GET IT? MOCK DUCK!?
 #Function to be called...
 def aggregate(startTopic):
     return makeBoxes(startTopic, 0, []) #Populates the boxes array
