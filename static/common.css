@@ -436,6 +436,7 @@ div.writer-box-inner {
     background-color: #F8F8F8;
     border-bottom: 1px solid #CCC;
     padding: 0.5em;
+    cursor: ns-resize;
 }
 
 .topic-body {
@@ -453,7 +454,7 @@ div.writer-box-inner {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0.5em;
+    padding: inherit;
     color: #F77;
     text-decoration: none;
 }
