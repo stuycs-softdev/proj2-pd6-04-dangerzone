@@ -445,11 +445,7 @@ div.writer-box-inner {
     font-size: 12px;
 }
 
-.topic-definition {
-    margin: 0.5em 0 0.5em 1em;
-}
-
-.topic-box-remove {
+.topic-remove {
     display: block;
     position: absolute;
     top: 0;
@@ -457,4 +453,18 @@ div.writer-box-inner {
     padding: inherit;
     color: #F77;
     text-decoration: none;
+}
+
+.topic fieldset {
+    border: 1px solid #DDD;
+    margin-bottom: 0.5em;
+}
+
+.topic fieldset:last-child {
+    margin-bottom: 0;
+}
+
+.topic ul {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
 }

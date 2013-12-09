@@ -80,9 +80,10 @@ class Aggregator():
         #Try to get links
         #Best option is nytimes
         #Let's see if we can get an image link
-        defi = self.getDefinition()
-        if defi != "":
-            box['Definition'] = defi
+        try:
+            box['Definition'] = self.getDefinition()
+        except:
+            pass
         try:
             box['GoogleArticles'] = self.getGoogleArticles()
         except:
@@ -91,9 +92,14 @@ class Aggregator():
             box['Youtube'] = self.getYoutubeVideos()
         except:
             pass
-        box['HSWArticles'] = self.getHSWArticles()
-        box['NyTimesArticles'] = self.getNYArticles()
-        # box['Videos'] = self.getYoutubeVideos()
+        try:
+            box['HSWArticles'] = self.getHSWArticles()
+        except:
+            pass
+        try:
+            box['NyTimesArticles'] = self.getNYArticles()
+        except:
+            pass
         try:
             box['Images'] = self.getImages()
         except:
@@ -123,46 +129,30 @@ class Aggregator():
             box['Image'] = imgLink
 
     def getHSWArticles(self):
-        articles = {}
-        articles['Blurbs'] = [0]*4
-        articles['Links'] = [0]*4
-        articles['Headline'] = [0]*4
-        i = 0
+        articles = []
         for i in range(4):
-            articles['Links'][i] = self.hsw.getArticle()
-            articles['Blurbs'][i] = self.hsw.getBlurb()
-            articles['Headline'][i] = self.hsw.getHeadline()
+            article, blurb, headline = self.hsw.getArticle(), self.hsw.getBlurb(), self.hsw.getHeadline()
+            if not all([article, blurb, headline]):
+                return articles
+            articles.append({"url": article, "headline": headline, "blurb": blurb})
         return articles
+
     def getNYArticles(self):
-        URL = 0
-        HEADLINE = 1
-        BLURB = 2
-        i = 0
-        articles = {}
-        articles['Links'] = [0]*4
-        articles['Blurbs'] = [0]*4
-        articles['Headline'] = [0]*4
+        articles = []
         for i in range(4):
             temp = self.nyt.getArticle()
             if not temp:
                 return articles
-
-            articles['Links'][i] = temp[URL]
-            articles['Blurbs'][i] = temp[BLURB]
-            articles['Headline'][i] = temp[HEADLINE]
+            articles.append({"url": temp[0], "headline": temp[1], "blurb": temp[2]})
         return articles
 
     def getYoutubeVideos(self):
-        videos = {}
-        i = 0
-        videos['Title'] = [0]*4
-        videos['Link'] = [0]*4
+        videos = []
         for i in range(4):
             temp = self.youtube.getVideo()
-            if temp == "":
+            if not temp:
                 return videos
-            videos['Title'][i] = temp[0]
-            videos['Link'][i] = temp[1]
+            videos.append({"url": temp[1], "title": temp[0]})
         return videos
 
     def getDefinition(self):
@@ -171,24 +161,14 @@ class Aggregator():
 #              definition = self.wiki.getDefinition()
             pass
         return definition
+
     def getGoogleArticles(self):
-        URL = 1
-        HEADLINE = 0
-        BLURB = 2
-        i = 0
-        articles = {}
-        articles['Links'] = [0]*4
-        articles['Blurbs'] = [0]*4
-        articles['Headline'] = [0]*4
+        articles = []
         for i in range(4):
             temp = self.goog.getArticle()
             if not temp:
                 return articles
-
-            articles['Links'][i] = temp[URL]
-            articles['Blurbs'][i] = temp[BLURB]
-            articles['Headline'][i] = temp[HEADLINE]
-
+            articles.append({"url": temp[1], "headline": temp[0], "blurb": temp[2]})
         return articles
 
     def getImages(self):

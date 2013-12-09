@@ -43,44 +43,50 @@ function on_type() {
 
 function process_update(payload) {
     box_id++;
-    topic = payload["Keyword"];
-    data = "";
-    definition = payload["Definition"];
-    if (definition !== undefined) {
-        data += "<p class='topic-definition'>" + definition + "</p>";
-    }
-    data += "<ul>";
-    google = payload["GoogleArticles"];
-    if (google !== undefined) {
-        for (var i = 0; i < google["Links"].length; i++)
-            data += '<li><a href="' + google["Links"][i] + '">' + google["Headline"][i] + "</a>: " + google["Blurbs"][i] + "</li>";
-    }
-    youtube = payload["Youtube"];
-    if (youtube !== undefined) {
-        for(var i = 0; i < youtube["Title"].length; i++) {
-            if(youtube["Title"][i] == "") break;
-            data += '<li><a href="' + youtube["Link"][i] + '">' + youtube["Title"][i] + "</a></li>";
-        }
-    }
-    hsw = payload["HSWArticles"];
-    if (hsw !== undefined) {
-        for (var i = 0; i < hsw["Links"].length; i++) {
-            if (hsw["Links"][i] != null)
-                data += '<li><a href="' + hsw["Links"][i] + '">' + hsw["Headline"][i] + "</a>: " + hsw["Blurbs"][i] + "</li>";
-        }
-    }
-    images = payload["Images"];
-    nytimes = payload["NyTimesArticles"];
-    if (nytimes !== undefined) {
-        for (var i = 0; i < nytimes["Links"].length; i++) {
-            if (nytimes["Links"][i] != null)
-                data += '<li><a href="' + nytimes["Links"][i] + '">' + nytimes["Headline"][i] + "</a>: " + nytimes["Blurbs"][i] + "</li>";
-        }
-    }
-    data += "</ul>"
     box = '<div id="topic-box-' + box_id + '" class="topic">';
-    box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-box-remove" id="topic-box-remove-' + box_id + '">&#10006;</a></div>';
-    box += '<div id="topic-body-' + box_id + '" class="topic-body">' + data + "</div></div>";
+    topic = payload["Keyword"];
+    box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-remove" id="topic-remove-' + box_id + '">&#10006;</a></div>';
+    box += '<div id="topic-body-' + box_id + '" class="topic-body">';
+
+    definition = payload["Definition"];
+    if (definition != "")
+        box += '<fieldset><legend>DuckDuckGo</legend>' + definition + "</fieldset>";
+
+    google = payload["GoogleArticles"];
+    if (google !== undefined && google.length > 0) {
+        box += "<fieldset><legend>Google</legend><ul>";
+        for (var i = 0; i < google.length; i++)
+            box += '<li><a href="' + google[i]["url"] + '">' + google[i]["headline"] + "</a>: " + google[i]["blurb"] + "</li>";
+        box += "</ul></fieldset>";
+    }
+
+    youtube = payload["Youtube"];
+    if (youtube !== undefined && youtube.length > 0) {
+        box += "<fieldset><legend>YouTube</legend><ul>";
+        for (var i = 0; i < youtube.length; i++)
+            box += '<li><a href="' + youtube[i]["url"] + '">' + youtube[i]["title"] + "</a></li>";
+        box += "</ul></fieldset>";
+    }
+
+    hsw = payload["HSWArticles"];
+    if (hsw !== undefined && hsw.length > 0) {
+        box += "<fieldset><legend>HowStuffWorks</legend><ul>";
+        for (var i = 0; i < hsw.length; i++)
+            box += '<li><a href="' + hsw[i]["url"] + '">' + hsw[i]["headline"] + "</a>: " + hsw[i]["blurb"] + "</li>";
+        box += "</ul></fieldset>";
+    }
+
+    // images = payload["Images"];
+
+    nytimes = payload["NyTimesArticles"];
+    if (nytimes !== undefined && nytimes.length > 0) {
+        box += "<fieldset><legend>New York Times</legend><ul>";
+        for (var i = 0; i < nytimes.length; i++)
+            box += '<li><a href="' + nytimes[i]["url"] + '">' + nytimes[i]["headline"] + "</a>: " + nytimes[i]["blurb"] + "</li>";
+        box += "</ul></fieldset>";
+    }
+
+    box += "</ul></div></div>";
     omnitoolbar.append(box);
     set_box_listeners(box_id);
 }
@@ -95,7 +101,7 @@ function set_box_listeners(box_id) {
         $("#topic-body-" + box_id).hide();
     $("#topic-box-" + box_id).hide().slideDown(200);
 
-    $("#topic-box-remove-" + box_id).click(function(b_id) {
+    $("#topic-remove-" + box_id).click(function(b_id) {
         return function() {
             $("#topic-title-" + b_id).off("click");
             $("#topic-box-" + b_id).slideUp(200, function() { $(this).remove(); });
