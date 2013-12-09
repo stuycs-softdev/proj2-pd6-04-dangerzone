@@ -15,8 +15,8 @@ def ReturnRelatedTopics(Topic):
         FQ = str(Topic)
         FACET_FIELD = "day_of_week"
         BEGIN_DATE = str(19000101)
-        END_DATE = str(20131130)
-        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
+        END_DATE = str(20131208)
+        url = ("%s.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (NYT_API_URL, FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
         response = urlopen(url)
         Json_Data = json.loads(response.read())
         RELTOPICS = list()
@@ -39,8 +39,8 @@ class Nytimes():
         FQ = str(Topic)
         FACET_FIELD = "day_of_week"
         BEGIN_DATE = str(19000101)
-        END_DATE = str(20131130)
-        url = ("http://api.nytimes.com/svc/search/v2/articlesearch.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
+        END_DATE = str(20131208)
+        url = ("%s.%s?fq=%s&FACET_FIELD=%s&BEGIN_DATE=%s&END_DATE=%s&API-KEY=%s") % (NYT_API_URL, FORMAT, FQ, FACET_FIELD, BEGIN_DATE, END_DATE, API_KEY)
         response = urlopen(url)
         self.Json_Data = json.loads(response.read())
 
