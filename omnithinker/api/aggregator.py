@@ -45,12 +45,12 @@ class Aggregator():
         self.duck = Duckduckgo(topic)
         try:
             self.goog = Google(topic)
-        except:
-            pass
+        except Exception:
+            self.goog = None
         try:
             self.youtube = Youtube(topic)
-        except:
-            pass
+        except Exception:
+            self.youtube = None
 
     def getCategory(self):
         #For now just returns default... We can get back to this eventually
@@ -60,7 +60,6 @@ class Aggregator():
             return "place"
         else:
             return "default"
-
 
     def createBox(self):
         box = {}
@@ -74,36 +73,20 @@ class Aggregator():
         return box
 
     def createDefaultBox(self, topic):
-        box = {}
-
-        box['Keyword'] = topic
-        #Try to get links
-        #Best option is nytimes
-        #Let's see if we can get an image link
-        try:
-            box['Definition'] = self.getDefinition()
-        except:
-            pass
-        try:
-            box['GoogleArticles'] = self.getGoogleArticles()
-        except:
-            pass
-        try:
-            box['Youtube'] = self.getYoutubeVideos()
-        except:
-            pass
-        try:
-            box['HSWArticles'] = self.getHSWArticles()
-        except:
-            pass
-        try:
-            box['NyTimesArticles'] = self.getNYArticles()
-        except:
-            pass
-        try:
-            box['Images'] = self.getImages()
-        except:
-            pass
+        box = {"keyword": topic}
+        sources = {
+            'DuckDuckGo': self.getDefinition,
+            'Google': self.getGoogleArticles,
+            'YouTube': self.getYoutubeVideos,
+            'HowStuffWorks': self.getHSWArticles,
+            'NYTimes': self.getNYArticles,
+            'GoogleImages': self.getImages,
+        }
+        for name, func in sources.items():
+            try:
+                box[name] = func()
+            except Exception as exc:
+                logger.error("Error with topic {0} using {1}: {2}".format(topic, name, exc))
         return box
 
     def createPersonBox(self, name):
@@ -148,6 +131,8 @@ class Aggregator():
 
     def getYoutubeVideos(self):
         videos = []
+        if not self.youtube:
+            return videos
         for i in range(4):
             temp = self.youtube.getVideo()
             if not temp:
@@ -164,6 +149,8 @@ class Aggregator():
 
     def getGoogleArticles(self):
         articles = []
+        if not self.goog:
+            return articles
         for i in range(4):
             temp = self.goog.getArticle()
             if not temp:
@@ -173,6 +160,8 @@ class Aggregator():
 
     def getImages(self):
         images = [0]*4
+        if not self.goog:
+            return []
         i = 0
         for i in range(3):
             imgLink = self.goog.getImage()

@@ -44,15 +44,15 @@ function on_type() {
 function process_update(payload) {
     box_id++;
     box = '<div id="topic-box-' + box_id + '" class="topic">';
-    topic = payload["Keyword"];
+    topic = payload["keyword"];
     box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-remove" id="topic-remove-' + box_id + '">&#10006;</a></div>';
     box += '<div id="topic-body-' + box_id + '" class="topic-body">';
 
-    definition = payload["Definition"];
-    if (definition != "")
-        box += '<fieldset><legend>DuckDuckGo</legend>' + definition + "</fieldset>";
+    duckduckgo = payload["DuckDuckGo"];
+    if (duckduckgo != "")
+        box += '<fieldset><legend>DuckDuckGo</legend>' + duckduckgo + "</fieldset>";
 
-    google = payload["GoogleArticles"];
+    google = payload["Google"];
     if (google !== undefined && google.length > 0) {
         box += "<fieldset><legend>Google</legend><ul>";
         for (var i = 0; i < google.length; i++)
@@ -60,7 +60,7 @@ function process_update(payload) {
         box += "</ul></fieldset>";
     }
 
-    youtube = payload["Youtube"];
+    youtube = payload["YouTube"];
     if (youtube !== undefined && youtube.length > 0) {
         box += "<fieldset><legend>YouTube</legend><ul>";
         for (var i = 0; i < youtube.length; i++)
@@ -68,7 +68,7 @@ function process_update(payload) {
         box += "</ul></fieldset>";
     }
 
-    hsw = payload["HSWArticles"];
+    hsw = payload["HowStuffWorks"];
     if (hsw !== undefined && hsw.length > 0) {
         box += "<fieldset><legend>HowStuffWorks</legend><ul>";
         for (var i = 0; i < hsw.length; i++)
@@ -76,9 +76,9 @@ function process_update(payload) {
         box += "</ul></fieldset>";
     }
 
-    // images = payload["Images"];
+    // images = payload["GoogleImages"];
 
-    nytimes = payload["NyTimesArticles"];
+    nytimes = payload["NYTimes"];
     if (nytimes !== undefined && nytimes.length > 0) {
         box += "<fieldset><legend>New York Times</legend><ul>";
         for (var i = 0; i < nytimes.length; i++)

@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import json
-from optparse import OptionParser
 import urllib
 
 from apiclient.discovery import build
@@ -13,13 +12,8 @@ class Youtube():
         YOUTUBE_API_VERSION = "v3"
         FREEBASE_SEARCH_URL = "https://www.googleapis.com/freebase/v1/search?%s"
 
-        parser = OptionParser()
-        parser.add_option("--query", dest="query", help="Freebase search term", default=topic)
-        parser.add_option("--max-results", dest="maxResults", help="Max YouTube results", default=25)
-        parser.add_option("--type", dest="type", help="YouTube result type: video, playlist, or channel", default="video")
-        (options, args) = parser.parse_args()
-        mid = self.get_topic_id(options)
-        self.videos = self.youtube_search(mid, options)
+        mid = self.get_topic_id(topic)
+        self.videos = self.youtube_search(mid, topic)
         self.counter = 0
 
 
