@@ -343,6 +343,15 @@ div.writer-box-inner {
     word-wrap: break-word;
 }
 
+.writer-error-box {
+    color: #C00;
+    background-color: #F5EEEE;
+    border: 1px solid #DCC;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
 .rte-toolbar {
     position: relative;
     background-color: #F8F8F8;

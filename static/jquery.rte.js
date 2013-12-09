@@ -131,9 +131,6 @@ jQuery.fn.rte = function(css_url, media_url) {
         $("#tb-menu-delete").click(function() {
             $("#deleteModal").modal("show")
         });
-        $(iframe).parents('form').submit(function(){
-            disableDesignMode(iframe, true);
-        });
         $(iframe.contentWindow.document).keyup(on_type);
     }
 }

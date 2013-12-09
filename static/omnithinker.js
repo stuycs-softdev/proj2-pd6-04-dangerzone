@@ -107,6 +107,14 @@ $(document).ready(function() {
             var payload = JSON.parse(evt.data.substring(7));
             process_update(payload);
         }
+        else if (evt.data.indexOf("INVALID") == 0) {
+            var payload = evt.data.substring(8);
+            textbox.html('<div class="writer-error-box">' + payload + "</div>" + textbox.html());
+            textbox.parent().parent()[0].designMode = "off";
+            title.attr("disabled", "disabled");
+            $("#tb-status").trigger("error");
+            socket.close();
+        }
         else if (evt.data == "GOODBYE") {
             socket.close();
         }
@@ -118,9 +126,12 @@ $(document).ready(function() {
         $(this).removeClass("fa-exclamation-circle fa-check-circle").addClass("fa-spinner");
         $("#tb-status-text").text("Writing");
     });
-
     $("#tb-status").bind("saved", function() {
         $(this).removeClass("fa-exclamation-circle fa-spinner").addClass("fa-check-circle");
         $("#tb-status-text").text("Saved");
+    });
+    $("#tb-status").bind("error", function() {
+        $(this).removeClass("fa-check-circle fa-spinner").addClass("fa-exclamation-circle");
+        $("#tb-status-text").text("Error");
     });
 });

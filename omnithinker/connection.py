@@ -63,12 +63,16 @@ class Connection(object):
         if verb == CVERB_OPEN:
             self._state = STATE_READY
             self._document = doc = self._database.get_document(data)
-            if doc:
-                payload = {"title": doc.title, "text": doc.text}
-                self._send(SVERB_READY, dumps(payload))
-                self._handle_keywords(doc.keywords)
-            else:
+            if not doc:
                 self._error(REPLY_NODOC)
+                return
+            payload = {"title": doc.title, "text": doc.text}
+            self._send(SVERB_READY, dumps(payload))
+            self._handle_keywords(doc.keywords)
+            if not self._database.lock_document(doc.docid):
+                self._error(REPLY_LOCKED)
+                del self._document
+                return
         else:
             self._error()
 
@@ -118,4 +122,5 @@ class Connection(object):
         """Close the connection and save all data."""
         if self._document:
             self._database.save_document(self._document)
+            self._database.unlock_document(self._document.docid)
         self._log("INFO", "Connection closed.")

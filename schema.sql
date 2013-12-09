@@ -1,5 +1,5 @@
 -- Database schema
--- version 3
+-- version 4
 
 DROP TABLE IF EXISTS version;
 CREATE TABLE version (
@@ -24,4 +24,9 @@ CREATE TABLE documents (
     document_title TEXT,
     document_text TEXT,
     document_deleted BOOLEAN
+);
+
+DROP TABLE IF EXISTS locks;
+CREATE TABLE locks (
+    lock_id INTEGER PRIMARY KEY
 );

@@ -9,7 +9,7 @@ from .document import Document
 __all__ = ["Database"]
 
 SCHEMA_FILE = "schema.sql"
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 class OldSchemaException(Exception):
     """The database's schema is out of date."""
@@ -22,6 +22,7 @@ class Database(object):
     def __init__(self, filename):
         self.filename = filename
         self._logger = getLogger("gunicorn.error")
+        self._clear_locks()
 
     def _create(self, conn):
         """Creates a fresh database, assuming one doesn't exist."""
@@ -52,6 +53,10 @@ class Database(object):
         """Return the next document ID in sequence."""
         result = self._execute("SELECT MAX(document_id) FROM documents")
         return result[0][0] + 1 if result[0][0] else 1
+
+    def _clear_locks(self):
+        """Clear any left-over document locks from the last server shutdown."""
+        self._execute("DELETE FROM locks")
 
     def login(self, username, password):
         """Try to log in the user with the given username/password."""
@@ -110,7 +115,6 @@ class Database(object):
 
     def create_document(self, username, topic):
         """Create a document for a user and return its ID."""
-        docid = self._get_next_docid()
         if username:
             query = "SELECT user_id FROM users WHERE user_name = ?"
             userid = self._execute(query, username)[0][0]
@@ -122,6 +126,7 @@ class Database(object):
             text = template.format(Markup.escape(topic))
         else:
             title = text = None
+        docid = self._get_next_docid()
         query = "INSERT INTO documents VALUES (?, ?, ?, ?, ?)"
         self._execute(query, docid, userid, title, text, False)
         return docid
@@ -137,3 +142,19 @@ class Database(object):
         query = """UPDATE documents SET document_deleted = 1
                    WHERE document_id = ?"""
         self._execute(query, docid)
+
+    def lock_document(self, docid):
+        """Lock a document so that no other users can open it.
+
+        Return whether the operation was successful (i.e., if the document
+        wasn't already locked).
+        """
+        try:
+            self._execute("INSERT INTO locks VALUES (?)", docid)
+        except sqlite3.IntegrityError:  # Already locked
+            return False
+        return True
+
+    def unlock_document(self, docid):
+        """Release a lock on a document so that it can be opened by others."""
+        self._execute("DELETE FROM locks WHERE lock_id = ?", docid)

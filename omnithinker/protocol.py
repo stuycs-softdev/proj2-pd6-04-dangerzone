@@ -15,5 +15,6 @@ SVERB_BYE = "GOODBYE"
 SVERB_INVALID = "INVALID"
 
 # Human-readable server replies
-REPLY_INVALID = "Bad transmission."
-REPLY_NODOC = "Document doesn't exist."
+REPLY_INVALID = "Your client sent invalid data to the server."
+REPLY_NODOC = "This document doesn't exist."
+REPLY_LOCKED = "This document is read-only because someone else already has it open."
