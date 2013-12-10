@@ -17,7 +17,7 @@ def aggregate(topic):
     topics related to those, etc.
     """
     def make_boxes(topic, depth, used):
-        if depth > (1 if len(used) > 10 else 2) or topic.lower() in used:
+        if depth > (1 if len(used) > 5 else 2) or topic.lower() in used:
             return
         used.append(topic.lower())
         agg = Aggregator(topic)

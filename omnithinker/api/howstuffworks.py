@@ -9,7 +9,7 @@ class Howstuffworks():
         for word in words:
             link += (word + '+')
         link = link.rstrip('+')
-        page = urllib2.urlopen(link)
+        page = urllib2.urlopen(link.encode("utf8"))
         data = page.read()
         self.soup = BeautifulSoup(data)
         self.blurbIter = 0
