@@ -48,8 +48,15 @@ function process_update(payload) {
     box += '<div id="topic-title-' + box_id + '" class="topic-title">' + topic + ' <a href="javascript:void(0);" class="topic-remove" id="topic-remove-' + box_id + '">&#10006;</a></div>';
     box += '<div id="topic-body-' + box_id + '" class="topic-body">';
 
+    wikipedia = payload["Wikipedia"];
+    if (wikipedia !== undefined && wikipedia != null) {
+        box += '<fieldset><legend>Wikipedia</legend>';
+        box += '<a href="http://en.wikipedia.org/wiki/' + wikipedia["title"] + '">' + wikipedia["title"] + '</a>';
+        box += ': ' + wikipedia["snippet"] + "</fieldset>";
+    }
+
     duckduckgo = payload["DuckDuckGo"];
-    if (duckduckgo != "")
+    if (duckduckgo !== undefined && duckduckgo != "")
         box += '<fieldset><legend>DuckDuckGo</legend>' + duckduckgo + "</fieldset>";
 
     google = payload["Google"];
@@ -76,7 +83,8 @@ function process_update(payload) {
         box += "</ul></fieldset>";
     }
 
-    // images = payload["GoogleImages"];
+    images = payload["GoogleImages"];
+    // Handle images?
 
     nytimes = payload["NYTimes"];
     if (nytimes !== undefined && nytimes.length > 0) {

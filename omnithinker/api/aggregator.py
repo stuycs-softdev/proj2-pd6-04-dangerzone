@@ -1,115 +1,62 @@
-#Aggregates all api calls and returns json object with the most relevant things
-
 from logging import getLogger
 
-from .howstuffworks import Howstuffworks
-from .nytimes import Nytimes, ReturnRelatedTopics
-from .youtube import Youtube
 from .duckduckgo import Duckduckgo
 from .google import Google
+from .howstuffworks import Howstuffworks
+from .nytimes import Nytimes
+from .wikipedia import Wikipedia
+from .youtube import Youtube
 
 logger = getLogger("gunicorn.error")
 
-#Function to be called...
-def aggregate(startTopic):
-    return makeBoxes(startTopic, 0, []) #Populates the boxes array
+def aggregate(topic):
+    """Aggregate all data sources.
 
-def makeBoxes(topic, depth, used):
-    if depth >= 2 or topic in used:
-        return
-    else:
-        used.append(topic)
-        try:
-            agg = Aggregator(topic)
-            yield agg.createBox()
-        except Exception as exc:
-            logger.error("Error with topic " + topic + ": " + str(exc))
+    Generates a series of JSON objects with the most relevant information for
+    the given start topic, then for topics related to the start topic, then for
+    topics related to those, etc.
+    """
+    def make_boxes(topic, depth, used):
+        if depth > (1 if len(used) > 10 else 2) or topic.lower() in used:
             return
+        used.append(topic.lower())
+        agg = Aggregator(topic)
+        yield agg.create_box()
+        for new_topic in agg.wiki.get_related_topics():
+            for box in make_boxes(new_topic, depth + 1, used):
+                yield box
+    return make_boxes(topic, 0, [])
 
-    try:
-        Related = ReturnRelatedTopics(topic)
-    except Exception as exc:
-        logger.error("Error with topic " + topic + ": " + str(exc))
-    else:
-        for newTopic in Related:
-            for data in makeBoxes(newTopic, depth + 1, used):
-                yield data
 
-#This creates one box
-class Aggregator():
+class Aggregator(object):
+    """Creates one box."""
     def __init__(self, topic):
         self.topic = topic
+        self.wiki = Wikipedia(topic)
         self.hsw = Howstuffworks(topic)
         self.nyt = Nytimes(topic)
-        #self.wiki = wikipedia()
-        self.duck = Duckduckgo(topic)
-        try:
-            self.goog = Google(topic)
-        except Exception:
-            self.goog = None
-        try:
-            self.youtube = Youtube(topic)
-        except Exception:
-            self.youtube = None
+        # self.duck = Duckduckgo(topic)
+        # self.goog = Google(topic)
+        # self.youtube = Youtube(topic)
 
-    def getCategory(self):
-        #For now just returns default... We can get back to this eventually
-        if False:
-            return "person"
-        elif False:
-            return "place"
-        else:
-            return "default"
-
-    def createBox(self):
-        box = {}
-        category = self.getCategory()
-        if(category == "person"):
-            box = self.createPersonBox(self.topic)
-        elif category == "place":
-            box = self.createPlaceBox(self.topic)
-        else:
-            box = self.createDefaultBox(self.topic)
-        return box
-
-    def createDefaultBox(self, topic):
-        box = {"keyword": topic}
+    def create_box(self):
+        box = {"keyword": self.topic}
         sources = {
-            'DuckDuckGo': self.getDefinition,
-            'Google': self.getGoogleArticles,
-            'YouTube': self.getYoutubeVideos,
+            'Wikipedia': self.wiki.get_summary,
             'HowStuffWorks': self.getHSWArticles,
             'NYTimes': self.getNYArticles,
-            'GoogleImages': self.getImages,
+            # 'DuckDuckGo': self.duck.getDefinition,
+            # 'Google': self.getGoogleArticles,
+            # 'GoogleImages': self.getImages,
+            # 'YouTube': self.getYoutubeVideos,
         }
         for name, func in sources.items():
             try:
                 box[name] = func()
             except Exception as exc:
-                logger.error("Error with topic {0} using {1}: {2}".format(topic, name, exc))
+                logmsg = "Error with topic {0} using {1}: {2}"
+                logger.error(logmsg.format(self.topic, name, exc))
         return box
-
-    def createPersonBox(self, name):
-        #We're going to use wiki here
-        wiki = wikipedia()
-        bday = wiki.getBday()
-        dday = wiki.getDday() #Return Alive maybe?
-        #Maybe profession?
-        profession = wiki.getProfession()
-        #Place of birth / categories
-        imgLink = duck.getImage()
-
-
-        box = {}
-        box['Keyword'] = topic
-        if bday != "":
-            box['Bday'] = bday
-        if dday != "":
-            box['Dday'] = dday
-        if profession != "":
-            box['Profession'] = profession
-        if imgLink != "":
-            box['Image'] = imgLink
 
     def getHSWArticles(self):
         articles = []
@@ -140,13 +87,6 @@ class Aggregator():
             videos.append({"url": temp[1], "title": temp[0]})
         return videos
 
-    def getDefinition(self):
-        definition = self.duck.getDefinition()
-        if definition == "":
-#              definition = self.wiki.getDefinition()
-            pass
-        return definition
-
     def getGoogleArticles(self):
         articles = []
         if not self.goog:
@@ -174,16 +114,5 @@ class Aggregator():
 
 if __name__ == "__main__":
     gen = aggregate("apples")
-    for box in gen:
-        print box
-#      a = Aggregator("train")
-#      box = a.createBox()
-#      print "Printing def..."
-#      print box['Definition']
-#      print "Printing hsw articles"
-#      print box['HSWArticles']
-#      print "Printing nytimes articles"
-#      print box['NyTimesArticles']
-#      print "Printing videos..."
-#      print box['Videos']
-#      print json.loads(box)
+    for item in gen:
+        print item
